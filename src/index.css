@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .input {
+    @apply w-full bg-dark-700 ring-1 ring-gray-500 
+    focus:ring-2 focus:ring-cyan-500 outline-none 
+    py-2.5 px-2 text-sm text-justify rounded-[0.25rem] 
+    placeholder:text-gray-600 font-medium tracking-wide transition-all;
+  }
+
+  .primary-button {
+    @apply bg-tomato-100 py-2.5 rounded-[0.25rem] font-semibold
+  }
+
+  .outline-button {
+    @apply py-2.5 rounded-[0.25rem] font-semibold
+  }
+}
+
+.hexagon {
+  width: 100%;
+  padding-bottom: 115.47%; /* Proporção para criar um hexágono perfeito */
+  background-color: black;
+  position: absolute;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}

@@ -1,11 +1,41 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        light: {
+          100: '#FFFFFF',
+          200: '#FFFAF1',
+          200: '#E1E1E6',
+          400: '#C4C4CC',
+          500: '#7C7C8A',
+          600: '#76797B',
+          700: '#4D58SE'
+        },
+        dark: {
+          100: '#000405',
+          200: '#00070A',
+          200: '#000204',
+          400: '#000A0F',
+          500: '#000C12',
+          600: '#00111A',
+          700: '#001119'
+        },
+        tomato: {
+          100: '#750310',
+          200: '#92000E',
+          300: '#AB222E',
+          400: '#AB4D55'
+        },
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    
+  ],
 }
 
