@@ -8,7 +8,7 @@ function LoginPage() {
         <div className="w-9 h-9 relative">
           <div className='hexagon !bg-red-700'></div>
         </div>
-        <span className='text-white text-3xl font-bold tracking-widest uppercase'>Zippy</span>
+        <span className='text-white text-3xl font-bold tracking-widest uppercase'>Zippy Delivery</span>
       </div>
       {/* Lado direito do login */}
       <div className='flex h-[90%] sm:h-full w-full sm:w-1/2 items-start sm:items-center justify-center'>
