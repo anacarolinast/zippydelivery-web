@@ -10,12 +10,20 @@
     placeholder:text-gray-600 font-medium tracking-wide transition-all;
   }
 
+  .text-primary {
+    @apply text-white;
+  }
+
+  .text-secondary {
+    @apply text-gray-400;
+  }
+
   .primary-button {
-    @apply bg-tomato-100 py-2.5 rounded-[0.25rem] font-semibold
+    @apply bg-tomato-100 py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
   }
 
   .outline-button {
-    @apply py-2.5 rounded-[0.25rem] font-semibold
+    @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all;
   }
 }
 

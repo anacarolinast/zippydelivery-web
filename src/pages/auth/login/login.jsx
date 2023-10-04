@@ -12,26 +12,27 @@ function LoginPage() {
       </div>
       {/* Lado direito do login */}
       <div className='flex h-[90%] sm:h-full w-full sm:w-1/2 items-start sm:items-center justify-center'>
-        <div className='flex w-full sm:w-[30rem] flex-col  gap-8  px-12 py-16 bg-dark-700 rounded-md '>
+        <div className='flex w-full sm:w-[30rem] flex-col  gap-8  px-12 py-16 bg-slate-900 bg- rounded-md '>
           <span className='text-3xl font-semibold mx-auto'>Faça login</span>
           
           {/* Campos */}
           <div className='flex flex-col gap-6'>
-            <div className='flex flex-col gap-1 text-gray-300'>
+            <div className='flex flex-col gap-1 text-gray-300' >
               <span>Email</span>
               <input placeholder='Exemplo@exemplo.com.br' className='input ' type="text" />
-              <div></div>
             </div>
+
             <div className='flex flex-col gap-1 text-gray-300'>
               <span>Senha</span>
               <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
-              <div></div>
+              <span className='text-secondary mt-1'>Esqueceu a senha ? <span className='text-primary font-semibold'>Recuperar Senha</span></span>
             </div>
+            
           </div>
 
           {/* Botões */}
           <div className='flex flex-col gap-2'>
-            <button className='primary-button'>Entrar</button>
+            <button className='primary-button' onClick={() => { console.log('onclick!!')}}>Entrar</button>
             <button className='outline-button'>Criar uma conta</button>
           </div>
         </div>
