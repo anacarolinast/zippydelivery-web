@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function LoginPage() {
   return (
     <div className='flex flex-col gap-20 sm:flex-row items-center h-full'>
@@ -8,24 +9,24 @@ function LoginPage() {
         <div className="w-9 h-9 relative">
           <div className='hexagon !bg-red-700'></div>
         </div>
-        <span className='text-white text-3xl font-bold tracking-widest uppercase'>Zippy Delivery</span>
+        <span className=' text-3xl font-bold tracking-widest uppercase'>Zippy Delivery</span>
       </div>
       {/* Lado direito do login */}
       <div className='flex h-[90%] sm:h-full w-full sm:w-1/2 items-start sm:items-center justify-center'>
-        <div className='flex w-full sm:w-[30rem] flex-col  gap-8  px-12 py-16 bg-slate-900 bg- rounded-md '>
+        <div className='flex w-full sm:w-[30rem] flex-col  gap-8 px-12 py-16 rounded-md shadow-xl bg-white'>
           <span className='text-3xl font-semibold mx-auto'>Faça login</span>
           
           {/* Campos */}
           <div className='flex flex-col gap-6'>
-            <div className='flex flex-col gap-1 text-gray-300' >
-              <span>Email</span>
+            <div className='flex flex-col gap-1 text-gray-500' >
+              <span className='input-label'>Email</span>
               <input placeholder='Exemplo@exemplo.com.br' className='input ' type="text" />
             </div>
 
-            <div className='flex flex-col gap-1 text-gray-300'>
-              <span>Senha</span>
+            <div className='flex flex-col gap-1 text-gray-500'>
+              <span className='input-label'>Senha</span>
               <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
-              <span className='text-secondary mt-1'>Esqueceu a senha ? <span className='text-primary font-semibold'>Recuperar Senha</span></span>
+              <span className='text-secondary mt-1'>Esqueceu a senha ? <span className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
             </div>
             
           </div>

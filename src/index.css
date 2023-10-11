@@ -3,11 +3,16 @@
 @tailwind utilities;
 
 @layer components {
+
+  .input-label {
+    @apply font-semibold text-gray-600
+  }
+
   .input {
-    @apply w-full bg-dark-700 ring-1 ring-gray-500 
+    @apply w-full bg-gray-100 border-0
     focus:ring-2 focus:ring-cyan-500 outline-none 
     py-2.5 px-2 text-sm text-justify rounded-[0.25rem] 
-    placeholder:text-gray-600 font-medium tracking-wide transition-all;
+    placeholder:text-gray-400 font-medium tracking-wide transition-all;
   }
 
   .text-primary {
@@ -15,11 +20,11 @@
   }
 
   .text-secondary {
-    @apply text-gray-400;
+    @apply text-gray-600;
   }
 
   .primary-button {
-    @apply bg-tomato-100 py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+    @apply bg-tomato-300 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
   }
 
   .outline-button {
