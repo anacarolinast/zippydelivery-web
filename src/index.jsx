@@ -10,8 +10,8 @@ import SignUpPage from './pages/auth/sign-up/sign-up';
 import ErrorPage from './pages/errors/ErrorPage';
 import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
-
-
+import HomePage from './pages/home/HomePage';
+import ProdutoRegister from './pages/produtos/produtos';
 
 
 
@@ -36,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "reset-password",
         element: <ResetPasswordPage />
+      },
+      {
+        path: "home",
+        element: <HomePage />
+      },
+      {
+        path: "produto",
+        element: <ProdutoRegister />
       },
     ]
   },

@@ -24,7 +24,7 @@
   }
 
   .primary-button {
-    @apply bg-tomato-300 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+    @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
   }
 
   .outline-button {
