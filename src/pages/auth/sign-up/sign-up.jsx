@@ -1,9 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function SignUpPage() {
   let navigate = useNavigate()
+  
+
   return (
     <div className='flex flex-col gap-20 sm:flex-row items-center h-full'>
       {/* Lado esquerdo do login */}
@@ -20,22 +22,27 @@ function SignUpPage() {
           
           {/* Campos */}
           <div className='flex flex-col gap-6'>
+            <div className='flex flex-col gap-1 text-gray-500'>
+              <span className='input-label'>CNPJ</span>
+              <input className='input' type="text" />
+            </div>
+
             <div className='flex flex-col gap-1 text-gray-500' >
               <span className='input-label'>Email</span>
               <input placeholder='Exemplo@exemplo.com.br' className='input ' type="text" />
             </div>
 
+
             <div className='flex flex-col gap-1 text-gray-500'>
               <span className='input-label'>Senha</span>
               <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
-              <span className='text-secondary mt-1'>Esqueceu a senha ? <span className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
             </div>
             
           </div>
 
           {/* Botões */}
           <div className='flex flex-col gap-2'>
-            <button className='primary-button' onClick={() => { console.log('onclick!!')}}>Cadastrar</button>
+            <button onClick={() => { navigate('/confirm-email') }} className='primary-button'>Cadastrar</button>
             <button onClick={() => { navigate('/') }} className='outline-button'>Fazer login</button>
           </div>
         </div>

@@ -28,7 +28,7 @@ function LoginPage() {
             <div className='flex flex-col gap-1 text-gray-500'>
               <span className='input-label'>Senha</span>
               <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
-              <span className='text-secondary mt-1'>Esqueceu a senha ? <span className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
+              <span className='text-secondary mt-1'>Esqueceu a senha ? <span onClick={() => { navigate('reset-password') }} className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
             </div>
             
           </div>
