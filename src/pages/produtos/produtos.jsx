@@ -13,8 +13,9 @@
   ```
 */
 import { useState } from 'react'
-import { ChevronDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
+import { PhotoIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
+import ModalComponent from '../components/modal'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -24,26 +25,15 @@ export default function ProdutoRegister() {
     const [agreed, setAgreed] = useState(false)
 
     return (
-        <div className="isolate bg-gray-300 px-6 py-24 sm:py-32 lg:px-8">
-            <div
-                className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-                aria-hidden="true"
-            >
-                <div
-                    className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-                    style={{
-                        clipPath:
-                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                    }}
-                />
-            </div>
+        <div className="bg-gray-200 px-6 py-24 sm:py-32 lg:px-8 flex justify-center items-center">
+            <div className="hover:border border-orange-100 mt-6 md:max-w-xl md:rounded-xl md:shadow-lg md:mt-0 p-10">
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-light-700 sm:text-4xl">Adicionar Produto</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-light-700 sm:text-4xl">Cadastrar Produto</h2>
                 <p className="mt-2 text-lg leading-8 text-light-700">
                     Adicione um novo produto
                 </p>
             </div>
-            <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+            <form onSubmit={ModalComponent} method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid gap-x-4 gap-y-6 grid-cols-2">
                     <div>
                         <label htmlFor="food" className="block text-sm font-bold leading-6 text-light-700">
@@ -55,7 +45,7 @@ export default function ProdutoRegister() {
                                 name="food"
                                 id="food"
                                 autoComplete="food"
-                                className="block w-full rounded-md border-0 px-3.5 py-2 text-dark-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-light-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 px-3.5 py-2 text-dark-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-light-400 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm sm:leading-6"
                                 placeholder='Ex.: Pizza'
                             />
                         </div>
@@ -72,13 +62,15 @@ export default function ProdutoRegister() {
                                 <select
                                     id="categoria"
                                     name="categoria"
-                                    className="px-3.5 py-2.5 mt-2.5 bg-white w-full rounded-md border-0 bg-transparent pl-4  !text-gray-700 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                                >
-                                    <option>Entrada</option>
-                                    <option>Prato Principal</option>
-                                    <option>Sobremesa</option>
-                                    <option>Bebida</option>
-
+                                    className="px-3.5 py-2.5 mt-2.5 bg-white w-full rounded-md border-0 bg-transparent pl-4 !text-gray-700 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm"
+                                >   
+                                    <option defaultValue={''} selected>Selecione uma opção</option>
+                                    <option value={"Entrada"}>Entrada</option>
+                                    <option value={"Prato Principal"}>Prato Principal</option>
+                                    <option value={"Sobremesa"}>Sobremesa</option>
+                                    <option value={"Bebida"}>Bebida</option>
+                                    <option value={"Outros"}>Outros</option>
+                                    
                                 </select>
 
                             </div>
@@ -97,7 +89,7 @@ export default function ProdutoRegister() {
                                     name="ingredientes"
                                     id="ingredientes"
                                     autoComplete="ingredientes"
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -112,7 +104,7 @@ export default function ProdutoRegister() {
                                     id="preco"
                                     placeholder='R$ 0.00'
                                     autoComplete="preco"
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-dark-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -127,7 +119,7 @@ export default function ProdutoRegister() {
                                 id="message"
                                 placeholder='Breve descrição do produto...'
                                 rows={4}
-                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm sm:leading-6"
                                 defaultValue={''}
                             />
                         </div>
@@ -136,13 +128,13 @@ export default function ProdutoRegister() {
                         <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-light-700">
                             Adicionar imagem do produto
                         </label>
-                        <div className="mt-2 flex justify-center rounded-lg border border-dashed border-light-900/25 px-6 py-10">
+                        <div className="mt-2 flex justify-center rounded-lg border-orange-100 border-4 border-dashed px-6 py-10">
                             <div className="text-center">
                                 <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
                                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
                                     <label
                                         htmlFor="file-upload"
-                                        className="relative cursor-pointer rounded-md bg-white font-bold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                                        className="relative cursor-pointer rounded-md bg-white font-bold text-orange-100 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-100 focus-within:ring-offset-2 hover:text-indigo-500"
                                     >
                                         <span className='outline-button p-1'>Escolher imagem</span>
                                         <input id="file-upload" name="file-upload" type="file" className="sr-only" />
@@ -161,8 +153,8 @@ export default function ProdutoRegister() {
                                 checked={agreed}
                                 onChange={setAgreed}
                                 className={classNames(
-                                    agreed ? 'bg-indigo-600' : 'bg-gray-200',
-                                    'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                                    agreed ? 'bg-orange-100' : 'bg-gray-200',
+                                    'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-100'
                                 )}
                             >
                                 <span className="sr-only">Agree to policies</span>
@@ -184,11 +176,12 @@ export default function ProdutoRegister() {
                     <button
                         type="submit"
                         className="outline-button p-2"
+
                     >
                         Voltar
                     </button>
                     <button
-                        type="submit"
+                        // type="submit"
                         className="primary-button p-2"
                     >
                         Cadastrar
@@ -196,6 +189,7 @@ export default function ProdutoRegister() {
 
                 </div>
             </form>
+            </div>
         </div>
     )
 }
