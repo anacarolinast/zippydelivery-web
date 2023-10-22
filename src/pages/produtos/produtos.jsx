@@ -15,7 +15,7 @@
 import { useState } from 'react'
 import { PhotoIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
-import ModalComponent from '../components/modal'
+//import ModalComponent from '../components/modal'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -33,7 +33,8 @@ export default function ProdutoRegister() {
                     Adicione um novo produto
                 </p>
             </div>
-            <form onSubmit={ModalComponent} method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+            {/*<form onSubmit={ModalComponent} method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">*/}
+            <form method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid gap-x-4 gap-y-6 grid-cols-2">
                     <div>
                         <label htmlFor="food" className="block text-sm font-bold leading-6 text-light-700">

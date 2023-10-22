@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import LogoComponent from '../../components/logoComponent';
 
 
 function LoginPage() {
@@ -7,11 +8,8 @@ function LoginPage() {
   return (
     <div className='flex flex-col gap-20 sm:flex-row items-center h-full'>
       {/* Lado esquerdo do login */}
-      <div className='flex h-[10%] gap-5 mt-8 items-center w-1/2 justify-center sm:-mt-28'>
-        <div className="w-9 h-9 relative">
-          <div className='hexagon !bg-red-700'></div>
-        </div>
-        <span className=' text-3xl font-bold tracking-widest uppercase'>Zippy Delivery</span>
+      <div className="flex h-[10%] gap-5 mt-8 items-center w-1/2 justify-center sm:-mt-28">
+        <LogoComponent></LogoComponent>
       </div>
       {/* Lado direito do login */}
       <div className='flex h-[90%] sm:h-full w-full sm:w-1/2 items-start sm:items-center justify-center'>

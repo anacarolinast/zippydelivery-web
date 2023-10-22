@@ -1,20 +1,31 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import LogoComponent from './logoComponent';
 
 
 function NavBarComponent() {
   let navigate = useNavigate()
+  let location = useLocation().pathname
+  console.log(location)
   return (
     <div className='fixed w-full h-fit top-0'>
-      <div className='flex justify-between w-full bg-white py-4 px-8 shadow-md'>
-        <div className='flex items-center gap-2'>
-          <div className="w-6 h-6 relative">
-            <div className='hexagon !bg-red-700'></div>
+      <div className='flex justify-between w-full bg-white py-2 px-8 shadow-md'>
+        
+        <div className='flex gap-20 '>
+          <div className='-mt-2'>
+            <LogoComponent></LogoComponent>
           </div>
-          <span className=' text- font-bold tracking-widest uppercase'>Zippy Delivery</span>
+
+          <div className='flex gap-12 items-center'>
+            <button className={location == '/home'? 'text-orange-100': ''}>Home</button>
+            <button className={location == '/perfil'? 'text-orange-100': ''}>Perfil</button>
+            <button className={location == '/menu'? 'text-orange-100': ''}>Cardápio</button>
+            <button className={location == '/orders'? 'text-orange-100': ''}>Pedidos</button>
+          </div>
         </div>
-        <input type="text" placeholder='Busque por produtos ou pedidos' className='input max-w-lg px-8' />
+
         <div className='flex items-center gap-4'>
+          {/*
           <button onClick={() => { navigate('produto') }} className='flex gap-5 pr-12 items-center primary-button px-8'>
             <svg className='fill-gray-700' width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8.53906 14C8.53906 13.4477 8.98678 13 9.53906 13H22.5391C23.0913 13 23.5391 13.4477 23.5391 14C23.5391 14.5523 23.0913 15 22.5391 15H9.53906C8.98678 15 8.53906 14.5523 8.53906 14Z" fill="white" />
@@ -23,7 +34,8 @@ function NavBarComponent() {
             </svg>
             Pedidos (0)
           </button>
-          <div className='hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'>
+           */}
+          <div className=' hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'>
             <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
           </div>
         </div>
