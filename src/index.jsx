@@ -12,6 +12,7 @@ import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
 import HomePage from './pages/home/HomePage';
 import ProdutoRegister from './pages/produtos/produtos';
+import ProfilePage from './pages/profile/ProfilePage';
 
 
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "produto",
         element: <ProdutoRegister />
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />
       },
     ]
   },

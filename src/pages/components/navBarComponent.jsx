@@ -8,7 +8,7 @@ function NavBarComponent() {
   let location = useLocation().pathname
   console.log(location)
   return (
-    <div className='fixed w-full h-fit top-0'>
+    <div className='fixed z-50 w-full h-fit top-0'>
       <div className='flex justify-between w-full bg-white py-2 px-8 shadow-md'>
         
         <div className='flex gap-20 '>
@@ -17,10 +17,10 @@ function NavBarComponent() {
           </div>
 
           <div className='flex gap-12 items-center'>
-            <button className={location == '/home'? 'text-orange-100': ''}>Home</button>
-            <button className={location == '/perfil'? 'text-orange-100': ''}>Perfil</button>
-            <button className={location == '/menu'? 'text-orange-100': ''}>Cardápio</button>
-            <button className={location == '/orders'? 'text-orange-100': ''}>Pedidos</button>
+            <button onClick={() => {   navigate('home')  }} className={location === '/home'? 'text-orange-100': ''}>Home</button>
+            <button onClick={() => { navigate('profile') }} className={location === '/profile'? 'text-orange-100': ''}>Perfil</button>
+            <button onClick={() => { navigate('profile') }} className={location === '/menu'? 'text-orange-100': ''}>Cardápio</button>
+            <button onClick={() => { navigate('profile') }} className={location === '/orders'? 'text-orange-100': ''}>Pedidos</button>
           </div>
         </div>
 
