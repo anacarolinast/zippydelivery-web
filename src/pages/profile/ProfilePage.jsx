@@ -45,7 +45,7 @@ function ProfilePage() {
                   <input placeholder='Nome da sua loja' className='form-input' type="text" />
                 </div>
                 <div className='flex flex-col w-full gap-1'>
-                  <span>Nome</span>
+                  <span>CNPJ</span>
                   <input placeholder='CNPJ da sua loja' className='form-input' type="text" />
                 </div>
               </div>
