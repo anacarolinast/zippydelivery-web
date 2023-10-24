@@ -16,6 +16,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import MenuManagerPage from './pages/menu/MenuManager';
 import CategoryEditPage from './pages/menu/CategoryEdit';
 import OrderManagerPage from './pages/order-manager/OrderManager';
+import InitialPage from './pages/init/InitialPage';
 
 
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "order-manager",
         element: <OrderManagerPage />
+      },
+      {
+        path: "init",
+        element: <InitialPage />
       },
     ]
   },
