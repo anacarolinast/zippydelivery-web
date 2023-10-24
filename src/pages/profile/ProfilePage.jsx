@@ -176,7 +176,7 @@ function ProfilePage() {
             {/* Session End */}
           </div>
           {/* Session End */}
-          <button onClick={() => { navigate('') }} className='mt-8 flex items-center primary-button px-20 ml-auto -mt-12'>
+          <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-20 ml-auto '>
             Salvar
           </button>
 
