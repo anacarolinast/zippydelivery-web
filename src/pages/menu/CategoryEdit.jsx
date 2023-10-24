@@ -1,9 +1,5 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import eloLogo from "../../assets/img/elo.png";
-import mastercardLogo from "../../assets/img/mastercard.png";
-import pixLogo from "../../assets/img/pix.png";
-import visaLogo from "../../assets/img/visa.png";
 
 
 function CategoryEditPage() {

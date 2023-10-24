@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="h-screen bg-gray-200">
       { 
-        ((location == '/sign-up' || location == '/' || location == '/confirm-email' || location == '/reset-password' || location == '/produto')) ? 
+        ((location === '/sign-up' || location === '/' || location === '/confirm-email' || location === '/reset-password' || location === '/produto')) ? 
         <span></span> : <NavBarComponent /> 
       }
       <Outlet />

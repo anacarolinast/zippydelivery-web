@@ -15,6 +15,7 @@ import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
 import MenuManagerPage from './pages/menu/MenuManager';
 import CategoryEditPage from './pages/menu/CategoryEdit';
+import OrderManagerPage from './pages/order-manager/OrderManager';
 
 
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "category-edit",
         element: <CategoryEditPage />
+      },
+      {
+        path: "order-manager",
+        element: <OrderManagerPage />
       },
     ]
   },
