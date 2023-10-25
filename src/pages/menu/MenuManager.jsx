@@ -57,7 +57,8 @@ function MenuManagerPage() {
         <div className='flex flex-col w-full border rounded-md'>
           <div className='flex justify-between align-middle  py-4 px-5 '>
             <span className='text-2xl font-semibold'>Categoria 1</span>
-            <button  className='flex gap-3 items-center secondary-button py-2 px-4'>
+            <button  className='flex gap-3 items-center secondary-button py-2 px-4'
+            onClick={() => { navigate('/produto') }}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
               </svg>
@@ -132,7 +133,8 @@ function MenuManagerPage() {
         <div className='flex flex-col w-full border rounded-md'>
           <div className='flex justify-between align-middle  py-4 px-5 '>
             <span className='text-2xl font-semibold'>Categoria 2</span>
-            <button  className='flex gap-3 items-center secondary-button py-2 px-4'>
+            <button  className='flex gap-3 items-center secondary-button py-2 px-4'
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
               </svg>

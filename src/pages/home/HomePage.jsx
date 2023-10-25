@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function HomePage() {
   let navigate = useNavigate()
   return (
-    <div className='h-fit justify-center pt-44 bg-white'>
+    <div className='h-fit justify-center p-44 bg-white'>
       <div className='flex justify-end p-10'>
         <div className='flex gap-2'>
             <div className='mt-3 text-green-500'>
@@ -104,11 +104,11 @@ function HomePage() {
           <img src="gerenciar-pedidos.png" alt="" />
           <span className='text-light-100 text-2xl font-bold text-center'>Gerencie os pedidos</span>
         </div>
-        <div className='flex bg-tomato-300 rounded-md h-fit p-4 cursor-pointer justify-center items-center gap-5'
+        {/* <div className='flex bg-tomato-300 rounded-md h-fit p-4 cursor-pointer justify-center items-center gap-5'
              onClick={() => { navigate('/produto') }} >
           <img src="gerenciar-pedidos.png" />
           <span className='text-light-100 text-2xl font-bold text-center'>Cadastre um novo prato</span>
-        </div>
+        </div> */}
         
       </div>
       

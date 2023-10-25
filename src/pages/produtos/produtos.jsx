@@ -27,7 +27,7 @@ export default function ProdutoRegister() {
     const [agreed, setAgreed] = useState(false)
 
     return (
-        <div className='h-fit justify-center pt-44 bg-white'>
+        <div className='h-fit justify-center p-44 bg-white'>
         <div className='flex justify-end justify-between p-10'>
         <div className='flex flex-col'>
             <span className='flex items-center gap-1 underline text-xl text-orange-100 font-bold cursor-pointer'
