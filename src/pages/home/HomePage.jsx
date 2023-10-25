@@ -105,9 +105,9 @@ function HomePage() {
           <span className='text-light-100 text-2xl font-bold text-center'>Gerencie os pedidos</span>
         </div>
         <div className='flex bg-tomato-300 rounded-md h-fit p-4 cursor-pointer justify-center items-center gap-5'
-             onClick={() => { navigate('#') }} >
+             onClick={() => { navigate('/produto') }} >
           <img src="gerenciar-pedidos.png" />
-          <span className='text-light-100 text-2xl font-bold text-center'>Histórico de pedidos</span>
+          <span className='text-light-100 text-2xl font-bold text-center'>Cadastre um novo prato</span>
         </div>
         
       </div>
