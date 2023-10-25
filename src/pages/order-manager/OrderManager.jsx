@@ -8,7 +8,7 @@ import mastercardLogo from "../../assets/img/mastercard.png";
 function OrderManagerPage() {
   let navigate = useNavigate()
   return (
-    <div className='flex h-full pt-16 mt-3 bg-gray-200'>
+    <div className='flex h-full pt-16 mt-3 bg-cinza-100'>
       <div className='flex flex-col  bg-gray-100 w-80 shadow-md overflow-y-auto overflow'>
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />

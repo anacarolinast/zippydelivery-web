@@ -34,6 +34,9 @@ module.exports = {
         orange: {
           100: '#FF9431',
         },
+        cinza: {
+          100: '#F2F2F2',
+        },
       }
     },
   },
