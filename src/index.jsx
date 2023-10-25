@@ -13,6 +13,10 @@ import ResetPasswordPage from './pages/auth/actions/resetPassword';
 import HomePage from './pages/home/HomePage';
 import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
+import MenuManagerPage from './pages/menu/MenuManager';
+import CategoryEditPage from './pages/menu/CategoryEdit';
+import OrderManagerPage from './pages/order-manager/OrderManager';
+import InitialPage from './pages/init/InitialPage';
 
 
 
@@ -49,6 +53,22 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />
+      },
+      {
+        path: "menu-manager",
+        element: <MenuManagerPage />
+      },
+      {
+        path: "category-edit",
+        element: <CategoryEditPage />
+      },
+      {
+        path: "order-manager",
+        element: <OrderManagerPage />
+      },
+      {
+        path: "init",
+        element: <InitialPage />
       },
     ]
   },

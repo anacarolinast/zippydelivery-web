@@ -13,12 +13,14 @@ function ProfilePage() {
       <div className='w-full h-28 max-w-5xl'>
         {/* Images Session */}
         <div>
-          <div className="p-2 flex justify-end bg-gray-100 w-full h-48 rounded-md">
-            <svg className="w-6 h-6 cursor-pointer " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
+          <div className="p-1 flex justify-end bg-gray-100 w-full h-48 rounded-md">
+            <span className='hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all'>
+              <svg className="w-6 h-6 cursor-pointer " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+            </span>
           </div>
-          <div className="cursor-pointer flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2">
+          <div className="cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2">
             <svg className='w-8 h-8' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
@@ -43,7 +45,7 @@ function ProfilePage() {
                   <input placeholder='Nome da sua loja' className='form-input' type="text" />
                 </div>
                 <div className='flex flex-col w-full gap-1'>
-                  <span>Nome</span>
+                  <span>CNPJ</span>
                   <input placeholder='CNPJ da sua loja' className='form-input' type="text" />
                 </div>
               </div>
@@ -144,23 +146,23 @@ function ProfilePage() {
                 <div className='flex flex-col w-3/4 gap-2'>
                   <span>Métodos de pagamento aceitos</span>
                   <div className='flex gap-2'>
-                    <div className='flex items-center justify-center w-[4.8rem] h-12 ring-1 ring-gray-300 rounded-sm'>
+                    <div className='flex items-center cursor-pointer justify-center w-[4.8rem] h-12 ring-1 ring-gray-300 rounded-sm'>
                       <div className='w-fit'>
                         <img src={eloLogo} alt="react logo" />
                       </div>
                     </div>
-                    <div className='flex items-center justify-center w-[4.8rem] h-12 ring-2 ring-orange-100 rounded-sm'>
+                    <div className='flex items-center cursor-pointer justify-center w-[4.8rem] h-12 ring-2 ring-orange-100 rounded-sm'>
                       <div className='w-fit'>
                         <img src={mastercardLogo} alt="react logo" />
                       </div>
                     </div>
-                    <div className='flex items-center justify-center w-[4.8rem] h-12 ring-1 ring-gray-300 rounded-sm'>
+                    <div className='flex items-center cursor-pointer justify-center w-[4.8rem] h-12 ring-1 ring-gray-300 rounded-sm'>
                       <div className='w-fit'>
                         <img src={visaLogo} alt="react logo" />
 
                       </div>
                     </div>
-                    <div className='flex items-center justify-center w-[4.8rem] h-12 ring-2 ring-orange-100 rounded-sm'>
+                    <div className='flex items-center cursor-pointer justify-center w-[4.8rem] h-12 ring-2 ring-orange-100 rounded-sm'>
                       <div className='w-fit'>
                         <img src={pixLogo} alt="react logo" />
                       </div>
@@ -174,7 +176,7 @@ function ProfilePage() {
             {/* Session End */}
           </div>
           {/* Session End */}
-          <button onClick={() => { navigate('') }} className='mt-8 flex items-center primary-button px-20 ml-auto -mt-12'>
+          <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-20 ml-auto '>
             Salvar
           </button>
 

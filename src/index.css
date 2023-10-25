@@ -20,6 +20,11 @@
     placeholder:text-gray-400  outline-none transition-all
   }
 
+  .input-underline {
+    @apply rounded-sm focus:border-b-orange-100 border-0 focus:ring-0 border-b-2 border-gray-300 py-2.5 px-2 text-sm
+    placeholder:text-gray-400 outline-none transition-all
+  }
+
   .text-primary {
     @apply text-white;
   }
@@ -30,6 +35,14 @@
 
   .primary-button {
     @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+  }
+
+  .secondary-button {
+    @apply text-orange-100 ring-1 ring-orange-100  py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+  }
+
+  .primary-button-noborder {
+    @apply bg-orange-100 text-white py-2.5 font-semibold hover:bg-opacity-80 transition-all;
   }
 
   .outline-button {

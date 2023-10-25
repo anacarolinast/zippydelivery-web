@@ -12,16 +12,18 @@ function NavBarComponent() {
       <div className='flex justify-between w-full bg-white py-2 px-8 shadow-md'>
         
         <div className='flex gap-20 '>
+
           <div className='-mt-2'>
             <LogoComponent></LogoComponent>
           </div>
 
           <div className='flex gap-12 items-center'>
-            <button onClick={() => {   navigate('home')  }} className={location === '/home'? 'text-orange-100': ''}>Home</button>
-            <button onClick={() => { navigate('profile') }} className={location === '/profile'? 'text-orange-100': ''}>Perfil</button>
-            <button onClick={() => { navigate('profile') }} className={location === '/menu'? 'text-orange-100': ''}>Cardápio</button>
-            <button onClick={() => { navigate('profile') }} className={location === '/orders'? 'text-orange-100': ''}>Pedidos</button>
+            <button onClick={() => {   navigate('home')           }} className={ location === '/home'? 'text-orange-100': ''                  }>Home</button>
+            <button onClick={() => {   navigate('profile')        }} className={ location === '/profile'? 'text-orange-100': ''               }>Perfil</button>
+            <button onClick={() => {   navigate('menu-manager')   }} className={ location === '/menu-manager'? 'text-orange-100': ''          }>Cardápio</button>
+            <button onClick={() => {   navigate('order-manager')  }} className={ location === '/order-manager'? 'text-orange-100': ''         }>Pedidos</button>
           </div>
+
         </div>
 
         <div className='flex items-center gap-4'>
