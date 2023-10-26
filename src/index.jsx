@@ -17,6 +17,7 @@ import MenuManagerPage from './pages/menu/MenuManager';
 import CategoryEditPage from './pages/menu/CategoryEdit';
 import OrderManagerPage from './pages/order-manager/OrderManager';
 import InitialPage from './pages/init/InitialPage';
+import OrderHistoryPage from './pages/order-history/OrderHistory';
 
 
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "init",
         element: <InitialPage />
+      },
+      {
+        path: "order-history",
+        element: <OrderHistoryPage />
       },
     ]
   },

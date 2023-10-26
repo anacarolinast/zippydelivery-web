@@ -22,6 +22,7 @@ function NavBarComponent() {
             <button onClick={() => {   navigate('profile')        }} className={ location === '/profile'? 'text-orange-100': ''               }>Perfil</button>
             <button onClick={() => {   navigate('menu-manager')   }} className={ location === '/menu-manager'? 'text-orange-100': ''          }>Cardápio</button>
             <button onClick={() => {   navigate('order-manager')  }} className={ location === '/order-manager'? 'text-orange-100': ''         }>Pedidos</button>
+            <button onClick={() => {   navigate('order-history')  }} className={ location === '/order-history'? 'text-orange-100': ''         }>Histórico</button>
           </div>
 
         </div>

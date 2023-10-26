@@ -28,7 +28,7 @@ export default function ProdutoRegister() {
 
     return (
         <div className='h-fit justify-center p-44 bg-white'>
-        <div className='flex justify-end justify-between p-10'>
+        <div className='flex justify-between items-center p-10'>
         <div className='flex flex-col'>
             <span className='flex items-center gap-1 underline text-xl text-orange-100 font-bold cursor-pointer'
             onClick={() => { navigate('/home') }} >
