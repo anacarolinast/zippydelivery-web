@@ -9,7 +9,7 @@ function OrderManagerPage() {
   let navigate = useNavigate()
   return (
     <div className='flex h-full pt-16 mt-3 bg-gray-200'>
-      <div className='relative flex flex-col  bg-gray-100 w-80 shadow-md overflow-y-auto overflow'>
+      <div className='relative flex flex-col  bg-gray-100 w-80 min-w-[20rem] shadow-md overflow-y-auto overflow'>
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />
         </span>
@@ -129,7 +129,7 @@ function OrderManagerPage() {
               <span className='font-semibold '>Jamilly A.</span>
             </div>
 
-            <div className='shadow-2xl border-t fixed flex justify-end w-[18.5rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
+            <div className='shadow-2xl border-t fixed flex justify-end w-[18.9rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
               <div className='flex flex-col gap-2'>
                 <span className='text-sm text-secondary font-medium'>Pedidos(100)</span>
                 <span className='text-xl font-medium'>R$ 12.231,88</span>
