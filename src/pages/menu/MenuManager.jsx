@@ -36,86 +36,128 @@ function MenuManagerPage() {
             <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
           </svg>
           Nova Categoria
-        </button> 
+        </button>
 
         <div className='flex mt-20'>
           <div className='flex w-full gap-5'>
             <div className='flex'>
               <button className='flex items-center primary-button rounded-md rounded-r-none px-3  min-w-max max-h-12'>
                 Status da Venda
-              </button> 
+              </button>
               <button className='flex items-center primary-button rounded-md rounded-l-none px-3 bg-gray-200 text-gray-500 min-w-max max-h-12'>
                 Preço e Estoque
-              </button> 
+              </button>
             </div>
             <input className="form-input w-3/4" placeholder='Busque pelo nome do item' type="text" />
             <input className="form-input w-1/4" placeholder='Categoria selecionada' type="text" />
           </div>
-          
+
         </div>
 
         <div className='flex flex-col w-full border rounded-md'>
           <div className='flex justify-between align-middle  py-4 px-5 '>
             <span className='text-2xl font-semibold'>Categoria 1</span>
-            <button  className='flex gap-3 items-center secondary-button py-2 px-4'
-            onClick={() => { navigate('/produto') }}>
+            <button className='flex gap-3 items-center secondary-button py-2 px-4'
+              onClick={() => { navigate('/produto') }}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
               </svg>
               Novo Item
-            </button> 
+            </button>
           </div>
-          
+
           <div class="relative overflow-x-auto border-gray-200 border-y">
             <table class="w-full text-sm text-left text-gray-500 ">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Item
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Preço
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Descrição
-                    </th>
-                    
+                  <th scope="col" class="px-6 py-3">
+                    Item
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Preço
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Descrição
+                  </th>
+
                 </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-white border-b ">
-                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                          Bolo Cremoso de Maizena
-                      </th>
-                      <td class="px-6 py-4">
-                          R$ 29,90
-                      </td>
-                      <td class="px-6 py-4">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                      </td>
-                  </tr>
-                  <tr class="bg-white border-b ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                          Bolo Cremoso de Maizena
-                    </th>
-                    <td class="px-6 py-4">
-                        R$ 29,90
-                    </td>
-                    <td class="px-6 py-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                    </td>
-                  </tr>
-                  <tr class="bg-white ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            Bolo Cremoso de Maizena
-                        </th>
-                        <td class="px-6 py-4">
-                            R$ 29,90
-                        </td>
-                        <td class="px-6 py-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                        </td>
-                  </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-white border-b group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-white group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -125,7 +167,7 @@ function MenuManagerPage() {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
               </svg>
               Excluir Categoria
-              </span>
+            </span>
           </div>
         </div>
 
@@ -133,65 +175,107 @@ function MenuManagerPage() {
         <div className='flex flex-col w-full border rounded-md'>
           <div className='flex justify-between align-middle  py-4 px-5 '>
             <span className='text-2xl font-semibold'>Categoria 2</span>
-            <button  className='flex gap-3 items-center secondary-button py-2 px-4'
+            <button className='flex gap-3 items-center secondary-button py-2 px-4'
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
               </svg>
               Novo Item
-            </button> 
+            </button>
           </div>
-          
+
           <div class="relative overflow-x-auto border-gray-200 border-y">
             <table class="w-full text-sm text-left text-gray-500 ">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Item
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Preço
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Descrição
-                    </th>
-                    
+                  <th scope="col" class="px-6 py-3">
+                    Item
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Preço
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Descrição
+                  </th>
+
                 </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-white border-b ">
-                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                          Bolo Cremoso de Maizena
-                      </th>
-                      <td class="px-6 py-4">
-                          R$ 29,90
-                      </td>
-                      <td class="px-6 py-4">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                      </td>
-                  </tr>
-                  <tr class="bg-white border-b ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                          Bolo Cremoso de Maizena
-                    </th>
-                    <td class="px-6 py-4">
-                        R$ 29,90
-                    </td>
-                    <td class="px-6 py-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                    </td>
-                  </tr>
-                  <tr class="bg-white ">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            Bolo Cremoso de Maizena
-                        </th>
-                        <td class="px-6 py-4">
-                            R$ 29,90
-                        </td>
-                        <td class="px-6 py-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati 
-                        </td>
-                  </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-white border-b group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="bg-white group">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                    Bolo Cremoso de Maizena
+                  </th>
+                  <td class="px-6 py-4">
+                    R$ 29,90
+                  </td>
+                  <td class="px-6 py-4 line-clamp-2 flex justify-between">
+                    <span className='w-10/12'>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecatitur adipisicing elit. Obcaecati
+                    </span>
+                    <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                      <div className='flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
+                      </div>
+                      <div className='flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -201,7 +285,7 @@ function MenuManagerPage() {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
               </svg>
               Excluir Categoria
-              </span>
+            </span>
           </div>
         </div>
 
