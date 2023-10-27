@@ -9,7 +9,7 @@ function OrderManagerPage() {
   let navigate = useNavigate()
   return (
     <div className='flex h-full pt-16 mt-3 bg-gray-200'>
-      <div className='flex flex-col  bg-gray-100 w-80 shadow-md overflow-y-auto overflow'>
+      <div className='relative flex flex-col  bg-gray-100 w-80 shadow-md overflow-y-auto overflow'>
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />
         </span>
@@ -100,7 +100,7 @@ function OrderManagerPage() {
           </div>
 
         </div>
-        <div className='flex flex-col p-0 mb-20'>
+        <div className='flex flex-col p-0 mb-24'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Concluídos</span>
             <span className='text-xl font-medium text-gray-500'>3</span>
@@ -129,6 +129,12 @@ function OrderManagerPage() {
               <span className='font-semibold '>Jamilly A.</span>
             </div>
 
+            <div className='shadow-2xl border-t fixed flex justify-end w-[18.5rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
+              <div className='flex flex-col gap-2'>
+                <span className='text-sm text-secondary font-medium'>Pedidos(100)</span>
+                <span className='text-xl font-medium'>R$ 12.231,88</span>
+              </div>
+            </div>
 
           </div>
 
@@ -156,8 +162,8 @@ function OrderManagerPage() {
           </div>
         </div>
 
-        <div className='flex flex-col w-full bg-white rounded-md overflow-hidden'>
-          <div className='bg-red-100 text-red-600 px-8 py-5 w-full'>
+        <div className='flex flex-col w-full h-fit bg-white rounded-md'>
+          <div className='bg-red-100 text-red-600 px-8 py-5 w-full rounded-t-md'>
             <div className='flex flex-col justify-between'>
               <span className='font-bold'>Pendente</span>
               <span >4 minutos para confirmar</span>
