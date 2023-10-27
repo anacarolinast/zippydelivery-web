@@ -27,7 +27,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4020</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>0 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>0 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -35,7 +35,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -43,7 +43,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4022</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>9 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>9 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -51,7 +51,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4023</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>2 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>2 min</button>
             </div>
 
           </div>
@@ -70,7 +70,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Entregar até 18:30</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -78,7 +78,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Entregar até 18:17</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -86,7 +86,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4022</span>
                 <span className='font-semibold '>Entregar até 18:10</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>9 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>9 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -94,7 +94,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4023</span>
                 <span className='font-semibold '>Entregar até 18:00</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>2 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>2 min</button>
             </div>
 
           </div>
