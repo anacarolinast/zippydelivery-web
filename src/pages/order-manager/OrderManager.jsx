@@ -8,7 +8,7 @@ import mastercardLogo from "../../assets/img/mastercard.png";
 function OrderManagerPage() {
   let navigate = useNavigate()
   return (
-    <div className='flex h-full pt-16 mt-3 bg-gray-200'>
+    <div className='flex h-full pt-16 mt-3 bg-gray-100'>
       <div className='relative flex flex-col  bg-gray-100 w-80 min-w-[20rem] shadow-md overflow-y-auto overflow'>
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />
@@ -201,7 +201,7 @@ function OrderManagerPage() {
         </div>
 
         <div className='flex gap-3 ml-auto'>
-            <button onClick={() => { navigate('') }} className='flex items-center secondary-button px-10 '>
+            <button onClick={() => { navigate('') }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10 '>
               Rejeitar
             </button>
             <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-10'>
