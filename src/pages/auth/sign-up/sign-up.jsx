@@ -31,7 +31,8 @@ function SignUpPage() {
       {/* Lado direito do login */}
       <div className='flex h-[90%] sm:h-full w-full sm:w-1/2 items-start sm:items-center justify-center'>
         <div className='flex w-full sm:w-[30rem] flex-col  gap-8 px-12 py-16 rounded-md shadow-xl bg-white'>
-          <span className='text-3xl font-semibold mx-auto'>Cadastre-se</span>
+          <span className='text-3xl font-semibold mx-auto'>
+            Cadastre-se</span>
           
           {/* Campos */}
           <div className='flex flex-col gap-6'>
@@ -55,7 +56,7 @@ function SignUpPage() {
 
           {/* Botões */}
           <div className='flex flex-col gap-2'>
-            <button onClick={() => { navigate('/confirm-email') }} className='primary-button'>Cadastrar</button>
+            <button onClick={() => { navigate('/init') }} className='primary-button'>Cadastrar</button>
             <button onClick={() => { navigate('/') }} className='outline-button'>Fazer login</button>
           </div>
         </div>
