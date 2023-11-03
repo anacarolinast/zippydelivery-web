@@ -34,7 +34,7 @@
   }
 
   .primary-button {
-    @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+    @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-normal hover:bg-opacity-80 transition-all;
   }
 
   .secondary-button {
@@ -56,4 +56,12 @@
   background-color: black;
   position: absolute;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.tb-400 {
+  width: 400px;
+}
+
+.tb-150 {
+  width: 150px;
 }
