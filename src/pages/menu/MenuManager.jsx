@@ -13,17 +13,17 @@ export default function MenuManagerPage() {
   const produtos = [1, 2, 3]
 
   useEffect(() => {
-    axios.get(utilService.getURlAPICategory())
+    axios.get(utilService.getURlAPI())
       .then((response) => {
         setCategories(response.data)
       })
   }, []);
 
   async function remove(id) {
-    await axios.delete(utilService.getURlAPICategory() + '/' + id)
+    await axios.delete(`${utilService.getURlAPI()}/categoriaproduto/${id}`)
       .then((response) => {
         console.log('Categoria removida com sucesso.')
-        axios.get(utilService.getURlAPICategory())
+        axios.get(utilService.getURlAPI())
           .then((response) => {
             setCategories(response.data)
           })
@@ -73,7 +73,7 @@ export default function MenuManagerPage() {
               <button className='flex items-center primary-button rounded-md rounded-r-none px-3  min-w-max max-h-10'>
                 Status da Venda
               </button>
-              <button className='flex items-center primary-secundary rounded-md rounded-l-none px-3 bg-gray-200 text-gray-500 min-w-max max-h-10'>
+              <button className='flex items-center text-sm rounded-md rounded-l-none px-3 bg-gray-200 text-gray-500 min-w-max max-h-10'>
                 Preço e Estoque
               </button>
             </div>
