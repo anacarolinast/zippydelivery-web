@@ -14,7 +14,7 @@ export default function CategoryEditPage() {
 
   useEffect(() => {
     if (state !== null && state.id !== null) {
-      axios.get(utilService.getURlAPI() + '/' + state.id)
+      axios.get(`${utilService.getURlAPI()}/categoriaproduto/${state.id}`)
         .then((response) => {
           setCategoryId(response.data.id)
           setDescricao(response.data.descricao)
@@ -29,7 +29,7 @@ export default function CategoryEditPage() {
     }
 
     if (categoryId === undefined) {
-      axios.post(utilService.getURlAPI(), productCategoryRequest)
+      axios.post(`${utilService.getURlAPI()}/categoriaproduto`, productCategoryRequest)
         .then(response => {
           console.log('Categoria criada com sucesso:', response.data);
           navigate('/menu-manager');

@@ -13,7 +13,7 @@ export default function MenuManagerPage() {
   const produtos = [1, 2, 3]
 
   useEffect(() => {
-    axios.get(utilService.getURlAPI())
+    axios.get(`${utilService.getURlAPI()}/categoriaproduto`)
       .then((response) => {
         setCategories(response.data)
       })
@@ -23,7 +23,7 @@ export default function MenuManagerPage() {
     await axios.delete(`${utilService.getURlAPI()}/categoriaproduto/${id}`)
       .then((response) => {
         console.log('Categoria removida com sucesso.')
-        axios.get(utilService.getURlAPI())
+        axios.get(`${utilService.getURlAPI()}/categoriaproduto`)
           .then((response) => {
             setCategories(response.data)
           })
