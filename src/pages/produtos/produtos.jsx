@@ -1,3 +1,5 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable no-unused-expressions */
 /*
   This example requires some changes to your config:
   
@@ -14,101 +16,198 @@
 */
 import { useState } from 'react'
 import { PhotoIcon } from '@heroicons/react/20/solid'
-import { Switch } from '@headlessui/react'
+//import { Switch } from '@headlessui/react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { initializeApp } from 'firebase/app';
+import { getStorage } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+//import firebase from 'firebase/app';
+import 'firebase/storage';
 //import ModalComponent from '../components/modal'
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+
+//function classNames(...classes) {
+ //   return classes.filter(Boolean).join(' ')
+//}
+const firebaseConfig = {
+    apiKey: "AIzaSyDY72wgzF5fnN02_KGsb1ThQ8hpLk622gQ",
+    authDomain: "zippydelivery-42eef.firebaseapp.com",
+    projectId: "zippydelivery-42eef",
+    storageBucket: "zippydelivery-42eef.appspot.com",
+    messagingSenderId: "1045633051089",
+    appId: "1:1045633051089:web:8f94205f197002d25d18f0",
+    measurementId: "G-99GX4VGR36"
+};
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+
+const categoriaToId = {
+    '': null,  // Mapeie a opção padrão para um valor nulo ou um valor adequado no seu servidor
+    'Entrada': 1,
+    'Prato Principal': 2,
+    'Sobremesa': 3,
+    'Bebida': 4,
+    'Outros': 5,
+  };
 
 export default function ProdutoRegister() {
-    let navigate = useNavigate()
-    const [agreed, setAgreed] = useState(false)
+    const navigate = useNavigate();
+    const [imagem, setImagem] = useState(null);
+    const [titulo, setTitulo] = useState('');
+    const [preco, setPreco] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const [descricao, setDescricao] = useState('');
+  
+   /* const handleFileChange = (e) => {
+      setImagem(e.target.files[0]);
+    };*/
+  
+    const handleUpload = async () => {
 
-    return (
-        <div className='h-fit justify-center p-44 bg-white'>
-        <div className='flex justify-between items-center p-10'>
-        <div className='flex flex-col'>
-            <span className='flex items-center gap-1 underline text-xl text-orange-100 font-bold cursor-pointer'
-            onClick={() => { navigate('/home') }} >
-                  Voltar
-            </span>
-        </div>
-          <div className='flex gap-2'>
-              <div className='mt-3 text-green-500'>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className='flex flex-col'>
-                <span className='flex items-center gap-1 text-xl font-semibold text-green-500 '>
-                  Restaurante Aberto
-                </span>
-                <span className='text-secondary'>Dentro do horário programado</span>
-              </div>
-          </div>
-      </div>
-      <div className='flex flex-col w-full h-full p-10'>
-        <span className='text-black text-3xl font-semibold'>Novo item</span>
-      </div>
-        <div className='flex flex-row pl-10 pr-10 justify-between'>
-            <div className='flex flex-col space-y'>
-                <span className='text text-black'>Nome do item</span>
-                <input className="form-input" placeholder="Ex.: Feijoada"type="text" />
-            </div>
-            <div className='flex flex-col space-y'>
-                <span className='text text-black'>Preço</span>
-                <input className="form-input" placeholder="R$ 0,00"type="text" />
-            </div>
-            <div className='flex flex-col space-y'>
-                <span className='text text-black'>Categoria</span>
-                <select
-                    id="categoria"
-                    name="categoria"
-                    className="bg-white w-full bg-transparent pl-4 !text-gray-700 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm">   
-                        <option defaultValue={''} selected>Selecione uma opção</option>
-                        <option value={"Entrada"}>Entrada</option>
-                        <option value={"Prato Principal"}>Prato Principal</option>
-                        <option value={"Sobremesa"}>Sobremesa</option>
-                        <option value={"Bebida"}>Bebida</option>
-                        <option value={"Outros"}>Outros</option>                                    
-               </select>
-            </div>
-        </div>
-        <div className='flex-1 flex-row pl-10 pr-10 justify-between p-12'>
-            <div className='flex flex-col space-y'>
-                <span className='text text-black'>Descrição</span>
-                <textarea className="form-input" placeholder="Exemplo: Filé de frango grelhado acompanhado de arroz branco, purê de batatas e farofa"type="text" />
-            </div>
-            <div className='flex pt-10'>
-                <span className='text text-black h-fit'>Foto do item</span>
-            </div>
-            <div className= "flex justify-center rounded-lg border-orange-100 border-4 border-dashed px-6 py-10">
-                <div className="text-center">
-                    <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                            <label
-                                htmlFor="file-upload"
-                                className="relative cursor-pointer rounded-md bg-white font-bold text-orange-100 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-100 focus-within:ring-offset-2 hover:text-indigo-500"
-                                >
-                                <span className='outline-button p-1'>Escolher imagem</span>
-                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                            </label>
-                            <p className="pl-2">ou arraste e solte aqui</p>
+        if (!titulo || !preco || !categoria || !descricao || !imagem) {
+            console.error('Preencha todos os campos antes de salvar.');
+            return;
+          }
+
+        
+
+          const categoryId = categoriaToId[categoria];
+          if (categoryId === null) {
+            console.error('Selecione uma categoria válida.');
+            return;
+          }
+      
+          const storageRef = ref(storage, `images/${imagem.name}`); // Use .child() para criar a referência
+          await uploadBytes(storageRef, imagem);
+    
+        const imageUrl = await getDownloadURL(storageRef);
+  
+      const imageData = {
+        titulo,
+        preco,
+        categoria: categoryId,
+        descricao,
+        imagem: imageUrl,
+      };
+  
+      try {
+        const response = await axios.post('http://localhost:8080/api/produto', imageData);
+        console.log('Imagem enviada com sucesso:', response.data);
+      } catch (error) {
+        console.error('Erro ao enviar imagem:', error);
+      }
+    };
+        return (
+            <div className='h-fit justify-center p-44 bg-white'>
+                <div className='flex justify-between items-center p-10'>
+                    <div className='flex flex-col'>
+                        <span className='flex items-center gap-1 underline text-xl text-orange-100 font-bold cursor-pointer'
+                            onClick={() => { navigate('/home') }} >
+                            Voltar
+                        </span>
+                    </div>
+                    <div className='flex gap-2'>
+                        <div className='mt-3 text-green-500'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
+                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                            </svg>
                         </div>
-                            <p className="text-xs leading-5 py-1 text-light-700">PNG, JPG, GIF up to 10MB</p>
-            </div>
-            </div>
-            <div className='flex justify-center '>           
-                <button onClick={() => { navigate('') }} className='flex items-center primary-button px-20 mt-12'>
-                    Salvar
-                </button>
-            </div>
-            </div>
+                        <div className='flex flex-col'>
+                            <span className='flex items-center gap-1 text-xl font-semibold text-green-500 '>
+                                Restaurante Aberto
+                            </span>
+                            <span className='text-secondary'>Dentro do horário programado</span>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex flex-col w-full h-full p-10'>
+                    <span className='text-black text-3xl font-semibold'>Novo item</span>
+                </div>
+                <div className='flex flex-row pl-10 pr-10 justify-between'>
 
-        </div>
-    )
+                    <div className='flex flex-col space-y'>
+                        <span className='text text-black'>Nome do item</span>
+                        <input className="form-input"
+                            placeholder="Ex.: Feijoada"
+                            type="text"
+                            value={titulo}
+                            onChange={(e) => setTitulo(e.target.value)} />
+                    </div>
+
+                    <div className='flex flex-col space-y'>
+                        <span className='text text-black'>Preço</span>
+                        <input className="form-input"
+                            placeholder="R$ 0,00"
+                            type="text"
+                            value={preco}
+                            onChange={(e) => setPreco(e.target.value)} />
+                    </div>
+
+                    <div className='flex flex-col space-y'>
+                        <span className='text text-black'>Categoria</span>
+                        <select
+                            id="categoria"
+                            name="categoria"
+                            value={categoria}
+                            onChange={(e) => setCategoria(e.target.value)}
+                            className="bg-white w-full bg-transparent pl-4 !text-gray-700 focus:ring-2 focus:ring-inset focus:ring-orange-100 sm:text-sm">
+                            <option defaultValue={''} selected>Selecione uma opção</option>
+                            <option value={"Entrada"}>Entrada</option>
+                            <option value={"Prato Principal"}>Prato Principal</option>
+                            <option value={"Sobremesa"}>Sobremesa</option>
+                            <option value={"Bebida"}>Bebida</option>
+                            <option value={"Outros"}>Outros</option>
+                        </select>
+                    </div>
+                </div>
+                <div className='flex-1 flex-row pl-10 pr-10 justify-between p-12'>
+                    <div className='flex flex-col space-y'>
+                        <span className='text text-black'>Descrição</span>
+                        <textarea className="form-input"
+                            placeholder="Exemplo: Filé de frango grelhado acompanhado de arroz branco, purê de batatas e farofa"
+                            type="text"
+                            value={descricao}
+                            onChange={(e) => setDescricao(e.target.value)} />
+                    </div>
+                    <div className='flex pt-10'>
+                        <span className='text text-black h-fit'>Foto do item</span>
+                    </div>
+                    <div className="flex justify-center rounded-lg border-orange-100 border-4 border-dashed px-6 py-10">
+                        <div className="text-center">
+                            <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                                <label
+                                    htmlFor="file-upload"
+                                    className="relative cursor-pointer rounded-md bg-white font-bold text-orange-100 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-100 focus-within:ring-offset-2 hover:text-indigo-500"
+                                >
+                                    <span className='outline-button p-1'>Escolher imagem</span>
+                                    <input id="file-upload" 
+                                    name="file-upload" 
+                                    type="file" 
+                                    className="sr-only"
+                                    
+                            onChange={(e) => setImagem(e.target.files[0])} />
+                                </label>
+                                <p className="pl-2">ou arraste e solte aqui</p>
+                            </div>
+                            <p className="text-xs leading-5 py-1 text-light-700">PNG, JPG, GIF up to 10MB</p>
+                        </div>
+                    </div>
+                    <div className='flex justify-center '>
+                        <button onClick=
+                        {handleUpload}
+                        className='flex items-center primary-button px-20 mt-12'>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        )
+}
         {/* // <div className="bg-gray-200 px-6 py-24 sm:py-32 lg:px-8 flex justify-center items-center">
         //     <div className="hover:border border-orange-100 mt-6 md:max-w-xl md:rounded-xl md:shadow-lg md:mt-0 p-10">
         //     <div className="mx-auto max-w-2xl text-center">
@@ -276,4 +375,5 @@ export default function ProdutoRegister() {
         //     </div>
         // </div> */}
 
-}
+    
+
