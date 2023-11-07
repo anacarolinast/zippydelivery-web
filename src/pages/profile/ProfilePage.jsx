@@ -6,7 +6,49 @@ import pixLogo from '../../assets/img/pix.png';
 import visaLogo from '../../assets/img/visa.png';
 import profileService from './profileService';
 
+import { storage } from '../../firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import moment from 'moment/moment';
+
+import ImageUploading from 'react-images-uploading';
+
 function ProfilePage() {
+  
+
+  
+
+  {/* para mudar nome do arquivo (futuro)
+  function generateRandomFilename() {
+    const randomString = generateRandomString(6);
+    const currentTimestamp = moment(new Date()).format(
+      'MM_DD_YYYY_h_mm_ss_SSS',
+    );
+    const randomNumber = Math.floor(Math.random() * 1000000);
+    const fileExtension = '';
+    const generatedRandomFilename =
+      randomString +
+      '_' +
+      currentTimestamp +
+      '_' +
+      randomNumber +
+      fileExtension;
+    return generatedRandomFilename;
+  }
+
+  function generateRandomString(stringLength) {
+    let result = '';
+    const alphaNumericCharacters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const alphabetsLength = alphaNumericCharacters.length;
+    for (let i = 0; i < stringLength; i++) {
+      result += alphaNumericCharacters.charAt(
+        Math.floor(Math.random() * alphabetsLength),
+      );
+    }
+    return result;
+  }
+   */}
+
   const [idEmpresa, setIdEmpresa] = useState(0);
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -16,7 +58,13 @@ function ProfilePage() {
   const [tempoEntrega, setTempoEntrega] = useState('');
   const [taxaFrete, setTaxaFrete] = useState('');
   const [telefone, setTelefone] = useState('');
+
+  // para mostrar na página
+  const [profileImage, setProfileImage] = React.useState([]);
+  // para mandar a url de download pro banco
+  const [imgBanner, setImgBanner] = useState(null);
   const [imgPerfil, setImgPerfil] = useState('');
+
   const [imgCapa, setImgCapa] = useState('');
   const [logradouro, setLogradouro] = useState('');
   const [bairro, setBairro] = useState('');
@@ -53,8 +101,8 @@ function ProfilePage() {
   }, [state]);
 
   function deleteEmpresa() {
-    debugger
-    profileService.deleteEmpresa(idEmpresa)
+    debugger;
+    profileService.deleteEmpresa(idEmpresa);
   }
 
   function onSubmit() {
@@ -81,54 +129,126 @@ function ProfilePage() {
     console.log(result);
   }
 
+  const maxNumber = 69;
+
+  const onChangeProfileImage = (imageList, addUpdateIndex) => {
+    debugger;
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    console.log(imageList[0].file);
+    setProfileImage(imageList[0]);
+    handleSubmit(imageList[0], true)
+  };
+
+  function handleSubmit(image, isProfileImage) {
+    debugger;
+    const file = image['file'];
+
+    if (!file) return;
+
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+        );
+        //setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          if (isProfileImage) {
+            setImgPerfil(downloadURL);
+          } else {
+            setImgBanner(downloadURL)
+          }
+        });
+      },
+    );
+  };
+
   return (
     <div className="flex h-full justify-center pt-44 px-16 bg-white">
       <div className="w-full h-28 max-w-5xl">
         {/* Images Session */}
-        <div>
-          <div className="p-1 flex justify-end bg-gray-100 w-full h-48 rounded-md">
-            <span className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all">
-              <svg
-                className="w-6 h-6 cursor-pointer "
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
+        <ImageUploading
+          value={profileImage}
+          onChange={onChangeProfileImage}
+          maxNumber={maxNumber}
+          dataURLKey="data_url"
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps,
+          }) => (
+            <div>
+              <div className="p-1 flex justify-end bg-gray-100 w-full h-48 rounded-md">
+                <span className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all">
+                  <svg
+                    className="w-6 h-6 cursor-pointer "
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div onClick={onImageUpload}
+                className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2 overflow-hidden"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                />
-              </svg>
-            </span>
-          </div>
-          <div className="cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2">
-            <svg
-              className="w-8 h-8"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-              />
-            </svg>
-          </div>
-          <button
-            onClick={() => {
-              navigate('');
-            }}
-            className="flex items-center primary-button px-20 ml-auto -mt-12"
-          >
-            Salvar
-          </button>
-        </div>
+                
+                {/*{profileImage['data_url'] ?*/}
+                {imgPerfil ?
+                  <div className=" flex items-center justify-center">
+                    {/*<img src={profileImage['data_url']} className="object-cover" alt="" width="100" />*/}
+                    <img src={imgPerfil} className="object-cover" alt="" width="100" />
+                    <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full items-center justify-center">
+                      New Image
+                    </div>
+                  </div>
+                 : 
+                  <svg
+                    className="w-8 h-8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                    />
+                  </svg>
+                }
+              </div>
+              <button
+                type="submit"
+                className="flex items-center primary-button px-20 ml-auto -mt-12"
+              >
+                Salvar
+              </button>
+            </div>
+          )}
+        </ImageUploading>
         {/* Session End */}
 
         {/* Form Session */}
@@ -392,7 +512,10 @@ function ProfilePage() {
                 <span>A remoção da empresa é irreversível</span>
               </div>
               <div className="flex justify-end">
-                <button onClick={deleteEmpresa} className="primary-button px-6 bg-red-600">
+                <button
+                  onClick={deleteEmpresa}
+                  className="primary-button px-6 bg-red-600"
+                >
                   Deletar Empresa
                 </button>
               </div>
