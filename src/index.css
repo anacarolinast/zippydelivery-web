@@ -5,7 +5,7 @@
 @layer components {
 
   .input-label {
-    @apply font-semibold text-gray-600
+    @apply font-semibold text-gray-500
   }
 
   .input {
@@ -46,7 +46,7 @@
   }
 
   .outline-button {
-    @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all;
+    @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all text-gray-600;
   }
 }
 
