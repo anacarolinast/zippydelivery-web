@@ -1,13 +1,38 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
 function CategoryEditPage() {
-  let navigate = useNavigate()
+  const navigate = useNavigate();
+  const [descricaos, setDescricaos] = useState('');
+
+
+
+  const clearForm = () => {
+    setDescricaos('');
+  };
+
+  const salvaCategoria = async () => {
+
+    const dataCat = {
+      descricaos,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/categoriaproduto', dataCat);
+      console.log('Descrição salva com sucesso:', response.data);
+    } catch (error) {
+      console.error('erro ao salvar descrição:', error);
+    }
+    clearForm();
+
+  };
+
   return (
     <div className='flex h-full justify-center pt-44 px-16 bg-white'>
       <div className='w-full h-28 max-w-5xl'>
-        
+
 
         {/* Form Session */}
         <div className='flex flex-col gap-10 w-full pb-44'>
@@ -24,22 +49,29 @@ function CategoryEditPage() {
               <div className="flex gap-4">
                 <div className='flex flex-col w-full gap-1'>
                   <span>Nome</span>
-                  <input placeholder='Nome da sua categoria' className='form-input' type="text" />
+                  <input placeholder='Nome da sua categoria'
+                    className='form-input'
+                    type="text"
+                    value={descricaos}
+                    onChange={(e) => setDescricaos(e.target.value)} />
                 </div>
               </div>
             </div>
-            
+
             {/* Session End */}
           </div>
           {/* Session End */}
 
-          
+
           {/* Session End */}
           <div className='flex gap-3 ml-auto'>
             <button onClick={() => { navigate('/menu-manager') }} className='flex items-center secondary-button px-20 '>
               Cancelar
             </button>
-            <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-20'>
+            <button
+              onClick=
+              {salvaCategoria}
+              className=' flex items-center primary-button px-20'>
               Criar Categoria
             </button>
 
