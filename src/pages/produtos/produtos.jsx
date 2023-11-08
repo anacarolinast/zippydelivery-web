@@ -25,23 +25,13 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 //import firebase from 'firebase/app';
 import 'firebase/storage';
+import { storage } from '../../firebase';
 //import ModalComponent from '../components/modal'
 
 
 //function classNames(...classes) {
  //   return classes.filter(Boolean).join(' ')
 //}
-const firebaseConfig = {
-    apiKey: "AIzaSyDY72wgzF5fnN02_KGsb1ThQ8hpLk622gQ",
-    authDomain: "zippydelivery-42eef.firebaseapp.com",
-    projectId: "zippydelivery-42eef",
-    storageBucket: "zippydelivery-42eef.appspot.com",
-    messagingSenderId: "1045633051089",
-    appId: "1:1045633051089:web:8f94205f197002d25d18f0",
-    measurementId: "G-99GX4VGR36"
-};
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
 
 
 const categoriaToId = {
