@@ -64,7 +64,13 @@ export default function ProdutoRegister() {
    /* const handleFileChange = (e) => {
       setImagem(e.target.files[0]);
     };*/
-  
+    const clearForm = () => {
+        setImagem(null);
+        setTitulo('');
+        setPreco('');
+        setCategoria('');
+        setDescricao('');
+    };
     const handleUpload = async () => {
 
         if (!titulo || !preco || !categoria || !descricao || !imagem) {
@@ -99,6 +105,8 @@ export default function ProdutoRegister() {
       } catch (error) {
         console.error('Erro ao enviar imagem:', error);
       }
+      clearForm();
+
     };
         return (
             <div className='h-fit justify-center p-44 bg-white'>
