@@ -15,7 +15,7 @@ function SignUpPage() {
       <div className="flex gap-5 items-center w-1/2  h-full bg-orange-100 justify-center ">
         {/* Logo Branca */}
         <div className='flex flex-col text-white items-center mb-14'>
-          <img className='scale-75 -mb-14 ' src={zippy} alt="" />
+          <img className='scale-75 -mb-14 animate-fade-right animate-once animate-duration-[1000ms] animate-ease-out animate-normal animate-fill-both ' src={zippy} alt="" />
           <div className='flex items-center gap-3 z-50'>
             <div className="w-6 h-6 relative">
               <div className="hexagon !bg-white"></div>
