@@ -1,27 +1,35 @@
 
 //import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function OrderHistoryPage(){
-    //let navigate = useNavigate()
-    const [id, setId] = useState([]);
-    const [statusPedido, setStatusPedido] = useState(false);
-    const [dataHora, setDataHora] = useState();
-    const [valorTotal, setValorTotal] = useState();
-    
 
+export default function OrderHistoryPage() {
+    const [lista, setLista] = useState([]);
 
     useEffect(() => {
         carregarLista();
-    }, [])
+    }, []);
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+            return ''
+        };
+
+        //let arrayData = dataParam.split('-');
+        return dataParam[2] + '/' + dataParam[1] + '/' + dataParam[0] +'  h'+ dataParam[3] +':'+ dataParam[4]
+    }
 
     function carregarLista() {
-
         axios.get("http://localhost:8080/api/pedido")
             .then((response) => {
-                console.log(response.data)
-                setLista(response.data)
+                console.log(response.data);
+                setLista(response.data);
             })
-
+            .catch((error) => {
+                console.error('Erro ao buscar dados:', error);
+            });
+    }
     return(
         <div className='h-fit justify-center p-44 bg-light-300'>
             <div className='flex flex-col gap-5 mx-auto max-w-5xl pb-44'>
@@ -81,7 +89,7 @@ export default function OrderHistoryPage(){
                                     Status
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Data
+                                    Data / Hora
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Valor
@@ -92,16 +100,16 @@ export default function OrderHistoryPage(){
                         {lista.map(pedido => (
                         <tr key={pedido.id} class="bg-white border-b ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            pedido.id
+                            #{pedido.id}
                             </th>
                             <td class="px-6 py-4">
-                                pedido.statusPedido
+                                {pedido.statusPedido}
                             </td>
                             <td class="px-6 py-4">
-                                pedido.dataHora
+                                {formatarData(pedido.dataHora)}
                             </td>
                             <td class="px-6 py-4">
-                               pedido.valorTotal
+                               {pedido.valorTotal}
                             </td>
                         </tr>
                         ))}
@@ -113,5 +121,5 @@ export default function OrderHistoryPage(){
     )
 
                         }
-                    }
+                    
 
