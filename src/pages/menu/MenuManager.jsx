@@ -8,7 +8,10 @@ export default function MenuManagerPage() {
   let navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState([]);
   const [produtosCategoria, setProdutosCategoria] = useState([]);
+  const [produtoSearch, setProdutoSearch] = useState([]);
   const produtos = [1, 2, 3];
 
   useEffect(() => {
@@ -21,11 +24,22 @@ export default function MenuManagerPage() {
       });
 
     axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-      debugger;
       let produtos = response.data;
 
       // Distribuir produtos e suas devidas categorias
       setCategories(
+        categorias
+          .map((category) => ({
+            id: category?.id,
+            descricao: category?.descricao,
+            produtos: produtos.filter(
+              (produto) => produto.categoria?.id == category?.id,
+            ),
+          }))
+          .filter((category) => category.id != null),
+      );
+
+      setAllCategories(
         categorias
           .map((category) => ({
             id: category?.id,
@@ -69,7 +83,6 @@ export default function MenuManagerPage() {
           });
 
         axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-          debugger;
           let produtos = response.data;
 
           // Distribuir produtos e suas devidas categorias
@@ -89,6 +102,44 @@ export default function MenuManagerPage() {
       .catch((error) => {
         console.log('Erro ao remover categoria: ', error.response);
       });
+  }
+
+  function handleChangeCategory(event) {
+    setCategoryFilter({ value: event.target.value });
+    filterCategory(event.target.value);
+  }
+
+  function filterCategory(filteredCategory) {
+    if (filteredCategory == 0) setCategories(allCategories);
+    else
+      setCategories(
+        allCategories.filter(
+          (category) => category.descricao == filteredCategory,
+        ),
+      );
+  }
+
+  function handleChangeProduct(event) {
+    setProdutoSearch(event.target.value);
+    filterProduct(event.target.value);
+  }
+
+  function filterProduct(search) {
+    if (search == null) setCategories(allCategories);
+    else
+      setCategories(
+        allCategories.map((category) => {
+          return {
+            id: category?.id,
+            descricao: category?.descricao,
+            produtos: category.produtos.filter((produto) =>
+              produto.titulo.toLowerCase().includes(search.toLowerCase()),
+            ),
+          };
+
+          //if (category == [] || category.produtos == []) return
+        }),
+      );
   }
 
   return (
@@ -162,15 +213,22 @@ export default function MenuManagerPage() {
               </button>
             </div>
             <input
+              value={produtoSearch}
+              onChange={handleChangeProduct}
               className="form-input w-3/4"
               placeholder="Busque pelo nome do item"
               type="text"
             />
-            <input
+            <select
               className="form-input w-1/4"
-              placeholder="Categoria selecionada"
-              type="text"
-            />
+              value={categoryFilter.value}
+              onChange={handleChangeCategory}
+            >
+              <option value={0}>Selecione a categoria</option>
+              {allCategories.map((category) => (
+                <option value={category.descricao}>{category.descricao}</option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -281,7 +339,10 @@ export default function MenuManagerPage() {
                                   </svg>
                                 </Link>
                               </div>
-                              <div onClick={() => removeProduto(produto.id)} className="flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors">
+                              <div
+                                onClick={() => removeProduto(produto.id)}
+                                className="flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
