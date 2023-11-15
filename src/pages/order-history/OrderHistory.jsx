@@ -1,8 +1,35 @@
 
-import { useNavigate } from "react-router-dom"
+//import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function OrderHistoryPage(){
-    let navigate = useNavigate()
+
+export default function OrderHistoryPage() {
+    const [lista, setLista] = useState([]);
+
+    useEffect(() => {
+        carregarLista();
+    }, []);
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+            return ''
+        };
+
+        //let arrayData = dataParam.split('-');
+        return dataParam[2] + '/' + dataParam[1] + '/' + dataParam[0] +'  h'+ dataParam[3] +':'+ dataParam[4]
+    }
+
+    function carregarLista() {
+        axios.get("http://localhost:8090/api/pedido")
+            .then((response) => {
+                console.log(response.data);
+                setLista(response.data);
+            })
+            .catch((error) => {
+                console.error('Erro ao buscar dados:', error);
+            });
+    }
     return(
         <div className='h-fit justify-center p-44 bg-light-300'>
             <div className='flex flex-col gap-5 mx-auto max-w-5xl pb-44'>
@@ -62,7 +89,7 @@ export default function OrderHistoryPage(){
                                     Status
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Data
+                                    Data / Hora
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Valor
@@ -70,223 +97,28 @@ export default function OrderHistoryPage(){
                             </tr>
                         </thead>
                         <tbody>
-                        <tr class="bg-white border-b ">
+                        {lista.map(pedido => (
+                        <tr key={pedido.id} class="bg-white border-b ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
+                            #{pedido.id}
                             </th>
                             <td class="px-6 py-4">
-                                Concluído
+                                {pedido.statusPedido}
                             </td>
                             <td class="px-6 py-4">
-                                24/10/2023 
+                                {formatarData(pedido.dataHora)}
                             </td>
                             <td class="px-6 py-4">
-                                R$39,99
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                            R$39,99 
+                               {pedido.valorTotal}
                             </td>
                         </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                        </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                        </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b ">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                #4020
-                            </th>
-                            <td class="px-6 py-4">
-                                Concluído
-                            </td>
-                            <td class="px-6 py-4">
-                                24/10/2023 
-                            </td>
-                            <td class="px-6 py-4">
-                                R$39,99 
-                            </td>
-                        </tr>
-                        
+                        ))}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     )
-}
 
-
+                        }
+                    
