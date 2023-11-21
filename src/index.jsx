@@ -1,25 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 // Pages
-import LoginPage from './pages/auth/login/login';
-import SignUpPage from './pages/auth/sign-up/sign-up';
-import ErrorPage from './pages/errors/ErrorPage';
 import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
+import LoginPage from './pages/auth/login/login';
+import SignUpPage from './pages/auth/sign-up/sign-up';
+import NossosClientesDetails from './pages/clientes-details/NossosClientesDetails';
+import NossosClientes from './pages/clientes/NossosClientes';
+import ErrorPage from './pages/errors/ErrorPage';
+import HomeAdm from './pages/home/HomeAdm';
 import HomePage from './pages/home/HomePage';
+import InitialPage from './pages/init/InitialPage';
+import CategoryEditPage from './pages/menu/CategoryEdit';
+import MenuManagerPage from './pages/menu/MenuManager';
+import OrderHistoryPage from './pages/order-history/OrderHistory';
+import OrderManagerPage from './pages/order-manager/OrderManager';
 import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
-import MenuManagerPage from './pages/menu/MenuManager';
-import CategoryEditPage from './pages/menu/CategoryEdit';
-import OrderManagerPage from './pages/order-manager/OrderManager';
-import InitialPage from './pages/init/InitialPage';
-import OrderHistoryPage from './pages/order-history/OrderHistory';
-
-
+import EmpresasParceiras from './pages/empresas/EmpresasParceiras';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +77,23 @@ const router = createBrowserRouter([
         path: "order-history",
         element: <OrderHistoryPage />
       },
+      {
+        path: "home-adm",
+        element: <HomeAdm />
+      },
+      {
+        path: "nossos-clientes",
+        element: <NossosClientes />
+      },
+      {
+        path: "nossos-clientesDetalhes",
+        element: <NossosClientesDetails />
+      },
+      {
+        path: "nossos-parceiros",
+        element: <EmpresasParceiras/>
+      },
+     
     ]
   },
 ])
