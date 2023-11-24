@@ -37,6 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "confirm-email",
+        
         element: <ConfirmEmailPage />
       },
       {
