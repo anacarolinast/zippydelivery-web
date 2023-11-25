@@ -18,7 +18,7 @@ import CategoryEditPage from './pages/menu/CategoryEdit';
 import OrderManagerPage from './pages/order-manager/OrderManager';
 import InitialPage from './pages/init/InitialPage';
 import OrderHistoryPage from './pages/order-history/OrderHistory';
-
+import { ProtectedRoute } from './pages/util/ProtectedRoute';
 
 
 const router = createBrowserRouter([
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "confirm-email",
-        
+
         element: <ConfirmEmailPage />
       },
       {
@@ -46,35 +46,37 @@ const router = createBrowserRouter([
       },
       {
         path: "home",
-        element: <HomePage />
+        element: <ProtectedRoute>
+          <HomePage />
+          </ProtectedRoute>
       },
       {
         path: "produto",
-        element: <ProdutoRegister />
+        element: <ProtectedRoute><ProdutoRegister /></ProtectedRoute>
       },
       {
         path: "profile",
-        element: <ProfilePage />
+        element: <ProtectedRoute><ProfilePage /></ProtectedRoute>
       },
       {
         path: "menu-manager",
-        element: <MenuManagerPage />
+        element: <ProtectedRoute><MenuManagerPage /></ProtectedRoute>
       },
       {
         path: "category-edit",
-        element: <CategoryEditPage />
+        element: <ProtectedRoute><CategoryEditPage /></ProtectedRoute>
       },
       {
         path: "order-manager",
-        element: <OrderManagerPage />
+        element: <ProtectedRoute><OrderManagerPage /></ProtectedRoute>
       },
       {
         path: "init",
-        element: <InitialPage />
+        element: <ProtectedRoute><InitialPage /></ProtectedRoute>
       },
       {
         path: "order-history",
-        element: <OrderHistoryPage />
+        element: <ProtectedRoute><OrderHistoryPage /></ProtectedRoute>
       },
     ]
   },

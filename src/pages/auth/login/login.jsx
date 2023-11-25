@@ -1,11 +1,41 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import LogoComponent from '../../components/logoComponent';
+//import LogoComponent from '../../components/logoComponent';
 import zippy from '../../../assets/img/zippy.png';
+import { registerSuccessfulLoginForJwt } from '../../util/AuthenticationService';
+
 
 
 function LoginPage() {
   let navigate = useNavigate()
+
+  const [username, setUsername] = useState('');
+    const [password, setpassword] = useState('');
+
+    function entrar() {
+        
+        if (username !== '' && password !== '') {
+
+            let authenticationRequest = {
+                username: username,
+                password: password,
+            }
+    
+            axios.post("http://localhost:8080/api/login", authenticationRequest)
+            .then((response) => {
+
+                registerSuccessfulLoginForJwt(response.data.token, response.data.expiration)
+                navigate("/init");
+                
+            })
+            .catch((error) => {
+
+                Error('Usuário não encontrado')
+            })
+        }
+    }
+
   return (
     <div className='flex flex-col  sm:flex-row gap-14 items-center h-full'>
       {/* Lado esquerdo do login */}
@@ -34,12 +64,20 @@ function LoginPage() {
           <div className='flex flex-col gap-6'>
             <div className='flex flex-col gap-1 text-gray-500' >
               <span className='input-label'>Email</span>
-              <input placeholder='Exemplo@exemplo.com.br' className='input ' type="text" />
+              <input placeholder='Exemplo@exemplo.com.br' 
+              className='input ' 
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)} />
             </div>
 
             <div className='flex flex-col gap-1 text-gray-500'>
               <span className='input-label'>Senha</span>
-              <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
+              <input placeholder='No mínimo 6 caracteres' 
+              className='input' 
+              type="text"
+              value={password}
+              onChange={e => setpassword(e.target.value)} /> 
               <span className='text-secondary mt-1'>Esqueceu a senha ? <span onClick={() => { navigate('reset-password') }} className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
             </div>
 
@@ -47,7 +85,7 @@ function LoginPage() {
 
           {/* Botões */}
           <div className='flex flex-col gap-2'>
-            <button onClick={() => { navigate('init') }} className='primary-button'>Entrar</button>
+            <button onClick={() => entrar()} className='primary-button'>Entrar</button>
             <button onClick={() => { navigate('sign-up') }} className='outline-button'>Criar uma conta</button>
           </div>
         </div>
