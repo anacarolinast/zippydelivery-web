@@ -75,7 +75,7 @@ function LoginPage() {
               <span className='input-label'>Senha</span>
               <input placeholder='No mínimo 6 caracteres' 
               className='input' 
-              type="text"
+              type="password"
               value={password}
               onChange={e => setpassword(e.target.value)} /> 
               <span className='text-secondary mt-1'>Esqueceu a senha ? <span onClick={() => { navigate('reset-password') }} className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
