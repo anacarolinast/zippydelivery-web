@@ -39,7 +39,15 @@ function NavBarComponent() {
           </button>
            */}
           <div className=' hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'>
-            <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+          <button onClick={() => {localStorage.clear();
+          navigate('/')}}
+          className={ location === '/'? 'text-orange-100': ''         }
+          ><svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg></button>
+            <button 
+            xmlns="http://www.w3.org/2000/svg" 
+            height="36" viewBox="0 -960 960 960" 
+            width="36">
+              <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></button>
           </div>
         </div>
       </div>
