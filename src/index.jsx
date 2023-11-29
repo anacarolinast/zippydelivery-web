@@ -25,6 +25,8 @@ import NossosClientesDetails from './admin/clientes-details/NossosClientesDetail
 import NossosClientes from './admin/clientes/NossosClientes';
 import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
 import FaturamentoPage from './admin/faturamento/Faturamento';
+import CategoriasPage from './admin/categorias/Categorias';
+import InformacoesPage from './admin/informacoes/Informacoes';
 
 const router = createBrowserRouter([
   {
@@ -99,6 +101,14 @@ const router = createBrowserRouter([
       {
         path: "adm/faturamento",
         element: <FaturamentoPage/>
+      },
+      {
+        path: "adm/categorias",
+        element: <CategoriasPage/>
+      },
+      {
+        path: "adm/informacoes",
+        element: <InformacoesPage/>
       },
      
     ]

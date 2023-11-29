@@ -22,7 +22,7 @@ function AdmNavBarComponent() {
             <button onClick={() => {   navigate('adm/nossos-clientes')        }} className={ location === '/adm/nossos-clientes'? 'text-orange-100': ''               }>Clientes</button>
             <button onClick={() => {   navigate('adm/nossos-parceiros')   }} className={ location === '/adm/nossos-parceiros'? 'text-orange-100': ''          }>Parceiros</button>
             <button onClick={() => {   navigate('adm/faturamento')  }} className={ location === '/adm/faturamento'? 'text-orange-100': ''         }>Faturamento</button>
-            <button onClick={() => {   navigate('order-history')  }} className={ location === '/order-history'? 'text-orange-100': ''         }>Informações</button>
+            <button onClick={() => {   navigate('adm/informacoes')  }} className={ location === '/adm/informacoes'? 'text-orange-100': ''         }>Informações</button>
           </div>
 
         </div>

@@ -1,15 +1,15 @@
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 export default function EmpresasParceiras() {
-
+    let navigate = useNavigate();
     return (
         <div className='h-fit justify-center p-44 bg-light-300'>
             <div className='flex w-full justify-end'>
                 <div className='flex'>
                     <div className='flex items-center primary-button font-semibold rounded-md rounded-r-none px-3  min-w-max max-h-9 text'
-                        onClick={() => { Navigate('/nossos-clientes') }} >
-                        <img src="Categoria de Loja.png" alt="" />
+                        onClick={() => { navigate('/adm/categorias') }} >
+                        <img src="/Categoria de Loja.png" alt="" />
 
                     </div>
                 </div>
