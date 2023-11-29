@@ -9,10 +9,8 @@ import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
 import LoginPage from './pages/auth/login/login';
 import SignUpPage from './pages/auth/sign-up/sign-up';
-import NossosClientesDetails from './pages/clientes-details/NossosClientesDetails';
-import NossosClientes from './pages/clientes/NossosClientes';
 import ErrorPage from './pages/errors/ErrorPage';
-import HomeAdm from './pages/home/HomeAdm';
+import HomeAdm from './admin/home/HomeAdm';
 import HomePage from './pages/home/HomePage';
 import InitialPage from './pages/init/InitialPage';
 import CategoryEditPage from './pages/menu/CategoryEdit';
@@ -21,7 +19,12 @@ import OrderHistoryPage from './pages/order-history/OrderHistory';
 import OrderManagerPage from './pages/order-manager/OrderManager';
 import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
-import EmpresasParceiras from './pages/empresas/EmpresasParceiras';
+
+// ADM
+import NossosClientesDetails from './admin/clientes-details/NossosClientesDetails';
+import NossosClientes from './admin/clientes/NossosClientes';
+import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
+import FaturamentoPage from './admin/faturamento/Faturamento';
 
 const router = createBrowserRouter([
   {
@@ -78,20 +81,24 @@ const router = createBrowserRouter([
         element: <OrderHistoryPage />
       },
       {
-        path: "home-adm",
+        path: "adm/home-adm",
         element: <HomeAdm />
       },
       {
-        path: "nossos-clientes",
+        path: "adm/nossos-clientes",
         element: <NossosClientes />
       },
       {
-        path: "nossos-clientesDetalhes",
+        path: "adm/nossos-clientesDetalhes",
         element: <NossosClientesDetails />
       },
       {
-        path: "nossos-parceiros",
+        path: "adm/nossos-parceiros",
         element: <EmpresasParceiras/>
+      },
+      {
+        path: "adm/faturamento",
+        element: <FaturamentoPage/>
       },
      
     ]

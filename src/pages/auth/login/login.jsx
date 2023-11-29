@@ -44,10 +44,11 @@ function LoginPage() {
 
           {/* Botões */}
           <div className='flex flex-col gap-1'>
-            <button onClick={() => { navigate('home-adm') }} className='primary-button font-semibold py-2'>Entrar</button>
+            <button onClick={() => { navigate('init') }} className='primary-button font-semibold py-2'>Entrar</button>
             <button onClick={() => { navigate('sign-up') }} className='outline-button'>Criar uma conta</button>
           </div>
         </div>
+      <button onClick={() => { navigate('adm/home-adm') }} className='outline-button'>ADM</button> {/*TEMPORÁRIO */}
       </div>
     </div>
   )
