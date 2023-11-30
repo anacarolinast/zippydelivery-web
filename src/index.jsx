@@ -1,25 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 // Pages
+import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
+import ResetPasswordPage from './pages/auth/actions/resetPassword';
 import LoginPage from './pages/auth/login/login';
 import SignUpPage from './pages/auth/sign-up/sign-up';
 import ErrorPage from './pages/errors/ErrorPage';
-import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
-import ResetPasswordPage from './pages/auth/actions/resetPassword';
+import HomeAdm from './admin/home/HomeAdm';
 import HomePage from './pages/home/HomePage';
+import InitialPage from './pages/init/InitialPage';
+import CategoryEditPage from './pages/menu/CategoryEdit';
+import MenuManagerPage from './pages/menu/MenuManager';
+import OrderHistoryPage from './pages/order-history/OrderHistory';
+import OrderManagerPage from './pages/order-manager/OrderManager';
 import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
-import MenuManagerPage from './pages/menu/MenuManager';
-import CategoryEditPage from './pages/menu/CategoryEdit';
-import OrderManagerPage from './pages/order-manager/OrderManager';
-import InitialPage from './pages/init/InitialPage';
-import OrderHistoryPage from './pages/order-history/OrderHistory';
 
-
+// ADM
+import NossosClientesDetails from './admin/clientes-details/NossosClientesDetails';
+import NossosClientes from './admin/clientes/NossosClientes';
+import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
+import FaturamentoPage from './admin/faturamento/Faturamento';
+import CategoriasPage from './admin/categorias/Categorias';
+import InformacoesPage from './admin/informacoes/Informacoes';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +82,35 @@ const router = createBrowserRouter([
         path: "order-history",
         element: <OrderHistoryPage />
       },
+      {
+        path: "adm/home-adm",
+        element: <HomeAdm />
+      },
+      {
+        path: "adm/nossos-clientes",
+        element: <NossosClientes />
+      },
+      {
+        path: "adm/nossos-clientesDetalhes",
+        element: <NossosClientesDetails />
+      },
+      {
+        path: "adm/nossos-parceiros",
+        element: <EmpresasParceiras/>
+      },
+      {
+        path: "adm/faturamento",
+        element: <FaturamentoPage/>
+      },
+      {
+        path: "adm/categorias",
+        element: <CategoriasPage/>
+      },
+      {
+        path: "adm/informacoes",
+        element: <InformacoesPage/>
+      },
+     
     ]
   },
 ])

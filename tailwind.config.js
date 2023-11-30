@@ -34,11 +34,15 @@ module.exports = {
         orange: {
           100: '#FF9431',
         },
+        cinza: {
+          100: '#F2F2F2',
+        },
       }
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('tailwindcss-animated')
   ],
 }
 

@@ -8,8 +8,8 @@ import mastercardLogo from "../../assets/img/mastercard.png";
 function OrderManagerPage() {
   let navigate = useNavigate()
   return (
-    <div className='flex h-full pt-16 mt-3 bg-gray-200'>
-      <div className='flex flex-col  bg-gray-100 w-80 shadow-md overflow-y-auto overflow'>
+    <div className='flex h-full pt-16 mt-3 bg-gray-100'>
+      <div className='relative flex flex-col  bg-gray-100 w-80 min-w-[20rem] shadow-md overflow-y-auto overflow'>
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />
         </span>
@@ -27,7 +27,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4020</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>0 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>0 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -35,7 +35,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -43,7 +43,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4022</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>9 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>9 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -51,7 +51,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4023</span>
                 <span className='font-semibold '>Confirme o pedido</span>
               </div>
-              <button className='bg-orange-100 text-white py-1 px-6 w-fit h-fit rounded-full'>2 min</button>
+              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>2 min</button>
             </div>
 
           </div>
@@ -70,7 +70,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Entregar até 18:30</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -78,7 +78,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4021</span>
                 <span className='font-semibold '>Entregar até 18:17</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>5 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -86,7 +86,7 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4022</span>
                 <span className='font-semibold '>Entregar até 18:10</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>9 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>9 min</button>
             </div>
 
             <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
@@ -94,13 +94,13 @@ function OrderManagerPage() {
                 <span className='font-semibold '>#4023</span>
                 <span className='font-semibold '>Entregar até 18:00</span>
               </div>
-              <button className='bg-red-600 text-white py-1 px-6 w-fit h-fit rounded-full'>2 min</button>
+              <button className='bg-red-600 text-white py-0.5 px-5 w-fit h-fit rounded-full'>2 min</button>
             </div>
 
           </div>
 
         </div>
-        <div className='flex flex-col p-0 mb-20'>
+        <div className='flex flex-col p-0 mb-24'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Concluídos</span>
             <span className='text-xl font-medium text-gray-500'>3</span>
@@ -129,6 +129,12 @@ function OrderManagerPage() {
               <span className='font-semibold '>Jamilly A.</span>
             </div>
 
+            <div className='shadow-2xl border-t fixed flex justify-end w-[18.9rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
+              <div className='flex flex-col gap-2'>
+                <span className='text-sm text-secondary font-medium'>Pedidos(100)</span>
+                <span className='text-xl font-medium'>R$ 12.231,88</span>
+              </div>
+            </div>
 
           </div>
 
@@ -156,8 +162,8 @@ function OrderManagerPage() {
           </div>
         </div>
 
-        <div className='flex flex-col w-full bg-white rounded-md overflow-hidden'>
-          <div className='bg-red-100 text-red-600 px-8 py-5 w-full'>
+        <div className='flex flex-col w-full h-fit bg-white rounded-md'>
+          <div className='bg-red-100 text-red-600 px-8 py-5 w-full rounded-t-md'>
             <div className='flex flex-col justify-between'>
               <span className='font-bold'>Pendente</span>
               <span >4 minutos para confirmar</span>
@@ -195,7 +201,7 @@ function OrderManagerPage() {
         </div>
 
         <div className='flex gap-3 ml-auto'>
-            <button onClick={() => { navigate('') }} className='flex items-center secondary-button px-10 '>
+            <button onClick={() => { navigate('') }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10 '>
               Rejeitar
             </button>
             <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-10'>
