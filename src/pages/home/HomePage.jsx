@@ -1,8 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 
 function HomePage() {
+
+  const [vendasTotais, setVendasTotais] = useState('');
+  const [faturamentoTotal, setFaturamentoTotal] = useState('');
+  const [vendaHoje, setVendaHoje] = useState('');
+  const [faturamentoMedio, setFaturamentoMedio] = useState('');
+
+  const [empresaId, setEmpresaId] = useState();
+
+  const [empresaNome, setEmpresaNome] = useState('');
+  const [empresaImgPerfil, setEmpresaImgPerfil] = useState('');
+  const [empresaDesc, setEmpresaDesc] = useState('');
+ 
+  console.log(localStorage.getItem('id'))
+  
+  useEffect(()=>{
+  axios.get('http://localhost:8080/api/empresa/findByUser/' + localStorage.getItem('id'))
+        .then(function (response) {
+          console.log(response.data)
+          setEmpresaId(response.data.id);
+          setEmpresaNome(response.data.nome);
+          setEmpresaImgPerfil(response.data.imgPerfil);
+          setEmpresaDesc(response.data.categoria.descricao);
+        }).catch(function (error) {
+          console.log(error);
+        });
+  },[])
+
+
+
+  useEffect(() => {
+
+    if (empresaId) {
+      axios.get('http://localhost:8080/api/pedido/dashboard/' + empresaId)
+        .then(function (response) {
+          console.log(response.data)
+          setVendasTotais(response.data.vendasTotais)
+          setFaturamentoTotal(response.data.fatoramentoTotal)
+          setVendaHoje(response.data.vendaHoje)
+          setFaturamentoMedio(response.data.faturamentoMedio)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [empresaId])
+
+  
+
   let navigate = useNavigate()
   return (
     <div className='h-fit justify-center p-44 bg-white'>
@@ -25,11 +74,11 @@ function HomePage() {
       <span className='text-black text-3xl font-semibold'>Olá, Zipper!</span>
       <div className='flex gap-5 border border-sky-100 p-2 justify-start'>
         <div className='flex'>
-        <img class="h-auto max-w-xs self-center rounded-full" src="restaurant.png"></img>
+        <img class=" h-fit self-center rounded-full" style={{ resizeMode: 'cover', height: 240, width: 240 }}src={empresaImgPerfil}></img>
         </div>
         <div className='flex-1 flex-col p-2'>
-          <span className='text-black text-3xl font-semibold'>Nome da Loja &gt;&gt;</span> 
-          <span className='text-orange-100 text-3xl'> Acompanhamento</span>
+          <span className='text-black text-3xl font-semibold'>{empresaNome} &gt;&gt;</span> 
+          <span className='text-orange-100 text-3xl'>{empresaDesc}</span>
           <div className='border-[0.5px] mt-2'></div>
           <div className='flex pt-2 justify-between'>
             <div className='flex flex-col space-y-2'>
@@ -47,10 +96,10 @@ function HomePage() {
               </div>
               <div className='flex flex-row gap-10 justify-between'>
                 <div className='flex'>
-                  <span className='text-black text-3x1 pl-9'>15 pedidos</span>
+                  <span className='text-black text-3x1 pl-9'>{vendaHoje} pedidos</span>
                 </div>
                 <div className='flex'>
-                  <span className='text-black selft-start'>R$ 943,98</span>
+                  <span className='text-black selft-start'>R$ {faturamentoMedio}</span>
                 </div>
               </div>
             </div>
@@ -70,10 +119,10 @@ function HomePage() {
               </div>
               <div className='flex flex-row gap-10 justify-between'>
                 <div className='flex'>
-                  <span className='text-black text-3x1 pl-9'>R$ 5.777,59</span>
+                  <span className='text-black text-3x1 pl-9'>R$ {faturamentoTotal}</span>
                 </div>
                 <div className='flex'>
-                  <span className='text-black selft-start'>165</span>
+                  <span className='text-black selft-start'>{vendasTotais}</span>
                 </div>
               </div>
             </div>

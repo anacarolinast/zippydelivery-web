@@ -26,6 +26,7 @@ function LoginPage() {
         .then((response) => {
 
           registerSuccessfulLoginForJwt(response.data.token, response.data.expiration)
+          window.localStorage.setItem('id', response.data.id)
           navigate("/init");
 
         })
