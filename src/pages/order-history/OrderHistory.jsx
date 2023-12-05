@@ -2,10 +2,13 @@
 //import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import utilService from '../../utilService';
 
 
 export default function OrderHistoryPage() {
     const [lista, setLista] = useState([]);
+    const apiUrl = utilService.getURlAPI()
+
 
     useEffect(() => {
         carregarLista();
@@ -21,7 +24,7 @@ export default function OrderHistoryPage() {
     }
 
     function carregarLista() {
-        axios.get("http://localhost:8090/api/pedido")
+        axios.get(`${apiUrl}/pedido`)
             .then((response) => {
                 console.log(response.data);
                 setLista(response.data);

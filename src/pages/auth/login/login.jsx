@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 //import LogoComponent from '../../components/logoComponent';
 import zippy from '../../../assets/img/zippy.png';
 import { registerSuccessfulLoginForJwt } from '../../util/AuthenticationService';
+import utilService from '../../../utilService';
 
 
 
@@ -12,6 +13,7 @@ function LoginPage() {
 
   const [username, setUsername] = useState('');
   const [password, setpassword] = useState('');
+  const apiUrl = utilService.getURlAPI()
 
   function entrar() {
 
@@ -22,10 +24,11 @@ function LoginPage() {
         password: password,
       }
 
-      axios.post("http://localhost:8080/api/login", authenticationRequest)
+      axios.post(`${apiUrl}/login`, authenticationRequest)
         .then((response) => {
 
           registerSuccessfulLoginForJwt(response.data.token, response.data.expiration)
+          debugger
           window.localStorage.setItem('id', response.data.id)
           navigate("/init");
 

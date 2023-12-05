@@ -1,11 +1,32 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import successImage from "../../assets/img/success_orange.png"
 import mastercardLogo from "../../assets/img/mastercard.png";
-
+import orderManagerService from './OrderManagerService';
 
 
 function OrderManagerPage() {
+
+  const { state } = useLocation();
+  const [orders, setOrders] = useState('');
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const orders = await orderManagerService.getAll()
+      if (orders.data.length > 0) {
+        setOrders(
+          {
+            inProcess: orders.data.filter(order => order.statusPedido == "Em Processamento")
+          }
+        );
+      }
+    };
+
+    getOrders()
+
+  }, [state]);
+
+
   let navigate = useNavigate()
   return (
     <div className='flex h-full pt-16 mt-3 bg-gray-100'>
@@ -13,14 +34,24 @@ function OrderManagerPage() {
         <span className='w-full p-4 mb-10'>
           <input className='w-full input-underline bg-gray-100' placeholder='Busque pelo número do pedido' type="text" />
         </span>
-        {/* Sessao */}
+        {/* Sessao PENDENTE */}
         <div className='flex flex-col p-0'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Pendente</span>
-            <span className='text-xl font-medium text-gray-500'>4</span>
+            <span className='text-xl font-medium text-gray-500'>{ orders.inProcess?.length || 0 }</span>
           </div>
 
           <div className='flex flex-col text-secondary'>
+
+            {orders.inProcess?.map(order => (
+              <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
+                <div className='flex flex-col justify-between '>
+                  <span className='font-semibold '>#{ order.id }</span>
+                  <span className='font-semibold '>Confirme o pedido</span>
+                </div>
+                <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
+              </div>
+            ))}
 
             <div className='cursor-pointer flex justify-between items-center bg-gray-300 hover:bg-gray-300 py-3 px-4  border-l-4 border-orange-100'>
               <div className='flex flex-col justify-between '>
@@ -30,33 +61,13 @@ function OrderManagerPage() {
               <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>0 min</button>
             </div>
 
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4021</span>
-                <span className='font-semibold '>Confirme o pedido</span>
-              </div>
-              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
-            </div>
-
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4022</span>
-                <span className='font-semibold '>Confirme o pedido</span>
-              </div>
-              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>9 min</button>
-            </div>
-
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4023</span>
-                <span className='font-semibold '>Confirme o pedido</span>
-              </div>
-              <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>2 min</button>
-            </div>
+            
 
           </div>
 
         </div>
+
+        {/* Sessao EM PREPARO */}
         <div className='flex flex-col p-0'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Em preparo</span>
@@ -100,6 +111,8 @@ function OrderManagerPage() {
           </div>
 
         </div>
+
+        {/* Sessao CONCLUÍDOS */}
         <div className='flex flex-col p-0 mb-24'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Concluídos</span>

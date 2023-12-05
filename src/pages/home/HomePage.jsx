@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import utilService from '../../utilService';
 
 
 function HomePage() {
@@ -17,9 +18,11 @@ function HomePage() {
   const [empresaDesc, setEmpresaDesc] = useState('');
  
   console.log(localStorage.getItem('id'))
+
+  const apiUrl = utilService.getURlAPI()
   
   useEffect(()=>{
-  axios.get('http://localhost:8080/api/empresa/findByUser/' + localStorage.getItem('id'))
+  axios.get(`${apiUrl}/empresa/findByUser/` + localStorage.getItem('id'))
         .then(function (response) {
           console.log(response.data)
           setEmpresaId(response.data.id);
@@ -36,7 +39,7 @@ function HomePage() {
   useEffect(() => {
 
     if (empresaId) {
-      axios.get('http://localhost:8080/api/pedido/dashboard/' + empresaId)
+      axios.get(`${apiUrl}/pedido/dashboard/` + empresaId)
         .then(function (response) {
           console.log(response.data)
           setVendasTotais(response.data.vendasTotais)
