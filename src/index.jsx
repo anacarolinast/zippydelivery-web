@@ -20,6 +20,18 @@ import InitialPage from './pages/init/InitialPage';
 import OrderHistoryPage from './pages/order-history/OrderHistory';
 import { ProtectedRoute } from './pages/util/ProtectedRoute';
 
+import OrderManagerPage from './pages/order-manager/OrderManager';
+import ProdutoRegister from './pages/produtos/produtos';
+import ProfilePage from './pages/profile/ProfilePage';
+
+// ADM
+import NossosClientesDetails from './admin/clientes-details/NossosClientesDetails';
+import NossosClientes from './admin/clientes/NossosClientes';
+import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
+import FaturamentoPage from './admin/faturamento/Faturamento';
+import CategoriasPage from './admin/categorias/Categorias';
+import InformacoesPage from './admin/informacoes/Informacoes';
+
 
 const router = createBrowserRouter([
   {
