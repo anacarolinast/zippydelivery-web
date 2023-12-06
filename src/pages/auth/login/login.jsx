@@ -86,7 +86,7 @@ function LoginPage() {
           {/* Botões */}
           <div className='flex flex-col gap-2'>
             <button onClick={() => entrar()} className='primary-button'>Entrar</button>
-            <button onClick={() => { navigate('/tip-food') }} className='outline-button'>Criar uma conta</button>
+            <button onClick={() => { navigate('/sign-up') }} className='outline-button'>Criar uma conta</button>
           </div>
         </div>
       </div>

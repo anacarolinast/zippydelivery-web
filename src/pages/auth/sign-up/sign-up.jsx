@@ -1,12 +1,40 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-restricted-globals */
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
 import LogoComponent from '../../components/logoComponent';
 import zippy from '../../../assets/img/zippy.png';
 
 
-
 function SignUpPage() {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+
+  const [cnpj, setCnpj] = useState();
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
+  
+
+  
+
+  function salvar() {
+    let empresaRequest = {
+      cnpj: cnpj,
+      email: email,
+      senha: senha,
+     
+    };
+    
+    axios.post("http://localhost:8080/api/empresa", empresaRequest)
+      .then((response) => {
+        console.log('Cliente cadastrado com sucesso.')
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log('Erro ao incluir o um cliente.')
+      });
+  }
+  
   
 
   return (
@@ -38,25 +66,39 @@ function SignUpPage() {
           <div className='flex flex-col gap-6'>
             <div className='flex flex-col gap-1 text-gray-500'>
               <span className='input-label'>CNPJ</span>
-              <input className='input' type="text" />
+              <input className='input' 
+              type="text" 
+              value={cnpj}
+			        onChange={e => setCnpj(e.target.value)}
+/>
             </div>
 
             <div className='flex flex-col gap-1 text-gray-500' >
               <span className='input-label'>Email</span>
-              <input placeholder='Exemplo@exemplo.com.br' className='input ' type="text" />
+              <input placeholder='Exemplo@exemplo.com.br' 
+              className='input ' 
+              type="text" 
+              value={email}
+			        onChange={e => setEmail(e.target.value)}
+/>
             </div>
 
 
             <div className='flex flex-col gap-1 text-gray-500'>
               <span className='input-label'>Senha</span>
-              <input placeholder='No mínimo 6 caracteres' className='input' type="text" />
+              <input placeholder='No mínimo 6 caracteres' 
+              className='input' 
+              type="text" 
+              value={senha}
+			        onChange={e => setSenha(e.target.value)}
+/>
             </div>
             
           </div>
 
           {/* Botões */}
           <div className='flex flex-col gap-2'>
-            <button onClick={() => { navigate('/init') }} className='primary-button'>Cadastrar</button>
+            <button onClick={() => salvar()} className='primary-button'>Cadastrar</button>
             <button onClick={() => { navigate('/') }} className='outline-button'>Fazer login</button>
           </div>
         </div>
