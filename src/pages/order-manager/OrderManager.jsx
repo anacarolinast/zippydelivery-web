@@ -14,17 +14,28 @@ function formatAddress(address) {
 }
 
 
+
+
 function OrderManagerPage() {
 
+  
   const [orders, setOrders] = useState({
     pending: [],
     inProcess: [],
     done: [],
     cancelled: [],
   });
-
+  
   const [orderSelected, setOrderSelected] = useState('');
-  //const [orderShow, setOrderShow] = useState('');
+  const [ordersSummary, setAllOrders] = useState('');
+
+  function updateOrdersSummary(orders) {
+    setAllOrders({
+      amount: orders.data.length,
+      total: orders.data.reduce((total, order) => total + order.valorTotal, 0)
+    })
+    
+  }
 
 
   var defaultClassNameOrder = "cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2"
@@ -33,7 +44,8 @@ function OrderManagerPage() {
 
   const getOrders = async () => {
     try {
-      const ordersData = await orderManagerService.getAll();
+
+      const ordersData = await orderManagerService.getAll()
       
       if (ordersData.data.length > 0) {
         setOrders({
@@ -42,6 +54,9 @@ function OrderManagerPage() {
           done: ordersData.data.filter(order => order.statusPedido === "Concluído"),
           cancelled: ordersData.data.filter(order => order.statusPedido === "Cancelado"),
         });
+
+        updateOrdersSummary(ordersData)
+
       }
     } catch (error) {
       // Handle errors appropriately
@@ -92,6 +107,8 @@ function OrderManagerPage() {
                 <button className='bg-orange-100 text-white py-0.5 px-5 w-fit h-fit rounded-full'>5 min</button>
               </div>
             ))}
+
+            
 
           </div>
 
@@ -149,10 +166,10 @@ function OrderManagerPage() {
               <span className='font-semibold '>Jamilly A.</span>
             </div>
 
-            <div className='shadow-2xl border-t fixed flex justify-end w-[19.2rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
+            <div className='shadow-2xl border-t fixed flex justify-end w-[19.05rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
               <div className='flex flex-col gap-2'>
-                <span className='text-sm text-secondary font-medium'>Pedidos(100)</span>
-                <span className='text-xl font-medium'>R$ 12.231,88</span>
+                <span className='text-sm text-secondary font-medium'>Pedidos ({ ordersSummary.amount })</span>
+                <span className='text-xl font-medium'>R$ { ordersSummary.total }</span>
               </div>
             </div>
 
@@ -212,7 +229,7 @@ function OrderManagerPage() {
                     <span className='font-bold'>{ item.qtdProduto }</span>
                     <span className='text-secondary'>{ item.produto.titulo } - { item.produto.descricao }</span>
                   </div>
-                  <span>R$ { item.produto.preco }</span>
+                  <span>R$ { item.valorUnitario }</span>
                 </div>
               ))}
               
@@ -232,15 +249,28 @@ function OrderManagerPage() {
             </div>
           </div>
 
-          <div className='flex gap-3 ml-auto'>
-            <button onClick={() => { navigate('') }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10 '>
-              Rejeitar
-            </button>
-            <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-10'>
-              Confirmar
-            </button>
+            {
+              orderSelected.statusPedido === "Pendente" ?
+              <div className='flex gap-3 ml-auto'>
+                <button onClick={() => { navigate('') }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10'>
+                  Rejeitar
+                </button>
+                <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-10'>
+                  Confirmar
+                </button>
 
-          </div>
+              </div> : <span></span>
+            }
+            {
+              orderSelected.statusPedido === "Em preparo" ?
+              <div className='flex gap-3 ml-auto'>
+                <button onClick={() => { navigate('') }} className=' flex items-center primary-button bg-green-700/80 text-white px-10'>
+                  Despachar
+                </button>
+
+              </div> : <span></span>
+            }
+          
 
         </div> : <span></span>
       }
