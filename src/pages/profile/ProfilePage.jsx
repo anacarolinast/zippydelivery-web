@@ -8,7 +8,6 @@ import profileService from './profileService';
 
 import { storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import moment from 'moment/moment';
 
 import ImageUploading from 'react-images-uploading';
 
@@ -17,37 +16,7 @@ function ProfilePage() {
 
   
 
-  {/* para mudar nome do arquivo (futuro)
-  function generateRandomFilename() {
-    const randomString = generateRandomString(6);
-    const currentTimestamp = moment(new Date()).format(
-      'MM_DD_YYYY_h_mm_ss_SSS',
-    );
-    const randomNumber = Math.floor(Math.random() * 1000000);
-    const fileExtension = '';
-    const generatedRandomFilename =
-      randomString +
-      '_' +
-      currentTimestamp +
-      '_' +
-      randomNumber +
-      fileExtension;
-    return generatedRandomFilename;
-  }
-
-  function generateRandomString(stringLength) {
-    let result = '';
-    const alphaNumericCharacters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const alphabetsLength = alphaNumericCharacters.length;
-    for (let i = 0; i < stringLength; i++) {
-      result += alphaNumericCharacters.charAt(
-        Math.floor(Math.random() * alphabetsLength),
-      );
-    }
-    return result;
-  }
-   */}
+  
 
   const [idEmpresa, setIdEmpresa] = useState(0);
   const [nome, setNome] = useState('');
@@ -71,8 +40,6 @@ function ProfilePage() {
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
-
-  let navigate = useNavigate();
 
   const { state } = useLocation();
 
@@ -501,7 +468,7 @@ function ProfilePage() {
             Salvar
           </button>
 
-          {idEmpresa == 0 ? (
+          {idEmpresa === 0 ? (
             <span></span>
           ) : (
             <div className="bg-red-50 mt-20 h-fit px-6 py-4 rounded-lg border-2 border-red-600 text-red-600">

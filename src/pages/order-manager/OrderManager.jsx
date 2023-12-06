@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import successImage from "../../assets/img/success_orange.png"
 import mastercardLogo from "../../assets/img/mastercard.png";
 import orderManagerService from './OrderManagerService';
@@ -15,8 +15,6 @@ function formatAddress(address) {
 
 
 function OrderManagerPage() {
-
-  const { state } = useLocation();
 
   const [orders, setOrders] = useState({
     pending: [],
@@ -86,7 +84,7 @@ function OrderManagerPage() {
           <div className='flex flex-col text-secondary'>
 
             {orders.pending?.map(order => (
-              <div onClick={() => { onChangeOrderSelected(order) }} className={order.id == orderSelected.id ? classNameSelectedOrder : defaultClassNameOrder}>
+              <div onClick={() => { onChangeOrderSelected(order) }} className={order.id === orderSelected.id ? classNameSelectedOrder : defaultClassNameOrder}>
                 <div className='flex flex-col justify-between '>
                   <span className='font-semibold '>#{ order.id }</span>
                   <span className='font-semibold '>Confirme o pedido</span>
@@ -109,7 +107,7 @@ function OrderManagerPage() {
 
           <div className='flex flex-col text-secondary'>
             {orders.inProcess?.map(order => (
-                <div onClick={() => { onChangeOrderSelected(order) }} className={order.id == orderSelected.id ? classNameSelectedOrder : defaultClassNameOrder}>
+                <div onClick={() => { onChangeOrderSelected(order) }} className={order.id === orderSelected.id ? classNameSelectedOrder : defaultClassNameOrder}>
                   <div className='flex flex-col justify-between '>
                     <span className='font-semibold '>#{ order.id }</span>
                     <span className='font-semibold '>Entregar até 18:30</span>
@@ -177,7 +175,7 @@ function OrderManagerPage() {
         orderSelected ?
         <div className='flex flex-col w-9/12 mx-auto mt-3 p-5 gap-10'>
           {
-            orderSelected.statusPedido == "Pendente" &&
+            orderSelected.statusPedido === "Pendente" &&
             <div className='flex gap-8 w-full bg-white rounded-md px-8 py-5 '>
               <img src={successImage} alt="react logo" />
               <div className='flex flex-col gap-3'>
