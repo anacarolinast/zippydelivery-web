@@ -5,7 +5,7 @@ const apiUrl = utilService.getURlAPI()
 
 const orderManagerService = {
 
-  editPedido: async function (body, id) { return await axios.put(`${apiUrl}/pedido/${id}`, body) },
+  updatePedido: async function (body, id) { return await axios.put(`${apiUrl}/pedido/${id}`, body) },
 
   getAll: function () { 
     return axios.get(`${apiUrl}/pedido`)
