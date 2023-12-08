@@ -5,7 +5,7 @@
 @layer components {
 
   .input-label {
-    @apply font-semibold text-gray-600
+    @apply font-semibold text-gray-500
   }
 
   .input {
@@ -34,7 +34,7 @@
   }
 
   .primary-button {
-    @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-semibold hover:bg-opacity-80 transition-all;
+    @apply bg-orange-100 text-white py-2.5 rounded-[0.25rem] font-normal hover:bg-opacity-80 transition-all;
   }
 
   .secondary-button {
@@ -46,8 +46,13 @@
   }
 
   .outline-button {
-    @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all;
+    @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all text-gray-600;
   }
+
+  .hyperlink {
+    @apply text-orange-100 underline cursor-pointer hover:opacity-60 transition-all;
+  }
+
 }
 
 .hexagon {
@@ -56,4 +61,12 @@
   background-color: black;
   position: absolute;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.tb-400 {
+  width: 400px;
+}
+
+.tb-150 {
+  width: 150px;
 }

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import LogoComponent from './logoComponent';
 
 
-function NavBarComponent() {
+function AdmNavBarComponent() {
   let navigate = useNavigate()
   let location = useLocation().pathname
   console.log(location)
@@ -18,11 +18,11 @@ function NavBarComponent() {
           </div>
 
           <div className='flex gap-12 items-center'>
-            <button onClick={() => {   navigate('home')           }} className={ location === '/home'? 'text-orange-100': ''                  }>Home</button>
-            <button onClick={() => {   navigate('profile')        }} className={ location === '/profile'? 'text-orange-100': ''               }>Perfil</button>
-            <button onClick={() => {   navigate('menu-manager')   }} className={ location === '/menu-manager'? 'text-orange-100': ''          }>Cardápio</button>
-            <button onClick={() => {   navigate('order-manager')  }} className={ location === '/order-manager'? 'text-orange-100': ''         }>Pedidos</button>
-            <button onClick={() => {   navigate('order-history')  }} className={ location === '/order-history'? 'text-orange-100': ''         }>Histórico</button>
+            <button onClick={() => {   navigate('adm/home-adm')           }} className={ location === '/adm/home-adm'? 'text-orange-100': ''                  }>Home</button>
+            <button onClick={() => {   navigate('adm/nossos-clientes')        }} className={ location === '/adm/nossos-clientes'? 'text-orange-100': ''               }>Clientes</button>
+            <button onClick={() => {   navigate('adm/nossos-parceiros')   }} className={ location === '/adm/nossos-parceiros'? 'text-orange-100': ''          }>Parceiros</button>
+            <button onClick={() => {   navigate('adm/faturamento')  }} className={ location === '/adm/faturamento'? 'text-orange-100': ''         }>Faturamento</button>
+            <button onClick={() => {   navigate('adm/informacoes')  }} className={ location === '/adm/informacoes'? 'text-orange-100': ''         }>Informações</button>
           </div>
 
         </div>
@@ -39,15 +39,7 @@ function NavBarComponent() {
           </button>
            */}
           <div className=' hover:bg-gray-200 rounded-md p-1.5 cursor-pointer'>
-          <button onClick={() => {localStorage.clear();
-          navigate('/')}}
-          className={ location === '/'? 'text-orange-100': ''         }
-          ><svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg></button>
-            <button 
-            xmlns="http://www.w3.org/2000/svg" 
-            height="36" viewBox="0 -960 960 960" 
-            width="36">
-              <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></button>
+            <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
           </div>
         </div>
       </div>
@@ -55,4 +47,4 @@ function NavBarComponent() {
   )
 }
 
-export default NavBarComponent
+export default AdmNavBarComponent
