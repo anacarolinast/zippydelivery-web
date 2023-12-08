@@ -13,9 +13,6 @@ function formatAddress(address) {
   return `${address.logradouro}, ${address.numeroEndereco}, ${address.bairro} - ${address.cidade} (${address.estado}) - CEP ${address.cep}`
 }
 
-
-
-
 function OrderManagerPage() {
 
   
