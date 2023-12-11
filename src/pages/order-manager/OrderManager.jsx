@@ -69,7 +69,7 @@ function OrderManagerPage() {
 
     const intervalId = setInterval(() => {
       getOrders();
-    }, 2000);
+    }, 6000);
 
     // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
