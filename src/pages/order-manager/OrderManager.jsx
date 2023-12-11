@@ -13,9 +13,6 @@ function formatAddress(address) {
   return `${address.logradouro}, ${address.numeroEndereco}, ${address.bairro} - ${address.cidade} (${address.estado}) - CEP ${address.cep}`
 }
 
-
-
-
 function OrderManagerPage() {
 
   
@@ -34,7 +31,12 @@ function OrderManagerPage() {
       amount: orders.data.length,
       total: orders.data.reduce((total, order) => total + order.valorTotal, 0)
     })
-    
+  }
+
+  function onChangeOrderStatus(body, type) {
+    debugger
+    body.statusPedido = type
+    orderManagerService.updatePedido(body, body.id)
   }
 
 
@@ -140,31 +142,19 @@ function OrderManagerPage() {
         <div className='flex flex-col p-0 mb-24'>
           <div className='flex justify-between items-center bg-gray-200 py-3 px-4'>
             <span className='text-xl font-medium text-gray-500'>Concluídos</span>
-            <span className='text-xl font-medium text-gray-500'>3</span>
+            <span className='text-xl font-medium text-gray-500'>{ orders.done?.length || 0 }</span>
           </div>
 
           <div className='flex flex-col text-secondary'>
 
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4020</span>
+            {orders.done?.map(order => (
+              <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
+                <div className='flex flex-col justify-between '>
+                  <span className='font-semibold '>#{ order.id }</span>
+                </div>
+                <span className='font-semibold '>{ order.cliente.nome }</span>
               </div>
-              <span className='font-semibold '>Jamilly A.</span>
-            </div>
-
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4020</span>
-              </div>
-              <span className='font-semibold '>Jamilly A.</span>
-            </div>
-
-            <div className='cursor-pointer flex justify-between items-center py-3 px-4 hover:bg-gray-300 border-b-2'>
-              <div className='flex flex-col justify-between '>
-                <span className='font-semibold '>#4020</span>
-              </div>
-              <span className='font-semibold '>Jamilly A.</span>
-            </div>
+            ))}
 
             <div className='shadow-2xl border-t fixed flex justify-end w-[19.05rem] pt-2 pb-8 px-4 bottom-0 bg-white'>
               <div className='flex flex-col gap-2'>
@@ -252,10 +242,10 @@ function OrderManagerPage() {
             {
               orderSelected.statusPedido === "Pendente" ?
               <div className='flex gap-3 ml-auto'>
-                <button onClick={() => { navigate('') }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10'>
+                <button onClick={() => { onChangeOrderStatus(orderSelected, "Cancelado") }} className='flex items-center bg-white/50 hover:bg-white/100 transition-opacity secondary-button px-10'>
                   Rejeitar
                 </button>
-                <button onClick={() => { navigate('') }} className=' flex items-center primary-button px-10'>
+                <button onClick={() => { onChangeOrderStatus(orderSelected, "Em preparo") }} className=' flex items-center primary-button px-10'>
                   Confirmar
                 </button>
 
@@ -264,7 +254,7 @@ function OrderManagerPage() {
             {
               orderSelected.statusPedido === "Em preparo" ?
               <div className='flex gap-3 ml-auto'>
-                <button onClick={() => { navigate('') }} className=' flex items-center primary-button bg-green-700/80 text-white px-10'>
+                <button onClick={() => { onChangeOrderStatus(orderSelected, "Concluído")}} className=' flex items-center primary-button bg-green-700/80 text-white px-10'>
                   Despachar
                 </button>
 
