@@ -40,7 +40,10 @@ export default function OrderHistoryPage() {
     }
 
     function onChangeForm(value, type) {
+        debugger
         setLista(listaDefault)
+        let filterInitialDate = initialDate
+        let filterFinalDate = finalDate
 
         var dateSplited = ""
 
@@ -48,26 +51,29 @@ export default function OrderHistoryPage() {
             setLista(listaDefault)
             setSearch(value)
             return
-}
+        }
 
         switch (type) {
             case "initialDate":
                 dateSplited = value.split('-')
-                var date = new Date(dateSplited[0], dateSplited[1], dateSplited[2])
+                var date = new Date(dateSplited[0], dateSplited[1] - 1, dateSplited[2])
 
+                filterInitialDate = date
 
                 setInitialDate(date)
                 break;
 
             case "finalDate":
                 dateSplited = value.split('-')
-                var date = new Date(dateSplited[0], dateSplited[1], dateSplited[2])
+                var date = new Date(dateSplited[0], dateSplited[1] - 1, dateSplited[2])
 
+
+                filterFinalDate = date
                 setFinalDate(date)
                 break;
 
             case "search":
-                debugger
+                
                 setSearch(value)
                 setLista(listaDefault.filter(item => item.id.toString().includes(value)))
                 break;
@@ -79,20 +85,23 @@ export default function OrderHistoryPage() {
         if (type === "initialDate" || type === "finalDate") {
             setLista(listaDefault.filter(item => {
                 debugger
-                let dateItem = new Date(item.dataHora[0], item.dataHora[1], item.dataHora[2])
-                if (initialDate instanceof Date && finalDate instanceof Date) {
-                    return initialDate <= dateItem <= finalDate
+                let dateItem = new Date(item.dataHora[0], item.dataHora[1] - 1, item.dataHora[2])
+
+                if (filterInitialDate instanceof Date && filterFinalDate instanceof Date) {
+                    return filterInitialDate <= dateItem && dateItem <= filterFinalDate
                 }
-                else if (initialDate.length > 0 && !finalDate.length > 0) {
-                    return  dateItem >= initialDate
+                else if (filterInitialDate instanceof Date && !filterFinalDate instanceof Date) {
+                    return  dateItem >= filterInitialDate
                 }
-                else if (finalDate.length > 0 && !initialDate.length > 0) {
-                    return  dateItem <= finalDate
+                else if (filterFinalDate instanceof Date > 0 && !filterInitialDate instanceof Date) {
+                    return  dateItem <= filterFinalDate
                 }
             }))
         }
 
     }
+
+    
 
 
     return (
