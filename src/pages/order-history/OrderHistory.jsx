@@ -40,7 +40,6 @@ export default function OrderHistoryPage() {
     }
 
     function onChangeForm(value, type) {
-        debugger
         setLista(listaDefault)
         let filterInitialDate = initialDate
         let filterFinalDate = finalDate
