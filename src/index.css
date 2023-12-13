@@ -48,6 +48,11 @@
   .outline-button {
     @apply py-2.5 rounded-[0.25rem] font-semibold hover:opacity-50 transition-all text-gray-600;
   }
+
+  .hyperlink {
+    @apply text-orange-100 underline cursor-pointer hover:opacity-60 transition-all;
+  }
+
 }
 
 .hexagon {

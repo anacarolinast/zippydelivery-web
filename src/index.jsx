@@ -4,15 +4,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import ProtectedRoute from "./pages/util/ProtectedRoute";
 // Pages
 import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
 import LoginPage from './pages/auth/login/login';
 import SignUpPage from './pages/auth/sign-up/sign-up';
-import NossosClientesDetails from './pages/clientes-details/NossosClientesDetails';
-import NossosClientes from './pages/clientes/NossosClientes';
 import ErrorPage from './pages/errors/ErrorPage';
-import HomeAdm from './pages/home/HomeAdm';
+import HomeAdm from './admin/home/HomeAdm';
 import HomePage from './pages/home/HomePage';
 import InitialPage from './pages/init/InitialPage';
 import CategoryEditPage from './pages/menu/CategoryEdit';
@@ -21,7 +20,14 @@ import OrderHistoryPage from './pages/order-history/OrderHistory';
 import OrderManagerPage from './pages/order-manager/OrderManager';
 import ProdutoRegister from './pages/produtos/produtos';
 import ProfilePage from './pages/profile/ProfilePage';
-import EmpresasParceiras from './pages/empresas/EmpresasParceiras';
+
+// ADM
+import NossosClientesDetails from './admin/clientes-details/NossosClientesDetails';
+import NossosClientes from './admin/clientes/NossosClientes';
+import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
+import FaturamentoPage from './admin/faturamento/Faturamento';
+import CategoriasPage from './admin/categorias/Categorias';
+import InformacoesPage from './admin/informacoes/Informacoes';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "confirm-email",
+
         element: <ConfirmEmailPage />
       },
       {
@@ -47,51 +54,65 @@ const router = createBrowserRouter([
       },
       {
         path: "home",
-        element: <HomePage />
+        element: <ProtectedRoute>
+          <HomePage />
+          </ProtectedRoute>
       },
       {
         path: "produto",
-        element: <ProdutoRegister />
+        element: <ProtectedRoute><ProdutoRegister /></ProtectedRoute>
       },
       {
         path: "profile",
-        element: <ProfilePage />
+        element: <ProtectedRoute><ProfilePage /></ProtectedRoute>
       },
       {
         path: "menu-manager",
-        element: <MenuManagerPage />
+        element: <ProtectedRoute><MenuManagerPage /></ProtectedRoute>
       },
       {
         path: "category-edit",
-        element: <CategoryEditPage />
+        element: <ProtectedRoute><CategoryEditPage /></ProtectedRoute>
       },
       {
         path: "order-manager",
-        element: <OrderManagerPage />
+        element: <ProtectedRoute><OrderManagerPage /></ProtectedRoute>
       },
       {
         path: "init",
-        element: <InitialPage />
+        element: <ProtectedRoute><InitialPage /></ProtectedRoute>
       },
       {
         path: "order-history",
-        element: <OrderHistoryPage />
+        element: <ProtectedRoute><OrderHistoryPage /></ProtectedRoute>
       },
       {
-        path: "home-adm",
+        path: "adm/home-adm",
         element: <HomeAdm />
       },
       {
-        path: "nossos-clientes",
+        path: "adm/nossos-clientes",
         element: <NossosClientes />
       },
       {
-        path: "nossos-clientesDetalhes",
+        path: "adm/nossos-clientesDetalhes",
         element: <NossosClientesDetails />
       },
       {
-        path: "nossos-parceiros",
+        path: "adm/nossos-parceiros",
         element: <EmpresasParceiras/>
+      },
+      {
+        path: "adm/faturamento",
+        element: <FaturamentoPage/>
+      },
+      {
+        path: "adm/categorias",
+        element: <CategoriasPage/>
+      },
+      {
+        path: "adm/informacoes",
+        element: <InformacoesPage/>
       },
      
     ]

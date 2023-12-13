@@ -10,9 +10,7 @@ export default function MenuManagerPage() {
   const [categories, setCategories] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
-  const [produtosCategoria, setProdutosCategoria] = useState([]);
   const [produtoSearch, setProdutoSearch] = useState([]);
-  const produtos = [1, 2, 3];
 
   useEffect(() => {
     var categorias = [];
@@ -33,7 +31,7 @@ export default function MenuManagerPage() {
             id: category?.id,
             descricao: category?.descricao,
             produtos: produtos.filter(
-              (produto) => produto.categoria?.id == category?.id,
+              (produto) => produto.categoria?.id === category?.id,
             ),
           }))
           .filter((category) => category.id != null),
@@ -45,7 +43,7 @@ export default function MenuManagerPage() {
             id: category?.id,
             descricao: category?.descricao,
             produtos: produtos.filter(
-              (produto) => produto.categoria?.id == category?.id,
+              (produto) => produto.categoria?.id === category?.id,
             ),
           }))
           .filter((category) => category.id != null),
@@ -92,7 +90,7 @@ export default function MenuManagerPage() {
                 id: category?.id,
                 descricao: category?.descricao,
                 produtos: produtos.filter(
-                  (produto) => produto.categoria?.id == category?.id,
+                  (produto) => produto.categoria?.id === category?.id,
                 ),
               }))
               .filter((category) => category.id != null),
@@ -110,11 +108,11 @@ export default function MenuManagerPage() {
   }
 
   function filterCategory(filteredCategory) {
-    if (filteredCategory == 0) setCategories(allCategories);
+    if (filteredCategory === 0) setCategories(allCategories);
     else
       setCategories(
         allCategories.filter(
-          (category) => category.descricao == filteredCategory,
+          (category) => category.descricao === filteredCategory,
         ),
       );
   }
@@ -125,7 +123,7 @@ export default function MenuManagerPage() {
   }
 
   function filterProduct(search) {
-    if (search == null) setCategories(allCategories);
+    if (search === null) setCategories(allCategories);
     else
       setCategories(
         allCategories.map((category) => {
@@ -137,7 +135,7 @@ export default function MenuManagerPage() {
             ),
           };
 
-          //if (category == [] || category.produtos == []) return
+          //if (category === [] || category.produtos === []) return
         }),
       );
   }
