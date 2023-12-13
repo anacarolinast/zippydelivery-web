@@ -19,6 +19,8 @@ import MenuManagerPage from './pages/menu/MenuManager';
 import OrderHistoryPage from './pages/order-history/OrderHistory';
 import OrderManagerPage from './pages/order-manager/OrderManager';
 import ProdutoRegister from './pages/produtos/produtos';
+import CadCupomDesconto from "./pages/cupomDesconto/CadCupomDesconto";
+import CupomDesconto from './pages/cupomDesconto/CupomDesconto';
 import ProfilePage from './pages/profile/ProfilePage';
 
 // ADM
@@ -113,6 +115,15 @@ const router = createBrowserRouter([
       {
         path: "adm/informacoes",
         element: <InformacoesPage/>
+      },
+      {
+        path: "cupom-desconto",
+        element: <CupomDesconto/>
+      },
+     
+      {
+        path: "cadastro-cupom-desconto",
+        element: <CadCupomDesconto/>
       },
      
     ]
