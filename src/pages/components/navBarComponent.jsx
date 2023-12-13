@@ -24,6 +24,7 @@ function NavBarComponent() {
             <button onClick={() => {   navigate('order-manager')  }} className={ location === '/order-manager'? 'text-orange-100': ''         }>Pedidos</button>
             <button onClick={() => {   navigate('order-history')  }} className={ location === '/order-history'? 'text-orange-100': ''         }>Histórico</button>
           </div>
+          <button onClick={() => {   navigate('cupom-desconto')  }} className={ location === '/order-history'? 'text-orange-100': ''         }>Cupom de Desconto</button>
 
         </div>
 
