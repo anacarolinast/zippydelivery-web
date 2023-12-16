@@ -20,7 +20,7 @@ function ProfilePage() {
 
   
 
-  const [idEmpresa, setIdEmpresa] = useState(0);
+  const [idEmpresa, setIdEmpresa] = useState('');
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [email, setEmail] = useState('');
@@ -68,7 +68,7 @@ function ProfilePage() {
 
       const empresas = await profileService.getAll();
 
-      const empresa = await profileService.getEmpresa(3).then(response => {
+      const empresa = await profileService.getEmpresa(empresaId).then(response => {
         debugger
         let empresa = response.data;
 
@@ -97,6 +97,7 @@ function ProfilePage() {
   function onSubmit() {
     debugger;
     let body = {
+      id: idEmpresa,
       nome: nome,
       cnpj: cnpj,
       email: email,
