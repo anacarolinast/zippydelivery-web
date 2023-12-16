@@ -1,8 +1,24 @@
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom"
+import profileService from "../../pages/profile/profileService";
 
 
 export default function EmpresasParceiras() {
     let navigate = useNavigate();
+
+    const { state } = useLocation();
+
+    useEffect(() => {
+        const getEmpresas = async () => {
+        debugger;
+        const empresas = await profileService.getAll();
+            
+        
+        };
+        
+        getEmpresas()
+
+    }, [state]);
     return (
         <div className='h-fit justify-center p-44 bg-light-300'>
             <div className='flex w-full justify-end'>

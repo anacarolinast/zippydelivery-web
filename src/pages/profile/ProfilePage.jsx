@@ -10,6 +10,8 @@ import { storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 import ImageUploading from 'react-images-uploading';
+import axios from 'axios';
+import utilService from '../../utilService';
 
 function ProfilePage() {
   
@@ -18,7 +20,7 @@ function ProfilePage() {
 
   
 
-  const [idEmpresa, setIdEmpresa] = useState(0);
+  const [idEmpresa, setIdEmpresa] = useState('');
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [email, setEmail] = useState('');
@@ -40,28 +42,48 @@ function ProfilePage() {
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
+  const [categorias, setCategorias] = useState('');
 
   const { state } = useLocation();
 
   useEffect(() => {
     const getEmpresas = async () => {
       debugger;
+
+      try {
+        axios
+          .get(`${utilService.getURlAPI()}/categoriaempresa`)
+          .then((response) => {
+            debugger
+            setCategorias(response.data);
+            console.log(response)
+          });
+  
+      } catch (error) {
+        // Handle errors appropriately
+        console.error('Error fetching categoria:', error);
+      }
+
+      let empresaId = localStorage.getItem('id')
+
       const empresas = await profileService.getAll();
 
-      if (empresas.data.length > 0) {
-        let empresa = empresas.data[0];
+      const empresa = await profileService.getEmpresa(empresaId).then(response => {
+        debugger
+        let empresa = response.data;
 
         setIdEmpresa(empresa.id);
-        setCategoria(empresa.categoria);
-        setCnpj(empresa.cnpj);
-        setEmail(empresa.email);
-        setImgCapa(empresa.imgCapa);
-        setImgPerfil(empresa.imgPerfil);
-        setNome(empresa.nome);
-        setTaxaFrete(empresa.taxaFrete);
-        setTelefone(empresa.telefone);
-        setTempoEntrega(empresa.tempoEntrega);
-      }
+        setCategoria(empresa.categoria || "");
+        setCnpj(empresa.cnpj || "");
+        setEmail(empresa.email || "");
+        setImgCapa(empresa.imgCapa || "");
+        setImgPerfil(empresa.imgPerfil || "");
+        setNome(empresa.nome || "");
+        setTaxaFrete(empresa.taxaFrete || "");
+        setTelefone(empresa.telefone || "");
+        setTempoEntrega(empresa.tempoEntrega || "");
+      });
+
     };
 
     getEmpresas();
@@ -75,6 +97,7 @@ function ProfilePage() {
   function onSubmit() {
     debugger;
     let body = {
+      id: idEmpresa,
       nome: nome,
       cnpj: cnpj,
       email: email,
@@ -261,14 +284,22 @@ function ProfilePage() {
                   />
                 </div>
                 <div className="flex flex-col w-full gap-1">
-                  <span>Categoria</span>
-                  <input
+                  <label htmlFor="categoria">Categoria</label>
+                  <select
+                    id="categoria"
                     value={categoria}
                     onChange={(e) => setCategoria(e.target.value)}
-                    placeholder="Categoria da loja. Ex: Pizzaria"
                     className="form-input"
-                    type="text"
-                  />
+                  >
+                    <option value="" disabled>
+                      Selecione uma categoria
+                    </option>
+                    {(categorias || []).map((cat) => (
+                      <option key={cat.id} value={cat.descricao}>
+                        {cat.descricao}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>

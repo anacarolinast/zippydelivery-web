@@ -107,6 +107,7 @@ function HomePage() {
               </div>
             </div>
             
+            
             <div className='flex flex-col sapce-y-2 gap-2'>
               <div className='flex flex-row gap-2'>
                 <img class="h-auto mt-2 max-w-xs self-start" src="dollar.png"></img>

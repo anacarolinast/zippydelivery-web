@@ -1,7 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import utilService from '../../utilService';
+
 
 export default function FaturamentoPage() {
   let navigate = useNavigate();
+
+  const [idPedido, setIdPedido] = useState('');
+  const [pedidos, setPedidos] = useState('');
+  const [receitaTotal, setReceitaTotal] = useState('');
+  const [margemLucro, setMargemLucro] = useState('');
+  const [custoOperacao, setCustoOperacao] = useState('');
+  const [comissao, setComissao] = useState('');
+  
+  const [vendasTotais, setVendasTotais] = useState('');
+  const [faturamentoTotal, setFaturamentoTotal] = useState('');
+  const [vendaHoje, setVendaHoje] = useState('');
+  const [faturamentoMedio, setFaturamentoMedio] = useState('');
+
+
+
+  const apiUrl = utilService.getURlAPI()
+
+  
+  //Exibe quantidade de pedidos
+  useEffect(() => {
+    axios.get(`${apiUrl}/pedido`)
+      .then(function (response) {
+        console.log(response.data)
+        setIdPedido(response.data.length);
+        setPedidos(response.data);
+      }).catch(function (error) {
+        console.log(error);
+      });
+  }, [])
+
+
+  // Exibe a receita total 
+  useEffect(() => {
+    const receitaTotal = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/pedido/dashboardAll`)
+        console.log(response.data)
+        debugger
+        if (response.data) {
+          
+          let faturamentoTotal = response.data.fatoramentoTotal
+          let custoOperacao = 5 * response.data.vendasTotais
+          let comissao = response.data.fatoramentoTotal * 0.2
+          
+          let receitaTotal = faturamentoTotal - comissao - custoOperacao
+          
+          let margemLucro = ((receitaTotal - custoOperacao) / faturamentoTotal) * 100
+
+
+          setFaturamentoTotal(faturamentoTotal);
+          setReceitaTotal(receitaTotal)
+          setMargemLucro(margemLucro)
+          setComissao(comissao)
+          setCustoOperacao(custoOperacao)
+
+        }
+      } catch (error) {
+        console.log(error);
+      };
+    };
+
+    receitaTotal();
+  }, []);
+  
+
   return (
     <div className="flex h-full justify-center bg-gray-100 pt-28  pb-44">
       <div className="flex flex-col gap-8 w-full max-w-5xl">
@@ -14,7 +83,7 @@ export default function FaturamentoPage() {
               <div className="flex flex-col gap-2">
                 <span>Número de pedidos</span>
                 <span>
-                  <span className="text-xl font-semibold">1000 </span>pedidos
+                  <span className="text-xl font-semibold">{pedidos.length} </span>pedidos
                 </span>
               </div>
               <div className="flex flex-col gap-2">
@@ -32,7 +101,7 @@ export default function FaturamentoPage() {
               </div>
               <div className="flex flex-col gap-2">
                 <span>Margem de lucro</span>
-                <span className="text-xl font-semibold">85,71%</span>
+                <span className="text-xl font-semibold">{margemLucro? margemLucro.toFixed(2) : 0}%</span>
               </div>
             </div>
           </div>
@@ -46,19 +115,19 @@ export default function FaturamentoPage() {
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold ">Balanço</span>
             </div>
-            <span className="text-xl font-semibold text-gray-500">R$ 50.000,00</span>
+            <span className="text-xl font-semibold text-gray-500">R$ {faturamentoTotal * margemLucro / 100}</span>
           </div>
           <div className="flex flex-col justify-between w-full pt-3 pb-7 px-10 bg-white text-secondary shadow-md rounded-md h-32">
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold ">Receita Total</span>
             </div>
-            <span className="text-xl font-semibold text-gray-500">R$ 50.000,00</span>
+            <span className="text-xl font-semibold text-gray-500">R$ {receitaTotal}</span>
           </div>
           <div className="flex flex-col justify-between w-full pt-3 pb-7 px-10 bg-white text-secondary shadow-md rounded-md h-32">
             <div className="flex flex-col gap-4">
               <span className="text-xl font-semibold ">Comissões e taxas</span>
             </div>
-            <span className="text-xl font-semibold text-gray-500">R$ 50.000,00</span>
+            <span className="text-xl font-semibold text-gray-500">R$ {comissao}</span>
           </div>
         </div>
 
@@ -70,7 +139,7 @@ export default function FaturamentoPage() {
 
             <span className='text-secondary text-xl'>
               <span className='font-medium'>Número de pedidos: </span>
-              Número total de pedidos feitos através da nossa plataforma móvel. 
+              Número total de pedidos feitos através da nossa plataforma móvel.
             </span>
             <span className='text-secondary text-xl'>
               <span className='font-medium'>Comissão vigente: </span>
