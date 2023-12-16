@@ -54,6 +54,7 @@ function ProfilePage() {
         axios
           .get(`${utilService.getURlAPI()}/categoriaempresa`)
           .then((response) => {
+            debugger
             setCategorias(response.data);
             console.log(response)
           });
@@ -67,7 +68,7 @@ function ProfilePage() {
 
       const empresas = await profileService.getAll();
 
-      const empresa = await profileService.getEmpresa(empresaId).then(response => {
+      const empresa = await profileService.getEmpresa(3).then(response => {
         debugger
         let empresa = response.data;
 
@@ -292,7 +293,7 @@ function ProfilePage() {
                     <option value="" disabled>
                       Selecione uma categoria
                     </option>
-                    {categorias.map((cat) => (
+                    {(categorias || []).map((cat) => (
                       <option key={cat.id} value={cat.descricao}>
                         {cat.descricao}
                       </option>
