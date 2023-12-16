@@ -1,6 +1,6 @@
 const utilService = {
   getURlAPI: function () { 
-    return 'http://api.projetopro.live/api' 
+    return 'http://localhost:8080/api' 
   }  
 };
 
