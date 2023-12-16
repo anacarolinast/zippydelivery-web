@@ -14,7 +14,7 @@ export default function CategoryEditPage() {
 
   useEffect(() => {
     if (state !== null && state.id !== null) {
-      axios.get(`${utilService.getURlAPI()}/categoriaprodutoes/${state.id}`)
+      axios.get(`${utilService.getURlAPI()}/categoriaproduto/${state.id}`)
         .then((response) => {
           setCategoryId(response.data.id)
           setDescricao(response.data.descricao)
