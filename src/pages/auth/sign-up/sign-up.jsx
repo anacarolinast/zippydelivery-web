@@ -5,6 +5,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
 import LogoComponent from '../../components/logoComponent';
 import zippy from '../../../assets/img/zippy.png';
+import utilService from "../../../utilService";
 
 
 function SignUpPage() {
@@ -13,7 +14,7 @@ function SignUpPage() {
   const [cnpj, setCnpj] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
-  
+  const apiUrl = utilService.getURlAPI()
 
   
 
@@ -25,7 +26,7 @@ function SignUpPage() {
      
     };
     
-    axios.post("http://localhost:8080/api/empresa", empresaRequest)
+    axios.post(`${apiUrl}/empresa`, empresaRequest)
       .then((response) => {
         console.log('Cliente cadastrado com sucesso.')
         navigate("/");

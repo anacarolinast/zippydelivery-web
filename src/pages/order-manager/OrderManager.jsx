@@ -34,7 +34,7 @@ function OrderManagerPage() {
   }
 
   function onChangeOrderStatus(body, type) {
-    debugger
+     
     body.statusPedido = type
     orderManagerService.updatePedido(body, body.id)
   }

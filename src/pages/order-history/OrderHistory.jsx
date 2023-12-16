@@ -83,7 +83,7 @@ export default function OrderHistoryPage() {
 
         if (type === "initialDate" || type === "finalDate") {
             setLista(listaDefault.filter(item => {
-                debugger
+                 
                 let dateItem = new Date(item.dataHora[0], item.dataHora[1] - 1, item.dataHora[2])
 
                 if (filterInitialDate instanceof Date && filterFinalDate instanceof Date) {

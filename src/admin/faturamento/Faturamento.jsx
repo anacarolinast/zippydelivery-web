@@ -43,7 +43,7 @@ export default function FaturamentoPage() {
       try {
         const response = await axios.get(`${apiUrl}/pedido/dashboardAll`)
         console.log(response.data)
-        debugger
+         
         if (response.data) {
           
           let faturamentoTotal = response.data.fatoramentoTotal

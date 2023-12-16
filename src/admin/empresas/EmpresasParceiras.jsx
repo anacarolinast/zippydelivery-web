@@ -10,7 +10,7 @@ export default function EmpresasParceiras() {
 
     useEffect(() => {
         const getEmpresas = async () => {
-        debugger;
+         ;
         const empresas = await profileService.getAll();
             
         

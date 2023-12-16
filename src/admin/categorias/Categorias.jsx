@@ -51,7 +51,7 @@ export default function CategoriasPage() {
 
 
   const criarCategoria = () => {
-    debugger
+     
     if (!categoria || categoria === "") return
 
     let body = {
