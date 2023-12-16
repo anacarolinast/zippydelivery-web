@@ -14,7 +14,7 @@ export default function CategoryEditPage() {
 
   useEffect(() => {
     if (state !== null && state.id !== null) {
-      axios.get(`${utilService.getURlAPI()}/categoriaproduto/${state.id}`)
+      axios.get(`${utilService.getURlAPI()}/categoriaprodutoes/${state.id}`)
         .then((response) => {
           setCategoryId(response.data.id)
           setDescricao(response.data.descricao)
@@ -22,10 +22,12 @@ export default function CategoryEditPage() {
     }
   }, [state])
 
+  var id = localStorage.getItem("id")
   const criarCategoria = () => {
 
     let productCategoryRequest = {
-      descricao: descricao
+      descricao: descricao,
+      empresa_id: parseInt(id)+1
     }
 
     if (categoryId === undefined) {

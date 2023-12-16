@@ -47,12 +47,12 @@ export default function ProdutoRegister() {
   const [categoriaDescricao, setCategoriaDescricao] = useState();
 
   useEffect(() => {
-    debugger;
+     ;
     if (state !== null && state.id !== null) {
       axios
         .get(`${utilService.getURlAPI()}/categoriaproduto/${state.id}`)
         .then((response) => {
-          debugger;
+           ;
           setCategoria(response.data.id);
           setCategoriaDescricao(response.data.descricao);
           if (state.produto) {
@@ -77,7 +77,7 @@ export default function ProdutoRegister() {
     setDescricao('');
   };
   const handleUpload = async () => {
-    debugger;
+     ;
 
     if (!titulo || !preco || !categoria || !descricao) {
       console.error('Preencha todos os campos antes de salvar.');
@@ -86,7 +86,7 @@ export default function ProdutoRegister() {
 
    
     var body = {};
-    debugger;
+     ;
     if (imagem?.name) {
       const storageRef = ref(storage, `images/${imagem.name}`); // Use .child() para criar a referência
       await uploadBytes(storageRef, imagem);
@@ -119,7 +119,7 @@ export default function ProdutoRegister() {
     }
 
     try {
-      debugger;
+       ;
 
       if (idProduto) {
         await axios

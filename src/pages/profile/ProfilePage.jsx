@@ -48,13 +48,13 @@ function ProfilePage() {
 
   useEffect(() => {
     const getEmpresas = async () => {
-      debugger;
+       ;
 
       try {
         axios
           .get(`${utilService.getURlAPI()}/categoriaempresa`)
           .then((response) => {
-            debugger
+             
             setCategorias(response.data);
             console.log(response)
           });
@@ -68,8 +68,8 @@ function ProfilePage() {
 
       const empresas = await profileService.getAll();
 
-      const empresa = await profileService.getEmpresa(empresaId).then(response => {
-        debugger
+      const empresa = await profileService.getEmpresa(parseInt(empresaId)+1).then(response => {
+         
         let empresa = response.data;
 
         setIdEmpresa(empresa.id);
@@ -90,19 +90,32 @@ function ProfilePage() {
   }, [state]);
 
   function deleteEmpresa() {
-    debugger;
+     ;
     profileService.deleteEmpresa(idEmpresa);
   }
+  function pegaId(categoria) {
+    var cat = categorias.filter((cat) => {
+      return cat.descricao == categoria;
+    });
+    
+    if (cat.length > 0) {
+      return cat[0].id;
+    } else {
+      // Trate o caso em que a categoria não foi encontrada, por exemplo, retornando null
+      return null;
+    }
+  }
 
+  console.log(pegaId(categoria))
   function onSubmit() {
-    debugger;
+
     let body = {
       id: idEmpresa,
       nome: nome,
       cnpj: cnpj,
       email: email,
       cep: cep,
-      categoria: categoria,
+      idCategoria: pegaId(categoria),
       tempoEntrega: tempoEntrega,
       taxaFrete: taxaFrete,
       telefone: telefone,
@@ -113,6 +126,12 @@ function ProfilePage() {
       cidade: cidade,
       estado: estado,
       complemento: complemento,
+      formasPagamento: ['DINHEIRO',
+        'CARTAO_CREDITO',
+        'CARTAO_DEBITO',
+        'PIX',
+        'VALE_ALIMENTACAO',
+        'OUTRAS']
     };
 
     let result = profileService.createEmpresa(body, idEmpresa);
@@ -122,7 +141,7 @@ function ProfilePage() {
   const maxNumber = 69;
 
   const onChangeProfileImage = (imageList, addUpdateIndex) => {
-    debugger;
+     ;
     // data for submit
     console.log(imageList, addUpdateIndex);
     console.log(imageList[0].file);
@@ -131,7 +150,7 @@ function ProfilePage() {
   };
 
   function handleSubmit(image, isProfileImage) {
-    debugger;
+     ;
     const file = image['file'];
 
     if (!file) return;
