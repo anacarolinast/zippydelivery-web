@@ -43,6 +43,8 @@ function ProfilePage() {
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
   const [categorias, setCategorias] = useState('');
+  
+  const [isProfile, setIsProfile] = useState(true);
 
   const { state } = useLocation();
 
@@ -72,11 +74,13 @@ function ProfilePage() {
          
         let empresa = response.data;
 
+        debugger
+
         setIdEmpresa(empresa.id);
         setCategoria(empresa.categoria || "");
         setCnpj(empresa.cnpj || "");
         setEmail(empresa.email || "");
-        setImgCapa(empresa.imgCapa || "");
+        setImgBanner(empresa.imgCapa || "");
         setImgPerfil(empresa.imgPerfil || "");
         setNome(empresa.nome || "");
         setTaxaFrete(empresa.taxaFrete || "");
@@ -110,7 +114,7 @@ function ProfilePage() {
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
       imgPerfil: imgPerfil || "",
-      imgCapa: imgCapa || "",
+      imgCapa: imgBanner || "",
       logradouro: logradouro || "",
       bairro: bairro || "",
       cidade: cidade || "",
@@ -131,12 +135,12 @@ function ProfilePage() {
   const maxNumber = 69;
 
   const onChangeProfileImage = (imageList, addUpdateIndex) => {
-     ;
+    debugger
     // data for submit
     console.log(imageList, addUpdateIndex);
     console.log(imageList[0].file);
     setProfileImage(imageList[0]);
-    handleSubmit(imageList[0], true)
+    handleSubmit(imageList[0], isProfile)
   };
 
   function handleSubmit(image, isProfileImage) {
@@ -192,7 +196,10 @@ function ProfilePage() {
           }) => (
             <div>
               <div className="p-1 flex justify-end bg-gray-100 w-full h-48 rounded-md">
-                <span className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all">
+                {imgBanner ? 
+                  <img src={imgBanner} className=" w-full h-full" alt="" width="100" /> : <div></div>
+                }
+                <span onClick={() => {onImageUpload(); setIsProfile(false)}} className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all">
                   <svg
                     className="w-6 h-6 cursor-pointer "
                     xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +216,7 @@ function ProfilePage() {
                   </svg>
                 </span>
               </div>
-              <div onClick={onImageUpload}
+              <div onClick={() => {onImageUpload(); setIsProfile(true)}}
                 className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2 overflow-hidden"
                 >
                 
