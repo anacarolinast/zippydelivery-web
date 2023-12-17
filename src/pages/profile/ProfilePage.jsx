@@ -68,7 +68,7 @@ function ProfilePage() {
 
       const empresas = await profileService.getAll();
 
-      const empresa = await profileService.getEmpresa(parseInt(empresaId)+1).then(response => {
+      const empresa = await profileService.getEmpresa(parseInt(empresaId) + 1).then(response => {
          
         let empresa = response.data;
 
@@ -93,39 +93,29 @@ function ProfilePage() {
      ;
     profileService.deleteEmpresa(idEmpresa);
   }
-  function pegaId(categoria) {
-    var cat = categorias.filter((cat) => {
-      return cat.descricao == categoria;
-    });
-    
-    if (cat.length > 0) {
-      return cat[0].id;
-    } else {
-      // Trate o caso em que a categoria não foi encontrada, por exemplo, retornando null
-      return null;
-    }
-  }
 
-  console.log(pegaId(categoria))
+
   function onSubmit() {
+
+    debugger
 
     let body = {
       id: idEmpresa,
-      nome: nome,
-      cnpj: cnpj,
-      email: email,
-      cep: cep,
-      idCategoria: pegaId(categoria),
-      tempoEntrega: tempoEntrega,
-      taxaFrete: taxaFrete,
-      telefone: telefone,
-      imgPerfil: imgPerfil,
-      imgCapa: imgCapa,
-      logradouro: logradouro,
-      bairro: bairro,
-      cidade: cidade,
-      estado: estado,
-      complemento: complemento,
+      nome: nome || "",
+      cnpj: cnpj || "",
+      email: email || "",
+      cep: cep || "",
+      idCategoria: categoria.id || "",
+      tempoEntrega: tempoEntrega || "",
+      taxaFrete: taxaFrete || "",
+      telefone: telefone || "",
+      imgPerfil: imgPerfil || "",
+      imgCapa: imgCapa || "",
+      logradouro: logradouro || "",
+      bairro: bairro || "",
+      cidade: cidade || "",
+      estado: estado || "",
+      complemento: complemento || "",
       formasPagamento: ['DINHEIRO',
         'CARTAO_CREDITO',
         'CARTAO_DEBITO',
@@ -190,7 +180,7 @@ function ProfilePage() {
           onChange={onChangeProfileImage}
           maxNumber={maxNumber}
           dataURLKey="data_url"
-        >
+          >
           {({
             imageList,
             onImageUpload,
@@ -221,14 +211,14 @@ function ProfilePage() {
               </div>
               <div onClick={onImageUpload}
                 className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2 overflow-hidden"
-              >
+                >
                 
                 {/*{profileImage['data_url'] ?*/}
                 {imgPerfil ?
                   <div className=" flex items-center justify-center">
                     {/*<img src={profileImage['data_url']} className="object-cover" alt="" width="100" />*/}
-                    <img src={imgPerfil} className="object-cover" alt="" width="100" />
-                    <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full items-center justify-center">
+                    <img src={imgPerfil} className="object-cover w-full h-full" alt="" width="100" />
+                    <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full  items-center justify-center">
                       New Image
                     </div>
                   </div>
