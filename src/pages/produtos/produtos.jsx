@@ -295,11 +295,11 @@ export default function ProdutoRegister() {
                   <div className='w-full'>
                     {/*{productImage['data_url'] ?*/}
                     {imgProduct ?
-                      <div onClick={onImageUpload} className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-64 h-64 mx-auto ">
+                      <div onClick={onImageUpload} className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-auto h-auto mx-auto rounded-lg overflow-hidden">
                         <div className=" flex items-center justify-center">
                           {/*<img src={productImage['data_url']} className="object-cover" alt="" width="100" />*/}
                           <img src={imgProduct} className="object-cover w-full h-full" alt="" width="100" />
-                          <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full  items-center justify-center">
+                          <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full  items-center justify-center ">
                             New Image
                           </div>
                         </div>
