@@ -247,7 +247,7 @@ function ProfilePage() {
                 }
               </div>
               <button
-                type="submit"
+                onClick={onSubmit}
                 className="flex items-center primary-button px-20 ml-auto -mt-12"
               >
                 Salvar
