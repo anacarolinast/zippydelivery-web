@@ -11,44 +11,54 @@ export default function MenuManagerPage() {
   const [allCategories, setAllCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [produtoSearch, setProdutoSearch] = useState([]);
-
+  
   useEffect(() => {
     var categorias = [];
     axios
       .get(`${utilService.getURlAPI()}/categoriaproduto`)
       .then((response) => {
-        setCategories(response.data);
-        categorias = response.data;
+        debugger
+        let categorias = response.data
+        let idEmpresa = localStorage.getItem('id')
+        idEmpresa = parseInt(idEmpresa)
+        setCategories(categorias.filter(categoria => categoria.empresa.id === (idEmpresa + 1)));
+        categorias = categorias.filter(categoria => categoria.empresa.id === (idEmpresa + 1));
+
+        getProduto(categorias)
       });
 
-    axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-      let produtos = response.data;
-
-      // Distribuir produtos e suas devidas categorias
-      setCategories(
-        categorias
-          .map((category) => ({
-            id: category?.id,
-            descricao: category?.descricao,
-            produtos: produtos.filter(
-              (produto) => produto.categoria?.id === category?.id,
-            ),
-          }))
-          .filter((category) => category.id != null),
-      );
-
-      setAllCategories(
-        categorias
-          .map((category) => ({
-            id: category?.id,
-            descricao: category?.descricao,
-            produtos: produtos.filter(
-              (produto) => produto.categoria?.id === category?.id,
-            ),
-          }))
-          .filter((category) => category.id != null),
-      );
-    });
+      function getProduto(newCategorias) {
+        axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
+          debugger
+          let produtos = response.data;
+    
+          // Distribuir produtos e suas devidas categorias
+          setCategories(
+            newCategorias
+              .map((category) => ({
+                id: category?.id,
+                descricao: category?.descricao,
+                produtos: produtos.filter(
+                  (produto) => produto.categoria?.id === category?.id,
+                ),
+              }))
+              .filter((category) => category.id != null),
+          );
+    
+          setAllCategories(
+            categorias
+              .map((category) => ({
+                id: category?.id,
+                descricao: category?.descricao,
+                produtos: produtos.filter(
+                  (produto) => produto.categoria?.id === category?.id,
+                ),
+              }))
+              .filter((category) => category.id != null),
+          );
+        });
+      }
+    
   }, []);
 
   async function remove(id) {
