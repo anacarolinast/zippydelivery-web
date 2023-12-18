@@ -40,6 +40,7 @@ function ProfilePage() {
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
   const [categorias, setCategorias] = useState('');
+
   const [formasPagamentoSelecionadas, setFormasPagamentoSelecionadas] = useState([]);
 
   const [isProfile, setIsProfile] = useState(true);
@@ -74,6 +75,7 @@ function ProfilePage() {
 
         // debugger
 
+
         setIdEmpresa(empresa.id);
         setCategoria(empresa.categoria || "");
         setCnpj(empresa.cnpj || "");
@@ -97,6 +99,7 @@ function ProfilePage() {
     profileService.deleteEmpresa(idEmpresa);
   }
 
+
   const handleSelecionarFormaPagamento = (formaPagamento) => {
     const formaIndex = formasPagamentoSelecionadas.indexOf(formaPagamento);
     let newFormasPagamento = [...formasPagamentoSelecionadas];
@@ -119,6 +122,7 @@ function ProfilePage() {
 
     // debugger
 
+
     let body = {
       id: idEmpresa,
       nome: nome || "",
@@ -137,7 +141,9 @@ function ProfilePage() {
       cidade: cidade || "",
       estado: estado || "",
       complemento: complemento || "",
+
       formasPagamento: formasPagamentoSelecionadas
+
     };
 
     let result = profileService.createEmpresa(body, idEmpresa);
@@ -147,7 +153,7 @@ function ProfilePage() {
   const maxNumber = 69;
 
   const onChangeProfileImage = (imageList, addUpdateIndex) => {
-    // debugger
+
     // data for submit
     console.log(imageList, addUpdateIndex);
     console.log(imageList[0].file);

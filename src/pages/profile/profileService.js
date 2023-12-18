@@ -7,6 +7,7 @@ const profileService = {
 
   createEmpresa: function (body, id = 0) { 
     debugger
+     
     // Se o id for zero significa que é um método post, se houver id significa que é um método patch ou put para alterar empresa
     if (id === 0) return axios.post(`${apiUrl}/empresa`, body)
 
