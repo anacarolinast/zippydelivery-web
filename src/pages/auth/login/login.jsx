@@ -49,7 +49,7 @@ function LoginPage() {
           <img className='scale-75 -mb-14 ' src={zippy} alt="" />
           <div className='flex items-center gap-3 z-50'>
             <div className="w-6 h-6 relative">
-              <div className="hexagon !bg-white"></div>
+              <div onClick={() => { navigate('adm/home-adm') }} className="hexagon !bg-white"></div>
             </div>
             <div className="flex flex-col justify-center items-end mb-1">
               <span className="text-3xl font-bold  lowercase">
@@ -92,7 +92,6 @@ function LoginPage() {
             <button onClick={() => entrar()} className='primary-button'>Entrar</button>
             <button onClick={() => { navigate('sign-up') }} className='outline-button'>Criar uma conta</button>
           </div>
-        <button onClick={() => { navigate('adm/home-adm') }} className='outline-button'>ADM</button> {/*TEMPORÁRIO */}
         </div>
       </div>
     </div>
