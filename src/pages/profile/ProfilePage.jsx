@@ -111,7 +111,7 @@ function ProfilePage() {
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      idCategoria: categoria.id || "",
+      idCategoria: categoria || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
@@ -314,7 +314,7 @@ function ProfilePage() {
                       Selecione uma categoria
                     </option>
                     {(categorias || []).map((cat) => (
-                      <option key={cat.id} value={cat.descricao}>
+                      <option key={cat.id} value={cat.id}>
                         {cat.descricao}
                       </option>
                     ))}
