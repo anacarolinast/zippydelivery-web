@@ -40,6 +40,7 @@ function ProfilePage() {
   const [logradouro, setLogradouro] = useState('');
   const [bairro, setBairro] = useState('');
   const [cidade, setCidade] = useState('');
+  const [status, setStatus] = useState('');
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
   const [categorias, setCategorias] = useState('');
@@ -83,6 +84,7 @@ function ProfilePage() {
         setImgBanner(empresa.imgCapa || "");
         setImgPerfil(empresa.imgPerfil || "");
         setNome(empresa.nome || "");
+        setStatus(empresa.status || "");
         setTaxaFrete(empresa.taxaFrete || "");
         setTelefone(empresa.telefone || "");
         setTempoEntrega(empresa.tempoEntrega || "");
@@ -117,6 +119,7 @@ function ProfilePage() {
       imgCapa: imgBanner || "",
       logradouro: logradouro || "",
       bairro: bairro || "",
+      status: status || "",
       cidade: cidade || "",
       estado: estado || "",
       complemento: complemento || "",

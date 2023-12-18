@@ -1,24 +1,75 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
 import profileService from "../../pages/profile/profileService";
+import utilService from "../../utilService";
+import axios from "axios";
 
 
 export default function EmpresasParceiras() {
     let navigate = useNavigate();
 
+    const apiUrl = utilService.getURlAPI()
+
+
     const { state } = useLocation();
+    const [empresas, setEmpresas] = useState();
 
-    useEffect(() => {
-        const getEmpresas = async () => {
-         ;
-        const empresas = await profileService.getAll();
-            
-        
-        };
-        
-        getEmpresas()
+    function onChangeEmpresaStatus(empresa, type) {
+        debugger
+        let body = {
+            id: empresa.id,
+            nome: empresa.nome || "",
+            cnpj: empresa.cnpj || "",
+            email: empresa.email || "",
+            cep: empresa.cep || "",
+            idCategoria: empresa.categoria.id || "",
+            tempoEntrega: empresa.tempoEntrega || "",
+            taxaFrete: empresa.taxaFrete || "",
+            telefone: empresa.telefone || "",
+            imgPerfil: empresa.imgPerfil || "",
+            imgCapa: empresa.imgCapa || "",
+            logradouro: empresa.logradouro || "",
+            bairro: empresa.bairro || "",
+            cidade: empresa.cidade || "",
+            estado: empresa.estado || "",
+            complemento: empresa.complemento || "",
+            status: empresa.status || "",
+            formasPagamento: ['DINHEIRO',
+              'CARTAO_CREDITO',
+              'CARTAO_DEBITO',
+              'PIX',
+              'VALE_ALIMENTACAO',
+              'OUTRAS']
+          };
 
-    }, [state]);
+          body.status = type
+        updateEmpresa(body, body.id)
+    }
+
+    async function updateEmpresa (body, id) { return await profileService.createEmpresa(body, id) }
+
+    const getEmpresas = async () => {
+        try {
+            await profileService.getAll().then(response => setEmpresas(response.data));
+    
+        } catch (error) {
+          // Handle errors appropriately
+          console.error('Error fetching categoria:', error);
+        }
+      };
+    
+      useEffect(() => {
+        getEmpresas();
+    
+        const intervalId = setInterval(() => {
+            getEmpresas();
+        }, 2000);
+    
+        // Cleanup the interval on component unmount
+        return () => clearInterval(intervalId);
+      }, []);
+
+
     return (
         <div className='h-fit justify-center p-44 bg-light-300'>
             <div className='flex w-full justify-end'>
@@ -94,158 +145,32 @@ export default function EmpresasParceiras() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-pink-50 border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pendente"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="done.png" alt=""  />
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="close.png" alt=""  />
-                                </td>
-                            </tr>
-                            <tr class="bg-pink-50 border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pendente"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="done.png" alt=""  />
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="close.png" alt=""  />
-                                </td>
-                            </tr>
-                            <tr class="bg-pink-50 border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pendente"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="done.png" alt=""  />
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="close.png" alt=""  />
-                                </td>
-                            </tr>
-                            <tr class="bg-pink-50 border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pendente"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="done.png" alt=""  />
-                                </td>
-                                <td class="px-6 py-4">
-                                <img src="close.png" alt=""  />
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Ativo"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Ativo"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Ativo"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Ativo"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b ">
-                                <td class="px-6 py-4">
-                                    {"Nome do Restarante #4020"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Ativo"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"Pizzaria"}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {"há 58 minutos"}
-                                </td>
-                            </tr>
-                            
-
+                            {empresas?.map((empresa, index) => (
+                                <tr key={index} className={`border-b ${empresa.status === "Pendente" ? '!bg-pink-50' : '!bg-white'}`} >
+                                    <td class="px-6 py-4">
+                                        {empresa.nome}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {empresa.status}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {empresa.categoria.descricao}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {"há 58 minutos"}
+                                    </td>
+                                    {empresa.status === "Pendente" ? 
+                                        <td class="py-4">
+                                            <img onClick={() => { onChangeEmpresaStatus(empresa, "Ativo") }} className="cursor-pointer hover:bg-green-100 rounded-full transition-all p-2" src="../done.png" alt=""  />
+                                        </td> : <div></div>
+                                    }
+                                    {empresa.status === "Pendente" ? 
+                                        <td class="py-4">
+                                            <img onClick={() => { onChangeEmpresaStatus(empresa, "Recusado") }} className="cursor-pointer hover:bg-red-100 rounded-full transition-all p-2" src="../close.png" alt=""  />
+                                        </td> : <div></div>
+                                    }
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
