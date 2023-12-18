@@ -36,9 +36,12 @@ function ProfilePage() {
   const [logradouro, setLogradouro] = useState('');
   const [bairro, setBairro] = useState('');
   const [cidade, setCidade] = useState('');
+  const [numeroEndereco, setNumeroEndereco] = useState('');
   const [status, setStatus] = useState('');
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
+  const [cidadeEntrega, setCidadeEntrega] = useState('');
+  const [uf, setUf] = useState('');
   const [categorias, setCategorias] = useState('');
 
   const [formasPagamentoSelecionadas, setFormasPagamentoSelecionadas] = useState([]);
@@ -73,7 +76,7 @@ function ProfilePage() {
          
         let empresa = response.data;
 
-        // debugger
+        // 
 
 
         setIdEmpresa(empresa.id);
@@ -84,9 +87,16 @@ function ProfilePage() {
         setImgPerfil(empresa.imgPerfil || "");
         setNome(empresa.nome || "");
         setStatus(empresa.status || "");
+        setLogradouro(empresa.logradouro || "");
+        setBairro(empresa.bairro || "");
+        setNumeroEndereco(empresa.numeroEndereco || "");
+        setCidade(empresa.cidade || "");
+        setEstado(empresa.estado || "");
+        setCep(empresa.cep || "");
         setTaxaFrete(empresa.taxaFrete || "");
         setTelefone(empresa.telefone || "");
         setTempoEntrega(empresa.tempoEntrega || "");
+        setFormasPagamentoSelecionadas(empresa.formasPagamento || "");
       });
 
     };
@@ -120,7 +130,7 @@ function ProfilePage() {
 
   function onSubmit() {
 
-    // debugger
+    // 
 
 
     let body = {
@@ -129,7 +139,7 @@ function ProfilePage() {
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      idCategoria: categoria || "",
+      idCategoria: categoria.id || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
@@ -384,7 +394,8 @@ function ProfilePage() {
               <div className="flex gap-4">
                 <div className="flex flex-col w-2/12 gap-1">
                   <span>Número</span>
-                  <input className="form-input" type="text" />
+                  <input className="form-input" type="text"  value={numeroEndereco}
+                    onChange={(e) => setNumeroEndereco(e.target.value)}/>
                 </div>
                 <div className="flex flex-col w-6/12 gap-1">
                   <span>Cidade</span>
@@ -465,7 +476,7 @@ function ProfilePage() {
                   </svg>
                 </span>
               </div>
-              <span className="cursor-pointer hover:text-opacity-70 transition-all flex gap-1 text-secondary font-medium text-sm w-fit border-b-[1.2px] border-b-gray-500">
+              {/*<span className="cursor-pointer hover:text-opacity-70 transition-all flex gap-1 text-secondary font-medium text-sm w-fit border-b-[1.2px] border-b-gray-500">
                 <span>Adicionar mais um local</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -480,6 +491,7 @@ function ProfilePage() {
                   />
                 </svg>
               </span>
+              */}
             </div>
             {/* Session End */}
           </div>
@@ -495,25 +507,25 @@ function ProfilePage() {
                   <span>Métodos de pagamento aceitos</span>
                   <div className="flex gap-2">
                     <div
-                    className={`flex items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('CRÉDITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('CRÉDITO')}
+                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                    formaPagamentoEstaSelecionada('CARTAO_CREDITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
+                    onClick={() => handleSelecionarFormaPagamento('CARTAO_CREDITO')}
                   >
-                      <div className="w-fit">
+                      <div className="w-fit ">
                         <img src={mastercardLogo} alt="react logo" />
                       </div>
                     </div>
                     <div
-                    className={`flex items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('DÉBITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('DÉBITO')}
+                    className={`flex  cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                    formaPagamentoEstaSelecionada('CARTAO_DEBITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
+                    onClick={() => handleSelecionarFormaPagamento('CARTAO_DEBITO')}
                   >
                       <div className="w-fit">
                         <img src={visaLogo} alt="react logo" />
                       </div>
                     </div>
                     <div
-                    className={`flex items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
                     formaPagamentoEstaSelecionada('PIX') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
                     onClick={() => handleSelecionarFormaPagamento('PIX')}
                   >
@@ -522,17 +534,17 @@ function ProfilePage() {
                       </div>
                     </div>
                   <div
-                    className={`flex items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                      formaPagamentoEstaSelecionada('VALE_ALIMENTAÇÃO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'
+                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                      formaPagamentoEstaSelecionada('VALE_ALIMENTACAO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'
                     }`}
-                    onClick={() => handleSelecionarFormaPagamento('VALE_ALIMENTAÇÃO')}
+                    onClick={() => handleSelecionarFormaPagamento('VALE_ALIMENTACAO')}
                   >
                     <div className="w-[4.8rem] h-12 flex items-center justify-center">
                       <img src={vrLogo} alt="React Logo" className="h-8 w-8" />
                     </div>
                   </div>
                     <div
-                    className={`flex items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
                     formaPagamentoEstaSelecionada('DINHEIRO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
                     onClick={() => handleSelecionarFormaPagamento('DINHEIRO')}
                   >

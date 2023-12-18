@@ -15,7 +15,7 @@ export default function EmpresasParceiras() {
     const [empresas, setEmpresas] = useState();
 
     function onChangeEmpresaStatus(empresa, type) {
-        debugger
+         
         let body = {
             id: empresa.id,
             nome: empresa.nome || "",

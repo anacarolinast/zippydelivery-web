@@ -17,7 +17,7 @@ export default function MenuManagerPage() {
     axios
       .get(`${utilService.getURlAPI()}/categoriaproduto`)
       .then((response) => {
-        debugger
+         
         let categorias = response.data
         let idEmpresa = localStorage.getItem('id')
         idEmpresa = parseInt(idEmpresa)
@@ -29,7 +29,7 @@ export default function MenuManagerPage() {
 
       function getProduto(newCategorias) {
         axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-          debugger
+           
           let produtos = response.data;
     
           // Distribuir produtos e suas devidas categorias

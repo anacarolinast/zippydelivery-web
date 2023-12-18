@@ -65,7 +65,7 @@ export default function ProdutoRegister() {
            ;
           setCategoria(response.data.id);
           setCategoriaDescricao(response.data.descricao);
-          debugger
+           
           if (state.produto) {
             setIdProduto(state.produto.id);
             setPreco(state.produto.preco);
@@ -87,7 +87,7 @@ export default function ProdutoRegister() {
       return;
     }
 
-    debugger
+     
 
     let body = {
       idCategoria: categoria,
@@ -155,7 +155,7 @@ export default function ProdutoRegister() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          debugger
+           
           if (isProductImage) {
             setImgProduct(downloadURL);
           }
