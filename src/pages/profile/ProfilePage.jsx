@@ -139,7 +139,7 @@ function ProfilePage() {
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      idCategoria: categoria.id || "",
+      idCategoria: categoria || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
