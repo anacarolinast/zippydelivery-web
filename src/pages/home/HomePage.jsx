@@ -22,7 +22,7 @@ function HomePage() {
   const apiUrl = utilService.getURlAPI()
   
   useEffect(()=>{
-  axios.get(`${apiUrl}/empresa/findByUser/` + localStorage.getItem('id'))
+  axios.get(`${apiUrl}/empresa/usuario/` + localStorage.getItem('id'))
         .then(function (response) {
           console.log(response.data)
           setEmpresaId(response.data.id);

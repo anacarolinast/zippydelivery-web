@@ -56,11 +56,10 @@ function ProfilePage() {
 
       try {
         axios
-          .get(`${utilService.getURlAPI()}/categoriaempresa`)
+          .get(`${utilService.getURlAPI()}/categoria-empresa`)
           .then((response) => {
              
             setCategorias(response.data);
-            console.log(response)
           });
   
       } catch (error) {
@@ -72,13 +71,8 @@ function ProfilePage() {
 
       const empresas = await profileService.getAll();
 
-      const empresa = await profileService.getEmpresa(parseInt(empresaId) + 1).then(response => {
-         
+      const empresa = await profileService.getEmpresa(parseInt(empresaId)).then(response => {
         let empresa = response.data;
-
-        // 
-
-
         setIdEmpresa(empresa.id);
         setCategoria(empresa.categoria || "");
         setCnpj(empresa.cnpj || "");
@@ -122,7 +116,6 @@ function ProfilePage() {
 
     setFormasPagamentoSelecionadas(newFormasPagamento);
   };
-  console.log(formasPagamentoSelecionadas)
 
   const formaPagamentoEstaSelecionada = (formaPagamento) => {
     return formasPagamentoSelecionadas.includes(formaPagamento);
@@ -134,27 +127,28 @@ function ProfilePage() {
 
 
     let body = {
-      id: idEmpresa,
       nome: nome || "",
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      idCategoria: categoria || "",
+      categoriaId: categoria || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
       imgPerfil: imgPerfil || "",
       imgCapa: imgBanner || "",
-      logradouro: logradouro || "",
-      bairro: bairro || "",
-      status: status || "",
-      cidade: cidade || "",
-      estado: estado || "",
-      complemento: complemento || "",
-
-      formasPagamento: formasPagamentoSelecionadas
-
+      formasPagamento: formasPagamentoSelecionadas,
+      endereco: {
+        logradouro: logradouro || "",
+        numero: numeroEndereco || "",
+        bairro: bairro || "",
+        cidade: cidade || "",
+        estado: estado || "",
+        cep: cep || "",
+        complemento: complemento || "",
+      },
     };
+    console.log(body);
 
     let result = profileService.createEmpresa(body, idEmpresa);
     console.log(result);
@@ -165,8 +159,6 @@ function ProfilePage() {
   const onChangeProfileImage = (imageList, addUpdateIndex) => {
 
     // data for submit
-    console.log(imageList, addUpdateIndex);
-    console.log(imageList[0].file);
     setProfileImage(imageList[0]);
     handleSubmit(imageList[0], isProfile)
   };

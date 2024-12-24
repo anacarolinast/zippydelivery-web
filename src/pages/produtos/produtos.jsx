@@ -60,7 +60,7 @@ export default function ProdutoRegister() {
      ;
     if (state !== null && state.id !== null) {
       axios
-        .get(`${utilService.getURlAPI()}/categoriaproduto/${state.id}`)
+        .get(`${utilService.getURlAPI()}/categoria-produto/${state.id}`)
         .then((response) => {
            ;
           setCategoria(response.data.id);

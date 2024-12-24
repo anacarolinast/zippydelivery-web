@@ -16,7 +16,7 @@ export default function CategoriasPage() {
   useEffect(() => {
     //var categorias = [];
     axios
-      .get(`${utilService.getURlAPI()}/categoriaempresa`)
+      .get(`${utilService.getURlAPI()}/categoria-empresa`)
       .then((response) => {
         setCategorias(response.data);
         console.log(response)
@@ -26,7 +26,7 @@ export default function CategoriasPage() {
   const getCategorias = async () => {
     try {
       axios
-        .get(`${utilService.getURlAPI()}/categoriaempresa`)
+        .get(`${utilService.getURlAPI()}/categoria-empresa`)
         .then((response) => {
           setCategorias(response.data);
           console.log(response)
@@ -58,7 +58,7 @@ export default function CategoriasPage() {
       descricao: categoria
     }
 
-    axios.post(`${utilService.getURlAPI()}/categoriaempresa`, body)
+    axios.post(`${utilService.getURlAPI()}/categoria-empresa`, body)
       .then(response => {
         console.log('Categoria criada com sucesso:', response.data);
       })
@@ -69,7 +69,7 @@ export default function CategoriasPage() {
   const deletarCategoria = id => {
     if (!id || id === "") return
 
-    axios.delete(`${utilService.getURlAPI()}/categoriaempresa/${id}`)
+    axios.delete(`${utilService.getURlAPI()}/categoria-empresa/${id}`)
       .then(response => {
         console.log('Categoria criada com sucesso:', response.data);
       })

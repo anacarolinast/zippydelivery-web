@@ -15,7 +15,7 @@ export default function MenuManagerPage() {
   useEffect(() => {
     var categorias = [];
     axios
-      .get(`${utilService.getURlAPI()}/categoriaproduto`)
+      .get(`${utilService.getURlAPI()}/categoria-produto`)
       .then((response) => {
          
         let categorias = response.data
@@ -63,11 +63,11 @@ export default function MenuManagerPage() {
 
   async function remove(id) {
     await axios
-      .delete(`${utilService.getURlAPI()}/categoriaproduto/${id}`)
+      .delete(`${utilService.getURlAPI()}/categoria-produto/${id}`)
       .then((response) => {
         console.log('Categoria removida com sucesso.');
         axios
-          .get(`${utilService.getURlAPI()}/categoriaproduto`)
+          .get(`${utilService.getURlAPI()}/categoria-produto`)
           .then((response) => {
             setCategories(response.data);
           });
@@ -84,7 +84,7 @@ export default function MenuManagerPage() {
         console.log('Produto removido com sucesso.');
         var categorias = [];
         axios
-          .get(`${utilService.getURlAPI()}/categoriaproduto`)
+          .get(`${utilService.getURlAPI()}/categoria-produto`)
           .then((response) => {
             setCategories(response.data);
             categorias = response.data;
