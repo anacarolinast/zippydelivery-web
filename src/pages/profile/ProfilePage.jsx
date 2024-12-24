@@ -123,15 +123,12 @@ function ProfilePage() {
 
   function onSubmit() {
 
-    // 
-
-
     let body = {
       nome: nome || "",
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      categoriaId: categoria || "",
+      categoriaId: categoria.id || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
@@ -148,7 +145,6 @@ function ProfilePage() {
         complemento: complemento || "",
       },
     };
-    console.log(body);
 
     let result = profileService.createEmpresa(body, idEmpresa);
     console.log(result);
