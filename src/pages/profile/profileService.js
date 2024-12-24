@@ -1,22 +1,29 @@
 import utilService from "../../utilService";
 import axios from "axios";
 
-const apiUrl = utilService.getURlAPI()
+const apiUrl = utilService.getURlAPI();
+const token = localStorage.getItem('token');
 
 const profileService = {
 
-  createEmpresa: function (body, id = 0) { 
-     
-     
-    // Se o id for zero significa que é um método post, se houver id significa que é um método patch ou put para alterar empresa
-    if (id === 0) return axios.post(`${apiUrl}/empresa`, body)
-
-    return axios.put(`${apiUrl}/empresa/${id}`, body)
-
+  createEmpresa: async function (body, id) { 
+    try {
+      const response = axios.put(`${apiUrl}/empresa/${id}`, body, 
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      ); 
+      console.log(response.data);
+    } catch (error) {
+        console.error("Erro ao fazer a requisição:", error);
+    }
   },
 
   getEmpresa: function (id) { 
-    return axios.get(`${apiUrl}/empresa/${id}`)
+    return axios.get(`${apiUrl}/empresa/usuario/${id}`)
   },
 
   getAll: function () { 
