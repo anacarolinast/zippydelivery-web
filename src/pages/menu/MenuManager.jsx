@@ -11,143 +11,99 @@ export default function MenuManagerPage() {
   const [allCategories, setAllCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [produtoSearch, setProdutoSearch] = useState([]);
+  const [produtos, setProdutos] = useState([]);
   
+  var idEmpresa = localStorage.getItem("id")
+  var token = localStorage.getItem("token")
+  var header = { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } };
+
   useEffect(() => {
-    var categorias = [];
-    axios
-      .get(`${utilService.getURlAPI()}/categoria-produto`)
-      .then((response) => {
-         
-        let categorias = response.data
-        let idEmpresa = localStorage.getItem('id')
-        idEmpresa = parseInt(idEmpresa)
-        setCategories(categorias.filter(categoria => categoria.empresa.id === (idEmpresa + 1)));
-        categorias = categorias.filter(categoria => categoria.empresa.id === (idEmpresa + 1));
+    fetchCategorias();
+    fetchProdutos();
+  })
 
-        getProduto(categorias)
-      });
+  const fetchCategorias = async () => {
+    axios.get(`${utilService.getURlAPI()}/categoria-produto/empresa/${idEmpresa}`, header)
+    .then(function (response) { 
+        setAllCategories(response.data)
+        setCategories(response.data)
+    })
+    .catch(function (error) { console.error(error); });
+  };
 
-      function getProduto(newCategorias) {
-        axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-           
-          let produtos = response.data;
-    
-          // Distribuir produtos e suas devidas categorias
-          setCategories(
-            newCategorias
-              .map((category) => ({
-                id: category?.id,
-                descricao: category?.descricao,
-                produtos: produtos.filter(
-                  (produto) => produto.categoria?.id === category?.id,
-                ),
-              }))
-              .filter((category) => category.id != null),
-          );
-    
-          setAllCategories(
-            categorias
-              .map((category) => ({
-                id: category?.id,
-                descricao: category?.descricao,
-                produtos: produtos.filter(
-                  (produto) => produto.categoria?.id === category?.id,
-                ),
-              }))
-              .filter((category) => category.id != null),
-          );
-        });
-      }
-    
-  }, []);
+  const fetchProdutos = async () => {
+    axios.get(`${utilService.getURlAPI()}/produto/empresa/${idEmpresa}`, header)
+    .then(function (response) { 
+        setProdutos(response.data)
+    })
+    .catch(function (error) { console.error(error); });
+  };
 
   async function remove(id) {
     await axios
-      .delete(`${utilService.getURlAPI()}/categoria-produto/${id}`)
+      .delete(`${utilService.getURlAPI()}/categoria-produto/${id}`, header)
       .then((response) => {
-        console.log('Categoria removida com sucesso.');
         axios
-          .get(`${utilService.getURlAPI()}/categoria-produto`)
+          .get(`${utilService.getURlAPI()}/categoria-produto`, header)
           .then((response) => {
             setCategories(response.data);
           });
       })
       .catch((error) => {
-        console.log('Erro ao remover categoria: ', error.response);
+        console.error('Erro ao remover categoria: ', error.response);
       });
   }
 
   async function removeProduto(id) {
-    await axios
-      .delete(`${utilService.getURlAPI()}/produto/${id}`)
+    await axios.delete(`${utilService.getURlAPI()}/produto/${id}`, header)
       .then((response) => {
-        console.log('Produto removido com sucesso.');
-        var categorias = [];
-        axios
-          .get(`${utilService.getURlAPI()}/categoria-produto`)
-          .then((response) => {
-            setCategories(response.data);
-            categorias = response.data;
-          });
-
-        axios.get(`${utilService.getURlAPI()}/produto`).then((response) => {
-          let produtos = response.data;
-
-          // Distribuir produtos e suas devidas categorias
-          setCategories(
-            categorias
-              .map((category) => ({
-                id: category?.id,
-                descricao: category?.descricao,
-                produtos: produtos.filter(
-                  (produto) => produto.categoria?.id === category?.id,
-                ),
-              }))
-              .filter((category) => category.id != null),
-          );
-        });
+        console.log("ok, produto deletado")
       })
       .catch((error) => {
-        console.log('Erro ao remover categoria: ', error.response);
+        console.error('Erro ao remover categoria: ', error);
       });
   }
 
   function handleChangeCategory(event) {
-    setCategoryFilter({ value: event.target.value });
-    filterCategory(event.target.value);
+    const selectedCategory = event.target.value;
+    setCategoryFilter({ value: selectedCategory }); 
+    filterCategory(selectedCategory);
   }
 
   function filterCategory(filteredCategory) {
-    if (filteredCategory === 0) setCategories(allCategories);
-    else
+    if (filteredCategory === '0') {  
+      setCategories(allCategories);
+    } else {
       setCategories(
         allCategories.filter(
-          (category) => category.descricao === filteredCategory,
+          (category) => category.descricao === filteredCategory, 
         ),
       );
+    }
   }
 
   function handleChangeProduct(event) {
-    setProdutoSearch(event.target.value);
-    filterProduct(event.target.value);
+    const searchValue = event.target.value;
+    setProdutoSearch(searchValue);  
+    filterProduct(searchValue);  
   }
 
   function filterProduct(search) {
-    if (search === null) setCategories(allCategories);
-    else
+    if (!search) {  
+      setCategories(allCategories);
+    } else {
       setCategories(
         allCategories.map((category) => {
           return {
             id: category?.id,
             descricao: category?.descricao,
             produtos: category.produtos.filter((produto) =>
-              produto.titulo.toLowerCase().includes(search.toLowerCase()),
+              produto.titulo.toLowerCase().includes(search.toLowerCase()), 
             ),
           };
-
-          //if (category === [] || category.produtos === []) return
         }),
       );
+    }
   }
 
   return (
@@ -230,11 +186,11 @@ export default function MenuManagerPage() {
             <select
               className="form-input w-1/4"
               value={categoryFilter.value}
-              onChange={handleChangeCategory}
+              onChange={handleChangeCategory}  
             >
               <option value={0}>Selecione a categoria</option>
               {allCategories.map((category) => (
-                <option value={category.descricao}>{category.descricao}</option>
+                <option key={category.id} value={category.descricao}>{category.descricao}</option>
               ))}
             </select>
           </div>
@@ -314,62 +270,62 @@ export default function MenuManagerPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {category.produtos?.map((produto, index) => (
-                        <tr class="bg-white border-b group">
-                          <th
-                            scope="row"
-                            class="tb-400 px-6 py-1.5 font-medium text-gray-900 whitespace-nowrap"
-                          >
-                            {produto.titulo}
-                          </th>
-                          <td class="px-6 py-1.5 tb-150">R$ {produto.preco}</td>
-                          <td class="px-6 py-1.5 line-clamp-2 flex justify-between">
-                            <span className="w-9/12">{produto.descricao}</span>
-                            <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
-                              <div className="flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors">
-                                <Link
-                                  to="/produto"
-                                  state={{ id: category.id, produto: produto }}
+                      {produtos?.filter((produto) => produto.categoria.id === category.id)
+                        .map((produto) => (
+                       
+                          <tr className="bg-white border-b group" key={produto.id}>
+                            <th scope="row" className="tb-400 px-6 py-1.5 font-medium text-gray-900 whitespace-nowrap">
+                              {produto.titulo}
+                            </th>
+                            <td className="px-6 py-1.5 tb-150">R$ {produto.preco}</td>
+                            <td className="px-6 py-1.5 line-clamp-2 flex justify-between">
+                              <span className="w-9/12">{produto.descricao}</span>
+                              <div className="opacity-0 group-hover:opacity-100 flex justify-center gap-4 w-2/12 transition-all">
+                                <div className="flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors">
+                                  <Link
+                                    to="/produto"
+                                    state={{ id: category.id, produto: produto }}
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth="1.5"
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                      />
+                                    </svg>
+                                  </Link>
+                                </div>
+                                <div
+                                  onClick={() => removeProduto(produto.id)}
+                                  className="flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-full h-fit p-2 transition-colors"
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    stroke-width="1.5"
+                                    strokeWidth="1.5"
                                     stroke="currentColor"
-                                    class="w-6 h-6"
+                                    className="w-6 h-6"
                                   >
                                     <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                                     />
                                   </svg>
-                                </Link>
+                                </div>
                               </div>
-                              <div
-                                onClick={() => removeProduto(produto.id)}
-                                className="flex justify-center items-center cursor-pointer  hover:bg-gray-100 rounded-full h-fit p-2 transition-colors"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke-width="1.5"
-                                  stroke="currentColor"
-                                  class="w-6 h-6"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            </td>
+                          </tr>
+                        ))
+                    }
                     </tbody>
                   </table>
                 </div>

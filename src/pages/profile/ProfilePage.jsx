@@ -16,6 +16,8 @@ import utilService from '../../utilService';
 
 function ProfilePage() {  
 
+  let navigate = useNavigate();
+
   const [idEmpresa, setIdEmpresa] = useState('');
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -123,15 +125,12 @@ function ProfilePage() {
 
   function onSubmit() {
 
-    // 
-
-
     let body = {
       nome: nome || "",
       cnpj: cnpj || "",
       email: email || "",
       cep: cep || "",
-      categoriaId: categoria || "",
+      categoriaId: categoria.id || "",
       tempoEntrega: tempoEntrega || "",
       taxaFrete: taxaFrete || "",
       telefone: telefone || "",
@@ -148,9 +147,9 @@ function ProfilePage() {
         complemento: complemento || "",
       },
     };
-    console.log(body);
 
     let result = profileService.createEmpresa(body, idEmpresa);
+    navigate('/home');
     console.log(result);
   }
 

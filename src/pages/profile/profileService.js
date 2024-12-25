@@ -8,7 +8,7 @@ const profileService = {
 
   createEmpresa: async function (body, id) { 
     try {
-      const response = axios.put(`${apiUrl}/empresa/${id}`, body, 
+      const response = axios.put(`${apiUrl}/empresa/${id}`, body,  
         {
           headers: {
             'Authorization': `Bearer ${token}`,
