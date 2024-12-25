@@ -6,7 +6,6 @@ import LogoComponent from './logoComponent';
 function NavBarComponent() {
   let navigate = useNavigate()
   let location = useLocation().pathname
-  console.log(location)
   return (
     <div className='fixed z-50 w-full h-fit top-0'>
       <div className='flex justify-between w-full bg-white py-2 px-8 shadow-md'>

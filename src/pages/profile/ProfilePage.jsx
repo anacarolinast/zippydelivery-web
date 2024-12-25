@@ -16,6 +16,8 @@ import utilService from '../../utilService';
 
 function ProfilePage() {  
 
+  let navigate = useNavigate();
+
   const [idEmpresa, setIdEmpresa] = useState('');
   const [nome, setNome] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -147,6 +149,7 @@ function ProfilePage() {
     };
 
     let result = profileService.createEmpresa(body, idEmpresa);
+    navigate('/home');
     console.log(result);
   }
 

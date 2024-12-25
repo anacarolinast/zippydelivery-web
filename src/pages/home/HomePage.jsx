@@ -17,38 +17,31 @@ function HomePage() {
   const [empresaImgPerfil, setEmpresaImgPerfil] = useState('');
   const [empresaDesc, setEmpresaDesc] = useState('');
  
-  console.log(localStorage.getItem('id'))
-
   const apiUrl = utilService.getURlAPI()
   
   useEffect(()=>{
   axios.get(`${apiUrl}/empresa/usuario/` + localStorage.getItem('id'))
         .then(function (response) {
-          console.log(response.data)
           setEmpresaId(response.data.id);
           setEmpresaNome(response.data.nome);
           setEmpresaImgPerfil(response.data.imgPerfil);
           setEmpresaDesc(response.data.categoria.descricao);
         }).catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
   },[])
 
-
-
   useEffect(() => {
-
     if (empresaId) {
       axios.get(`${apiUrl}/pedido/dashboard/` + empresaId)
         .then(function (response) {
-          console.log(response.data)
           setVendasTotais(response.data.vendasTotais)
           setFaturamentoTotal(response.data.fatoramentoTotal)
           setVendaHoje(response.data.vendaHoje)
           setFaturamentoMedio(response.data.faturamentoMedio)
         })
         .catch(function (error) {
-          console.log(error);
+          console.error(error);
         });
     }
   }, [empresaId])

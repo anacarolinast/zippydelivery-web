@@ -21,26 +21,26 @@ export default function CategoryEditPage() {
         })
     }
   }, [state])
+  
 
   var id = localStorage.getItem("id")
+  var token = localStorage.getItem("token")
+  var header = { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } };
   const criarCategoria = () => {
-
     let productCategoryRequest = {
       descricao: descricao,
-      empresa_id: parseInt(id)+1
+      empresaId: parseInt(id)
     }
 
     if (categoryId === undefined) {
-      axios.post(`${utilService.getURlAPI()}/categoria-produto`, productCategoryRequest)
+      axios.post(`${utilService.getURlAPI()}/categoria-produto`, productCategoryRequest, header)
         .then(response => {
-          console.log('Categoria criada com sucesso:', response.data);
           navigate('/menu-manager');
         })
         .catch(error => { console.error('Erro ao criar categoria:', error); });
     } else {
-      axios.put(`${utilService.getURlAPI()}/categoria-produto/${categoryId}`, productCategoryRequest)
+      axios.put(`${utilService.getURlAPI()}/categoria-produto/${categoryId}`, productCategoryRequest, header)
         .then(response => {
-          console.log('Categoria alterada com sucesso:', response.data);
           navigate('/menu-manager');
         })
         .catch(error => { console.error('Erro ao alterar categoria:', error); });
@@ -78,7 +78,7 @@ export default function CategoryEditPage() {
             <div className='flex flex-col gap-4'>
               <div className="flex gap-4">
                 <div className='flex flex-col w-full gap-1'>
-                  <span>Nome</span>
+                  <span>Como será chamada?</span>
                   <input
                     placeholder='Nome da sua categoria'
                     className='form-input pl-6'

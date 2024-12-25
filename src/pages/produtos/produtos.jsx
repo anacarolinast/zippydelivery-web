@@ -47,22 +47,19 @@ export default function ProdutoRegister() {
   const [descricao, setDescricao] = useState();
 
   const [categoriaDescricao, setCategoriaDescricao] = useState();
-
   const [imgProduct, setImgProduct] = React.useState(null);
-
   const [productImage, setProductImage] = React.useState([]);
-
 
   const maxNumber = 69;
 
+  var token = localStorage.getItem("token")
+  var header = { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } };
 
   useEffect(() => {
-     ;
     if (state !== null && state.id !== null) {
       axios
         .get(`${utilService.getURlAPI()}/categoria-produto/${state.id}`)
         .then((response) => {
-           ;
           setCategoria(response.data.id);
           setCategoriaDescricao(response.data.descricao);
            
@@ -80,56 +77,44 @@ export default function ProdutoRegister() {
 
 
   const handleUpload = async () => {
-     ;
-
     if (!titulo || !preco || !categoria || !descricao) {
       console.error('Preencha todos os campos antes de salvar.');
       return;
     }
 
-     
-
     let body = {
-      idCategoria: categoria,
-      idEmpresa: localStorage.getItem('id'),
+      categoriaId: categoria,
+      empresaId: localStorage.getItem('id'),
       titulo: titulo,
       imagem: imgProduct || "",
       descricao: descricao,
       preco: preco,
-      disponibilidade: true,
-      tempoEntregaMinimo: 0,
-      tempoEntregaMáximo: 0,
+      disponibilidade: true
     };
-
     try {
       if (idProduto) {
-        await axios
-          .put(`${utilService.getURlAPI()}/produto/${idProduto}`, body)
+        await axios.put(`${utilService.getURlAPI()}/produto/${idProduto}`, body, header)
           .then((response) => {
             navigate('/menu-manager');
-            console.log(response);
           });
 
       } else {
-        await axios
-          .post(`${utilService.getURlAPI()}/produto`, body)
+        await axios.post(`${utilService.getURlAPI()}/produto`, body, header)
           .then((response) => {
             navigate('/menu-manager');
             console.log(response);
           });
       }
-      //console.log('Imagem enviada com sucesso:', response.data);
     } catch (error) {
       console.error('Erro ao enviar imagem:', error);
     }
-    //clearForm();
   };
 
 
   const onChangeProductImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
-    console.log(imageList[0].file);
+    //console.log(imageList, addUpdateIndex);
+    //console.log(imageList[0].file);
     setProductImage(imageList[0]);
     handleSubmit(imageList[0], true)
   };
