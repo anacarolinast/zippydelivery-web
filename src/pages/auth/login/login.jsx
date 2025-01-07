@@ -6,8 +6,6 @@ import zippy from '../../../assets/img/zippy.png';
 import { registerSuccessfulLoginForJwt } from '../../util/AuthenticationService';
 import utilService from '../../../utilService';
 
-
-
 function LoginPage() {
   let navigate = useNavigate()
 
@@ -27,15 +25,20 @@ function LoginPage() {
       axios.post(`${apiUrl}/login`, authenticationRequest)
         .then((response) => {
 
-          registerSuccessfulLoginForJwt(response.data.token, response.data.expiration)
+          // Exibir o token no console
+          console.log("Token recebido:", response.data.token);
+          
+          // Registrar o login
+          registerSuccessfulLoginForJwt(response.data.token, response.data.expiration);
            
-          window.localStorage.setItem('id', response.data.id)
+          // Salvar ID no localStorage
+          window.localStorage.setItem('id', response.data.id);
           navigate("/init");
 
         })
         .catch((error) => {
-
-          Error('Usuário não encontrado')
+          console.error('Erro no login:', error);
+          alert('Usuário não encontrado');
         })
     }
   }
@@ -82,7 +85,7 @@ function LoginPage() {
                 type="password"
                 value={password}
                 onChange={e => setpassword(e.target.value)} />
-              <span className='text-secondary mt-1'>Esqueceu a senha ? <span onClick={() => { navigate('reset-password') }} className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
+              <span className='text-secondary mt-1'>Esqueceu a senha? <span onClick={() => { navigate('reset-password') }} className='text-gray-600 font-semibold cursor-pointer'>Recuperar Senha</span></span>
             </div>
 
           </div>

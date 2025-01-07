@@ -30,6 +30,7 @@ import EmpresasParceiras from './admin/empresas/EmpresasParceiras';
 import FaturamentoPage from './admin/faturamento/Faturamento';
 import CategoriasPage from './admin/categorias/Categorias';
 import InformacoesPage from './admin/informacoes/Informacoes';
+import Dashboard from './pages/dashboard/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -125,7 +126,10 @@ const router = createBrowserRouter([
         path: "cadastro-cupom-desconto",
         element: <CadCupomDesconto/>
       },
-     
+     {
+      path: "dashboard",
+      element: <Dashboard/>
+     }
     ]
   },
 ])
