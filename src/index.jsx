@@ -5,6 +5,9 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ProtectedRoute from "./pages/util/ProtectedRoute";
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+
 // Pages
 import ConfirmEmailPage from './pages/auth/actions/confirmEmail';
 import ResetPasswordPage from './pages/auth/actions/resetPassword';
@@ -48,7 +51,6 @@ const router = createBrowserRouter([
       },
       {
         path: "confirm-email",
-
         element: <ConfirmEmailPage />
       },
       {
@@ -59,7 +61,7 @@ const router = createBrowserRouter([
         path: "home",
         element: <ProtectedRoute>
           <HomePage />
-          </ProtectedRoute>
+        </ProtectedRoute>
       },
       {
         path: "produto",
@@ -103,33 +105,32 @@ const router = createBrowserRouter([
       },
       {
         path: "adm/nossos-parceiros",
-        element: <EmpresasParceiras/>
+        element: <EmpresasParceiras />
       },
       {
         path: "adm/faturamento",
-        element: <FaturamentoPage/>
+        element: <FaturamentoPage />
       },
       {
         path: "adm/categorias",
-        element: <CategoriasPage/>
+        element: <CategoriasPage />
       },
       {
         path: "adm/informacoes",
-        element: <InformacoesPage/>
+        element: <InformacoesPage />
       },
       {
         path: "cupom-desconto",
-        element: <CupomDesconto/>
+        element: <CupomDesconto />
       },
-     
       {
         path: "cadastro-cupom-desconto",
-        element: <CadCupomDesconto/>
+        element: <CadCupomDesconto />
       },
-     {
-      path: "dashboard",
-      element: <Dashboard/>
-     }
+      {
+        path: "dashboard",
+        element: <Dashboard />
+      }
     ]
   },
 ])
@@ -137,10 +138,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router}></RouterProvider>
+    <ToastContainer /> 
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

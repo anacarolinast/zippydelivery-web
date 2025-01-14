@@ -1,7 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
-import LoginPage from "./pages/auth/login/login";
 import NavBarComponent from "./pages/components/navBarComponent";
 import AdmNavBarComponent from "./pages/components/admNavBarComponent";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   let location = useLocation().pathname
@@ -17,6 +18,7 @@ function App() {
         (location.includes("adm")) ? <AdmNavBarComponent /> : <span></span>
       }
       <Outlet />
+      <ToastContainer />
     </div>
   );
 }
