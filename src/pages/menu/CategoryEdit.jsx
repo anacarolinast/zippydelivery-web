@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 import utilService from '../../utilService';
 
-
 export default function CategoryEditPage() {
 
   let navigate = useNavigate();
@@ -20,32 +19,46 @@ export default function CategoryEditPage() {
           setDescricao(response.data.descricao)
         })
     }
-  }, [state])
-  
+  }, [state]);
 
-  var id = localStorage.getItem("id")
-  var token = localStorage.getItem("token")
-  var header = { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } };
+  const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
+
+  // Cabeçalho com o token Bearer
+  const header = {
+    headers: { 
+      'Authorization': `Bearer ${token}`, // Passando o token como Bearer
+      'Content-Type': 'application/json' 
+    }
+  };
+
   const criarCategoria = () => {
     let productCategoryRequest = {
       descricao: descricao,
       empresaId: parseInt(id)
-    }
+    };
 
     if (categoryId === undefined) {
+      // Requisição POST para criar categoria
       axios.post(`${utilService.getURlAPI()}/categoria-produto`, productCategoryRequest, header)
         .then(response => {
           navigate('/menu-manager');
         })
-        .catch(error => { console.error('Erro ao criar categoria:', error); });
+        .catch(error => { 
+          console.error('Erro ao criar categoria:', error); 
+        });
     } else {
+      // Requisição PUT para atualizar categoria
       axios.put(`${utilService.getURlAPI()}/categoria-produto/${categoryId}`, productCategoryRequest, header)
         .then(response => {
           navigate('/menu-manager');
         })
-        .catch(error => { console.error('Erro ao alterar categoria:', error); });
+        .catch(error => { 
+          console.error('Erro ao alterar categoria:', error); 
+        });
     }
-  }
+  };
+
 
   return (
     <div className='flex h-full justify-center pt-44 px-16 bg-white'>
