@@ -1,5 +1,4 @@
 import React from 'react';
-import GeneratePDFButton from './generatePDFButton';
 
 const PowerBIEmbed = () => {
   return (
@@ -14,7 +13,7 @@ const PowerBIEmbed = () => {
           height: '100%',
           border: '0'
         }}
-        src="https://app.powerbi.com/view?r=eyJrIjoiYmM2MDBiZWUtZDk2Ni00ZjMwLWI4NzYtNDJiYTBmZjM0YjM2IiwidCI6IjUwZGY0NzYyLTJkYTUtNDg5YS05NDVkLTVhOWI5MWU4MTMyNCJ9"
+        src="https://app.powerbi.com/view?r=eyJrIjoiZjA3ZmE4NGEtODUyNS00MTZhLWE2MWEtMTdkMmM3YWU2MTdmIiwidCI6IjUwZGY0NzYyLTJkYTUtNDg5YS05NDVkLTVhOWI5MWU4MTMyNCJ9"
         allowFullScreen="true"
       ></iframe>
     </div>

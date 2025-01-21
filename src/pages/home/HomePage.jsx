@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import utilService from '../../utilService';
+import generateReport from '../components/generatePDF';
 
 
 function HomePage() {
@@ -129,13 +130,19 @@ function HomePage() {
         <div className='flex flex-col h-fit p-2 items-center'>
   <span className='text-tomato-100 underline mt-2 cursor-pointer'>Fechar agora</span>
   
-  {/* Novo botão para navegar para a página de dashboard */}
   <button 
-    className='mt-4 p-3 bg-blue-500 text-white rounded-lg cursor-pointer'
-    onClick={() => navigate('/dashboard')}
-  >
-    Ir para o Dashboard
-  </button>
+  className='mt-3 p-3 bg-blue-500 text-white rounded-lg cursor-pointer w-full'
+  onClick={() => navigate('/dashboard')}
+>
+  Ir para o Dashboard
+</button>
+<button 
+  className='mt-4 p-3 bg-green-500 text-white rounded-lg cursor-pointer w-full'
+  onClick={generateReport}
+>
+  Exportar métricas PDF
+</button>
+
 </div>
 
       </div>
