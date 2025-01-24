@@ -66,8 +66,8 @@ const LoginPage = () => {
         const empresaRequest = { cnpj: "00000000000000", email, senha };
         console.log("Cadastrando novo cliente:", empresaRequest);
         await axios.post("https://zippydelivery-v2-latest.onrender.com/api/empresa", empresaRequest);
-        
-        entrar(email, senha); 
+
+        entrar(email, senha);
       }
     } catch (error) {
       toast.error("Erro ao verificar e-mail ou cadastrar cliente.");
@@ -79,14 +79,14 @@ const LoginPage = () => {
     const provider = new GoogleAuthProvider();
     try {
       console.log("Iniciando login com o Google...");
-      const result = await signInWithPopup(auth, provider); 
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const email = user.email;
-      const uid = user.uid; 
+      const uid = user.uid;
       console.log("Usuário logado com sucesso. E-mail:", email);
-  
+
       const emailValido = await verificarEmail(email);
-  
+
       if (emailValido) {
         console.log("E-mail encontrado. Redirecionando para dashboard.");
         entrar(email, uid);
@@ -167,14 +167,20 @@ const LoginPage = () => {
               Criar uma conta
             </button>
             <div className="flex flex-col items-center gap-3">
-              <span className="text-lg">Ou</span>
+              {/* <span className="text-lg">Ou</span> */}
               <button
                 onClick={loginGoogle}
-                className="outline-button w-full"
+                className="outline-button w-full flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-100"
               >
+                <img
+                  src={require('../../../assets/img/simbolo-do-google.png')}
+                  alt="Google Logo"
+                  className="h-6 w-6"
+                />
                 Entrar com Google
               </button>
             </div>
+
           </div>
         </div>
       </div>

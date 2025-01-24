@@ -51,58 +51,58 @@ function ProfilePage() {
   const [isProfile, setIsProfile] = useState(true);
 
   const { state } = useLocation();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const getEmpresas = async () => {
-       ;
-
       try {
         axios
           .get(`${utilService.getURlAPI()}/categoria-empresa`)
           .then((response) => {
-             
+            
             setCategorias(response.data);
           });
   
+        let empresaId = localStorage.getItem('id');
+        console.log("empresaId ", empresaId);
+  
+        // Obtenha a empresa diretamente da resposta
+        const empresaResponse = await profileService.getEmpresa(parseInt(empresaId));
+        console.log("empresa ", empresaResponse)
+        
+        setIdEmpresa(empresaResponse.id);
+        setCategoria(empresaResponse.categoria || "");
+        setCnpj(empresaResponse.cnpj || "");
+        setEmail(empresaResponse.email || "");
+        setImgBanner(empresaResponse.imgCapa || "");
+        setImgPerfil(empresaResponse.imgPerfil || "");
+        setNome(empresaResponse.nome || "");
+        setStatus(empresaResponse.status || "");
+        setLogradouro(empresaResponse.endereco.logradouro || "");
+        console.log("logradouro", logradouro)
+        setBairro(empresaResponse.endereco.bairro || "");
+        setNumeroEndereco(empresaResponse.endereco.numero || "");
+        setCidade(empresaResponse.endereco.cidade || "");
+        setEstado(empresaResponse.endereco.estado || "");
+        setCep(empresaResponse.endereco.cep || "");
+        setTaxaFrete(empresaResponse.taxaFrete || "");
+        setTelefone(empresaResponse.telefone || "");
+        setTempoEntrega(empresaResponse.tempoEntrega || "");
+        setFormasPagamentoSelecionadas(empresaResponse.formasPagamento || []);
       } catch (error) {
-        // Handle errors appropriately
-        console.error('Error fetching categoria:', error);
+        console.error('Error fetching empresa:', error);
       }
-
-      let empresaId = localStorage.getItem('id')
-
-      const empresas = await profileService.getAll();
-
-      const empresa = await profileService.getEmpresa(parseInt(empresaId)).then(response => {
-        let empresa = response.data;
-        setIdEmpresa(empresa.id);
-        setCategoria(empresa.categoria || "");
-        setCnpj(empresa.cnpj || "");
-        setEmail(empresa.email || "");
-        setImgBanner(empresa.imgCapa || "");
-        setImgPerfil(empresa.imgPerfil || "");
-        setNome(empresa.nome || "");
-        setStatus(empresa.status || "");
-        setLogradouro(empresa.logradouro || "");
-        setBairro(empresa.bairro || "");
-        setNumeroEndereco(empresa.numeroEndereco || "");
-        setCidade(empresa.cidade || "");
-        setEstado(empresa.estado || "");
-        setCep(empresa.cep || "");
-        setTaxaFrete(empresa.taxaFrete || "");
-        setTelefone(empresa.telefone || "");
-        setTempoEntrega(empresa.tempoEntrega || "");
-        setFormasPagamentoSelecionadas(empresa.formasPagamento || "");
-      });
-
     };
-
+  
     getEmpresas();
   }, [state]);
 
+  
+  
   function deleteEmpresa() {
-     ;
+     
     profileService.deleteEmpresa(idEmpresa);
+  
   }
 
 
@@ -149,8 +149,9 @@ function ProfilePage() {
     };
 
     let result = profileService.createEmpresa(body, idEmpresa);
+   
     navigate('/home');
-    console.log(result);
+    
   }
 
   const maxNumber = 69;
