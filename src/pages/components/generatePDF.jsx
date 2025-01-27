@@ -1,20 +1,21 @@
 import { jsPDF } from 'jspdf';
+import Chart from 'chart.js/auto';
 import axios from 'axios';
+import { FaDownload, FaDollarSign, FaChartBar } from 'react-icons/fa';
 
-const generateReport = async () => {
+const generateReportWithCharts = async () => {
   try {
     const token = localStorage.getItem("token");
     const empresaId = localStorage.getItem('id');
-    
+
     if (!token || !empresaId) {
       alert("Token ou ID da empresa não encontrado.");
       return;
     }
 
     const apiUrl = 'https://zippydelivery-v2-latest.onrender.com/api/pedido';
-    
     const headers = {
-      'Authorization': `Bearer ${token}`,  
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     };
 
@@ -22,18 +23,29 @@ const generateReport = async () => {
     const pedidos = response.data;
 
     const pedidosDaEmpresa = pedidos.filter(pedido => 
-      pedido.empresa.id === 1 || pedido.empresa.id === 103
+      pedido.empresa.usuario.id === parseInt(empresaId)
     );
 
     const today = new Date();
     const todayDate = today.toISOString().split('T')[0]; 
 
-    let faturamentoHoje = 0;
-    let pedidosHoje = 0;
-    let pedidosTotais = 0;
-    let faturamentoTotal = 0;
-    let ticketMedio = 0;
-    let pedidosPorDia = 0;
+    const last7Days = Array.from({ length: 7 }, (_, i) => {
+      const date = new Date();
+      date.setDate(today.getDate() - (6 - i));
+      return date.toISOString().split('T')[0];
+    });
+    
+
+    const faturamentoUltimos7Dias = last7Days.map(date => {
+      return pedidosDaEmpresa
+        .filter(pedido => pedido.dataHora.split('T')[0] === date)
+        .reduce((acc, pedido) => acc + pedido.valorTotal, 0);
+    });
+
+    const pedidosUltimos7Dias = last7Days.map(date => {
+      return pedidosDaEmpresa.filter(pedido => pedido.dataHora.split('T')[0] === date).length;
+    });
+
     let pedidosPorPagamento = {
       PIX: 0,
       CartaoCredito: 0,
@@ -44,17 +56,6 @@ const generateReport = async () => {
     };
 
     pedidosDaEmpresa.forEach(pedido => {
-      const pedidoDate = pedido.dataHora.split('T')[0];
-      if (pedidoDate === todayDate) {
-        faturamentoHoje += pedido.valorTotal;
-        pedidosHoje += 1;
-      }
-
-      faturamentoTotal += pedido.valorTotal;
-      pedidosTotais += 1;
-
-      ticketMedio = faturamentoTotal / pedidosTotais;
-
       switch (pedido.formaPagamento) {
         case 1: 
           pedidosPorPagamento.PIX += 1;
@@ -77,98 +78,151 @@ const generateReport = async () => {
       }
     });
 
-    pedidosPorDia = Math.ceil(pedidosTotais / today.getDate());
+    const ctx1 = document.createElement('canvas');
+    const ctx2 = document.createElement('canvas');
+    const ctx3 = document.createElement('canvas');
+    ctx1.width = 800;
+    ctx1.height = 400;
+    ctx2.width = 800;
+    ctx2.height = 400;
+    ctx3.width = 800;
+    ctx3.height = 400;
 
-    const doc = new jsPDF();
-    const orangeColor = "#FF8C42";
-    const greyColor = "#333333";
-    const highlightColor = "#FFEDD5";
-
-    doc.setFillColor(orangeColor);
-    doc.rect(0, 0, 210, 30, "F");
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(24);
-    doc.setTextColor("#FFFFFF");
-    doc.text("Relatório de Pedidos", 105, 20, null, null, "center");
-
-    doc.setFontSize(14);
-    doc.setTextColor(greyColor);
-    doc.text(`Gerado em: ${todayDate}`, 105, 35, null, null, "center");
-
-    doc.setDrawColor(greyColor);
-    doc.line(10, 40, 200, 40);
-
-    doc.setFontSize(16);
-    doc.setTextColor(greyColor);
-    doc.text("Resumo dos Pedidos", 10, 50);
-
-    const dataBlock = [
-      { label: "Faturamento Hoje", value: `R$ ${faturamentoHoje.toFixed(2)}` },
-      { label: "Pedidos Hoje", value: pedidosHoje.toString() },
-      { label: "Pedidos Totais", value: pedidosTotais.toString() },
-      { label: "Faturamento Total", value: `R$ ${faturamentoTotal.toFixed(2)}` },
-      { label: "Ticket Médio", value: `R$ ${ticketMedio.toFixed(2)}` },
-      { label: "Pedidos por Dia (Média)", value: pedidosPorDia.toString() },
-    ];
-
-    let cursorY = 60;
-    dataBlock.forEach((item) => {
-      doc.setFontSize(12);
-      doc.setTextColor(orangeColor);
-      doc.text(item.label, 10, cursorY);
-      doc.setTextColor(greyColor);
-      doc.text(item.value, 90, cursorY);
-      cursorY += 12;
+    const chart1 = new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: ['PIX', 'Cartão de Crédito', 'Cartão de Débito', 'Vale Alimentação', 'Dinheiro', 'Outros'],
+        datasets: [{
+          label: 'Pedidos por Tipo de Pagamento',
+          data: [
+            pedidosPorPagamento.PIX,
+            pedidosPorPagamento.CartaoCredito,
+            pedidosPorPagamento.CartaoDebito,
+            pedidosPorPagamento.ValeAlimentacao,
+            pedidosPorPagamento.Dinheiro,
+            pedidosPorPagamento.Outros
+          ],
+          backgroundColor: '#FF8C42',
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
     });
 
-    cursorY += 5;
-    doc.setDrawColor(greyColor);
-    doc.line(10, cursorY, 200, cursorY);
+const chart2 = new Chart(ctx2, {
+  type: 'line',
+  data: {
+    labels: last7Days,
+    datasets: [{
+      label: 'Faturamento (R$)',
+      data: faturamentoUltimos7Dias, 
+      borderColor: '#FF8C42', 
+      fill: false
+    }]
+  },
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      }
+    }
+  }
+});
 
-    cursorY += 10;
-    doc.setFontSize(16);
-    doc.setTextColor(greyColor);
-    doc.text("Pedidos por Tipo de Pagamento", 10, cursorY);
+const chart3 = new Chart(ctx3, {
+  type: 'bar',
+  data: {
+    labels: last7Days, 
+    datasets: [{
+      label: 'Número de Pedidos',
+      data: pedidosUltimos7Dias, 
+      backgroundColor: '#FF8C42',
+    }]
+  },
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: 'top'
+      }
+    }
+  }
+});
 
-    cursorY += 10;
-    const paymentMethods = [
-      { method: "PIX", value: pedidosPorPagamento.PIX.toString() },
-      { method: "Cartão de Crédito", value: pedidosPorPagamento.CartaoCredito.toString() },
-      { method: "Cartão de Débito", value: pedidosPorPagamento.CartaoDebito.toString() },
-      { method: "Vale Alimentação", value: pedidosPorPagamento.ValeAlimentacao.toString() },
-      { method: "Dinheiro", value: pedidosPorPagamento.Dinheiro.toString() },
-      { method: "Outros", value: pedidosPorPagamento.Outros.toString() },
-    ];
+    chart1.update();
+    chart2.update();
+    chart3.update();
 
-    paymentMethods.forEach((item) => {
-      doc.setFontSize(12);
-      doc.setTextColor(orangeColor);
-      doc.text(item.method, 10, cursorY);
-      doc.setTextColor(greyColor);
-      doc.text(`${item.value}`, 90, cursorY);
-      cursorY += 12;
-    });
+    setTimeout(() => {
+      try {
+        const imgData1 = ctx1.toDataURL('image/png');
+        const imgData2 = ctx2.toDataURL('image/png');
+        const imgData3 = ctx3.toDataURL('image/png');
 
-    doc.setFillColor(orangeColor);
-    doc.rect(0, 280, 210, 20, "F");
-    doc.setTextColor("#FFFFFF");
-    doc.setFontSize(10);
-    doc.text("Relatório gerado automaticamente por Zippy Delivery", 105, 290, null, null, "center");
+        const doc = new jsPDF();
 
-    const pdfBlob = doc.output('blob');
+        doc.setFillColor("#FF8C42");
+        doc.rect(0, 0, 210, 30, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(24);
+        doc.setTextColor("#FFFFFF");
+        doc.text("Relatório de Pedidos", 105, 20, null, null, "center");
 
-    const pdfUrl = URL.createObjectURL(pdfBlob);
+        doc.setFontSize(14);
+        doc.setTextColor("#333333");
 
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.download = 'relatorio_pedidos.pdf';
-    link.click();
+        // doc.text(`Pedidos (Hoje): ${pedidosUltimos7Dias[0]}`, 10, 50);
+        // doc.text(`Faturamento (Hoje): R$ ${faturamentoUltimos7Dias[0].toFixed(2)}`, 10, 60);
+        // const ticketMedio = faturamentoUltimos7Dias[0] / pedidosUltimos7Dias[0];
+        // doc.text(`Ticket Médio: R$ ${ticketMedio.toFixed(2)}`, 10, 70);
+        // const faturamentoTotal = faturamentoUltimos7Dias.reduce((acc, val) => acc + val, 0);
+        // doc.text(`Faturamento (Total): R$ ${faturamentoTotal.toFixed(2)}`, 10, 80);
+        // doc.text(`Pedidos (Total): ${pedidosDaEmpresa.length}`, 10, 90);
 
-    URL.revokeObjectURL(pdfUrl);
+        let yPosition = 100; 
+
+        doc.addImage(imgData1, 'PNG', 10, yPosition, 190, 100);
+        yPosition += 110;
+
+        if (yPosition + 100 > 280) { doc.addPage(); yPosition = 20; }
+        doc.addImage(imgData2, 'PNG', 10, yPosition, 190, 100);
+        yPosition += 110;
+
+        if (yPosition + 100 > 280) { doc.addPage(); yPosition = 20; }
+        doc.addImage(imgData3, 'PNG', 10, yPosition, 190, 100);
+
+        doc.setFontSize(10);
+        doc.setTextColor("#666666");
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+          doc.setPage(i);
+          doc.text(`Página ${i} de ${pageCount}`, 180, 290);
+        }
+
+        const pdfBlob = doc.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+
+        const link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = 'relatorio_pedidos_com_graficos.pdf';
+        link.click();
+
+        URL.revokeObjectURL(pdfUrl);
+      } catch (error) {
+        console.error("Erro ao gerar o PDF:", error);
+      }
+    }, 2000); 
 
   } catch (error) {
     console.error("Erro ao gerar o relatório:", error);
   }
 };
 
-export default generateReport;
+export default generateReportWithCharts;

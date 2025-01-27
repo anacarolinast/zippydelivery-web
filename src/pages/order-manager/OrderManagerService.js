@@ -8,7 +8,8 @@ const orderManagerService = {
   updatePedido: async function (body, id) { return await axios.put(`${apiUrl}/pedido/${id}`, body) },
 
   getAll: function () { 
-    return axios.get(`${apiUrl}/pedido`)
+    const id = localStorage.getItem("id");
+    return axios.get(`${apiUrl}/pedido/empresa/${id}`)
   },
   
 };
