@@ -28,6 +28,8 @@ const storage = getStorage(appStorage);
 
 const appAuth = initializeApp(firebaseConfigAuth, "authApp");
 const auth = getAuth(appAuth);
-const database = getDatabase(appAuth);
 
-export { storage, auth };
+const appDatabase = initializeApp(firebaseConfigAuth, "databaseApp");
+const db = getDatabase(appDatabase); 
+
+export { storage, auth, db };
