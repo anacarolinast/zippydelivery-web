@@ -1,57 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import eloLogo from '../../assets/img/elo.png';
-import mastercardLogo from '../../assets/img/mastercard.png';
-import pixLogo from '../../assets/img/pix.png';
-import visaLogo from '../../assets/img/visa.png';
-import vrLogo from '../../assets/img/vr.png'
-import profileService from './profileService';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import eloLogo from "../../assets/img/elo.png";
+import mastercardLogo from "../../assets/img/mastercard.png";
+import pixLogo from "../../assets/img/pix.png";
+import visaLogo from "../../assets/img/visa.png";
+import vrLogo from "../../assets/img/vr.png";
+import profileService from "./profileService";
 
-import { storage } from '../../firebase';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import { storage } from "../../firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
-import ImageUploading from 'react-images-uploading';
-import axios from 'axios';
-import utilService from '../../utilService';
+import ImageUploading from "react-images-uploading";
+import axios from "axios";
+import utilService from "../../utilService";
+import useCompanyId from "../../hooks/UseCompanyId";
 
-function ProfilePage() {  
-
+function ProfilePage() {
   let navigate = useNavigate();
 
-  const [idEmpresa, setIdEmpresa] = useState('');
-  const [nome, setNome] = useState('');
-  const [cnpj, setCnpj] = useState('');
-  const [email, setEmail] = useState('');
-  const [cep, setCep] = useState('');
-  const [categoria, setCategoria] = useState('');
-  const [tempoEntrega, setTempoEntrega] = useState('');
-  const [taxaFrete, setTaxaFrete] = useState('');
-  const [telefone, setTelefone] = useState('');
+  const companyId = useCompanyId();
 
-  // para mostrar na página
+  const [idEmpresa, setIdEmpresa] = useState("");
+  const [nome, setNome] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [email, setEmail] = useState("");
+  const [cep, setCep] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [tempoEntrega, setTempoEntrega] = useState("");
+  const [taxaFrete, setTaxaFrete] = useState("");
+  const [telefone, setTelefone] = useState("");
+
   const [profileImage, setProfileImage] = React.useState([]);
-  // para mandar a url de download pro banco
   const [imgBanner, setImgBanner] = useState(null);
-  const [imgPerfil, setImgPerfil] = useState('');
+  const [imgPerfil, setImgPerfil] = useState("");
 
-  const [imgCapa, setImgCapa] = useState('');
-  const [logradouro, setLogradouro] = useState('');
-  const [bairro, setBairro] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [numeroEndereco, setNumeroEndereco] = useState('');
-  const [status, setStatus] = useState('');
-  const [estado, setEstado] = useState('');
-  const [complemento, setComplemento] = useState('');
-  const [cidadeEntrega, setCidadeEntrega] = useState('');
-  const [uf, setUf] = useState('');
-  const [categorias, setCategorias] = useState('');
+  const [imgCapa, setImgCapa] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [numeroEndereco, setNumeroEndereco] = useState("");
+  const [status, setStatus] = useState("");
+  const [estado, setEstado] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [cidadeEntrega, setCidadeEntrega] = useState("");
+  const [uf, setUf] = useState("");
+  const [categorias, setCategorias] = useState("");
 
-  const [formasPagamentoSelecionadas, setFormasPagamentoSelecionadas] = useState([]);
+  const [formasPagamentoSelecionadas, setFormasPagamentoSelecionadas] =
+    useState([]);
 
   const [isProfile, setIsProfile] = useState(true);
 
   const { state } = useLocation();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const getEmpresas = async () => {
@@ -59,17 +60,17 @@ function ProfilePage() {
         axios
           .get(`${utilService.getURlAPI()}/categoria-empresa`)
           .then((response) => {
-            
             setCategorias(response.data);
           });
-  
-        let empresaId = localStorage.getItem('id');
+
+        let empresaId = localStorage.getItem("id");
         console.log("empresaId ", empresaId);
-  
-        // Obtenha a empresa diretamente da resposta
-        const empresaResponse = await profileService.getEmpresa(parseInt(empresaId));
-        console.log("empresa ", empresaResponse)
-        
+
+        const empresaResponse = await profileService.getEmpresa(
+          parseInt(empresaId)
+        );
+        console.log("empresa ", empresaResponse);
+
         setIdEmpresa(empresaResponse.id);
         setCategoria(empresaResponse.categoria || "");
         setCnpj(empresaResponse.cnpj || "");
@@ -79,7 +80,7 @@ function ProfilePage() {
         setNome(empresaResponse.nome || "");
         setStatus(empresaResponse.status || "");
         setLogradouro(empresaResponse.endereco.logradouro || "");
-        console.log("logradouro", logradouro)
+        console.log("logradouro", logradouro);
         setBairro(empresaResponse.endereco.bairro || "");
         setNumeroEndereco(empresaResponse.endereco.numero || "");
         setCidade(empresaResponse.endereco.cidade || "");
@@ -90,21 +91,16 @@ function ProfilePage() {
         setTempoEntrega(empresaResponse.tempoEntrega || "");
         setFormasPagamentoSelecionadas(empresaResponse.formasPagamento || []);
       } catch (error) {
-        console.error('Error fetching empresa:', error);
+        console.error("Error fetching empresa:", error);
       }
     };
-  
+
     getEmpresas();
   }, [state]);
 
-  
-  
   function deleteEmpresa() {
-     
     profileService.deleteEmpresa(idEmpresa);
-  
   }
-
 
   const handleSelecionarFormaPagamento = (formaPagamento) => {
     const formaIndex = formasPagamentoSelecionadas.indexOf(formaPagamento);
@@ -113,7 +109,9 @@ function ProfilePage() {
     if (formaIndex === -1) {
       newFormasPagamento = [...newFormasPagamento, formaPagamento];
     } else {
-      newFormasPagamento = newFormasPagamento.filter((item) => item !== formaPagamento);
+      newFormasPagamento = newFormasPagamento.filter(
+        (item) => item !== formaPagamento
+      );
     }
 
     setFormasPagamentoSelecionadas(newFormasPagamento);
@@ -124,7 +122,6 @@ function ProfilePage() {
   };
 
   function onSubmit() {
-
     let body = {
       nome: nome || "",
       cnpj: cnpj || "",
@@ -148,24 +145,21 @@ function ProfilePage() {
       },
     };
 
-    let result = profileService.createEmpresa(body, idEmpresa);
-   
-    navigate('/home');
-    
+    console.log("Body:", body);
+    let result = profileService.createEmpresa(body, companyId);
+
+    // navigate("/home");
   }
 
   const maxNumber = 69;
 
   const onChangeProfileImage = (imageList, addUpdateIndex) => {
-
-    // data for submit
     setProfileImage(imageList[0]);
-    handleSubmit(imageList[0], isProfile)
+    handleSubmit(imageList[0], isProfile);
   };
 
   function handleSubmit(image, isProfileImage) {
-     ;
-    const file = image['file'];
+    const file = image["file"];
 
     if (!file) return;
 
@@ -173,12 +167,11 @@ function ProfilePage() {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      'state_changed',
+      "state_changed",
       (snapshot) => {
         const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        //setProgresspercent(progress);
       },
       (error) => {
         alert(error);
@@ -188,23 +181,22 @@ function ProfilePage() {
           if (isProfileImage) {
             setImgPerfil(downloadURL);
           } else {
-            setImgBanner(downloadURL)
+            setImgBanner(downloadURL);
           }
         });
-      },
+      }
     );
-  };
+  }
 
   return (
     <div className="flex h-full justify-center pt-44 px-16 bg-white">
       <div className="w-full h-28 max-w-5xl">
-        {/* Images Session */}
         <ImageUploading
           value={profileImage}
           onChange={onChangeProfileImage}
           maxNumber={maxNumber}
           dataURLKey="data_url"
-          >
+        >
           {({
             imageList,
             onImageUpload,
@@ -216,10 +208,23 @@ function ProfilePage() {
           }) => (
             <div>
               <div className="p-1 flex justify-end bg-gray-100 w-full h-48 rounded-md">
-                {imgBanner ? 
-                  <img src={imgBanner} className=" w-full h-full" alt="" width="100" /> : <div></div>
-                }
-                <span onClick={() => {onImageUpload(); setIsProfile(false)}} className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all">
+                {imgBanner ? (
+                  <img
+                    src={imgBanner}
+                    className=" w-full h-full"
+                    alt=""
+                    width="100"
+                  />
+                ) : (
+                  <div></div>
+                )}
+                <span
+                  onClick={() => {
+                    onImageUpload();
+                    setIsProfile(false);
+                  }}
+                  className="hover:bg-gray-300 w-fit h-fit rounded-full p-1.5 transition-all"
+                >
                   <svg
                     className="w-6 h-6 cursor-pointer "
                     xmlns="http://www.w3.org/2000/svg"
@@ -236,20 +241,26 @@ function ProfilePage() {
                   </svg>
                 </span>
               </div>
-              <div onClick={() => {onImageUpload(); setIsProfile(true)}}
+              <div
+                onClick={() => {
+                  onImageUpload();
+                  setIsProfile(true);
+                }}
                 className="relative group cursor-pointer hover:shadow-lg transition-all flex items-center justify-center bg-gray-200 w-36 h-36 rounded-full mx-auto -translate-y-1/2 overflow-hidden"
-                >
-                
-                {/*{profileImage['data_url'] ?*/}
-                {imgPerfil ?
+              >
+                {imgPerfil ? (
                   <div className=" flex items-center justify-center">
-                    {/*<img src={profileImage['data_url']} className="object-cover" alt="" width="100" />*/}
-                    <img src={imgPerfil} className="object-cover w-full h-full" alt="" width="100" />
+                    <img
+                      src={imgPerfil}
+                      className="object-cover w-full h-full"
+                      alt=""
+                      width="100"
+                    />
                     <div className="opacity-0 text-white group-hover:opacity-100 absolute bg-gray-800/70 flex w-full h-full  items-center justify-center">
                       New Image
                     </div>
                   </div>
-                 : 
+                ) : (
                   <svg
                     className="w-8 h-8"
                     xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +275,7 @@ function ProfilePage() {
                       d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
                     />
                   </svg>
-                }
+                )}
               </div>
               <button
                 onClick={onSubmit}
@@ -275,14 +286,9 @@ function ProfilePage() {
             </div>
           )}
         </ImageUploading>
-        {/* Session End */}
-
-        {/* Form Session */}
         <div className="flex flex-col gap-10 w-full pb-44">
-          {/* Info Session */}
           <div className="flex flex-col gap-5">
             <span className="text-2xl font-semibold">Informações</span>
-            {/* Form rows*/}
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-1">
@@ -296,11 +302,11 @@ function ProfilePage() {
                   />
                 </div>
                 <div className="flex flex-col w-full gap-1">
-                  <span>cnpj</span>
+                  <span>CNPJ</span>
                   <input
-                    value={cnpj}
+                    value={cnpj === "00000000000000" ? "" : cnpj}
                     onChange={(e) => setCnpj(e.target.value)}
-                    placeholder="cnpj da sua loja"
+                    placeholder="CNPJ da sua loja"
                     className="form-input"
                     type="text"
                   />
@@ -352,14 +358,9 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            {/* Session End */}
           </div>
-          {/* Session End */}
-
-          {/* Address Session */}
           <div className="flex flex-col gap-5">
             <span className="text-2xl font-semibold">Endereço</span>
-            {/* Form rows*/}
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <div className="flex flex-col w-4/6 gap-1">
@@ -386,8 +387,12 @@ function ProfilePage() {
               <div className="flex gap-4">
                 <div className="flex flex-col w-2/12 gap-1">
                   <span>Número</span>
-                  <input className="form-input" type="text"  value={numeroEndereco}
-                    onChange={(e) => setNumeroEndereco(e.target.value)}/>
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={numeroEndereco}
+                    onChange={(e) => setNumeroEndereco(e.target.value)}
+                  />
                 </div>
                 <div className="flex flex-col w-6/12 gap-1">
                   <span>Cidade</span>
@@ -419,20 +424,11 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            {/* Session End*/}
           </div>
-          {/* Session End */}
-
-          {/* Delivery Locals Session */}
           <div className="flex flex-col gap-5">
             <span className="text-2xl font-semibold">Locais de Entrega</span>
-            {/* Form rows*/}
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
-                <div className="flex flex-col w-3/4 gap-1">
-                  <span>Cidade para entrega</span>
-                  <input className="form-input" type="text" />
-                </div>
                 <div className="flex flex-col w-1/4 gap-1">
                   <span>Taxa de frete</span>
                   <input
@@ -468,78 +464,81 @@ function ProfilePage() {
                   </svg>
                 </span>
               </div>
-              {/*<span className="cursor-pointer hover:text-opacity-70 transition-all flex gap-1 text-secondary font-medium text-sm w-fit border-b-[1.2px] border-b-gray-500">
-                <span>Adicionar mais um local</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-[1.15rem] h-[1.15rem] my-auto"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              */}
             </div>
-            {/* Session End */}
           </div>
-          {/* Session End */}
-
-          {/* Delivery Locals Session */}
           <div className="flex flex-col gap-5">
             <span className="text-2xl font-semibold">Falta pouco...</span>
-            {/* Form rows*/}
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <div className="flex flex-col w-3/4 gap-2">
                   <span>Métodos de pagamento aceitos</span>
                   <div className="flex gap-2">
                     <div
-                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('CARTAO_CREDITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('CARTAO_CREDITO')}
-                  >
+                      className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                        formaPagamentoEstaSelecionada("CARTAO_CREDITO")
+                          ? "ring-2 ring-orange-100"
+                          : "ring-1 ring-gray-300"
+                      }`}
+                      onClick={() =>
+                        handleSelecionarFormaPagamento("CARTAO_CREDITO")
+                      }
+                    >
                       <div className="w-fit ">
                         <img src={mastercardLogo} alt="react logo" />
                       </div>
                     </div>
                     <div
-                    className={`flex  cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('CARTAO_DEBITO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('CARTAO_DEBITO')}
-                  >
+                      className={`flex  cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                        formaPagamentoEstaSelecionada("CARTAO_DEBITO")
+                          ? "ring-2 ring-orange-100"
+                          : "ring-1 ring-gray-300"
+                      }`}
+                      onClick={() =>
+                        handleSelecionarFormaPagamento("CARTAO_DEBITO")
+                      }
+                    >
                       <div className="w-fit">
                         <img src={visaLogo} alt="react logo" />
                       </div>
                     </div>
                     <div
-                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('PIX') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('PIX')}
-                  >
+                      className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                        formaPagamentoEstaSelecionada("PIX")
+                          ? "ring-2 ring-orange-100"
+                          : "ring-1 ring-gray-300"
+                      }`}
+                      onClick={() => handleSelecionarFormaPagamento("PIX")}
+                    >
                       <div className="w-fit">
                         <img src={pixLogo} alt="react logo" />
                       </div>
                     </div>
-                  <div
-                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                      formaPagamentoEstaSelecionada('VALE_ALIMENTACAO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'
-                    }`}
-                    onClick={() => handleSelecionarFormaPagamento('VALE_ALIMENTACAO')}
-                  >
-                    <div className="w-[4.8rem] h-12 flex items-center justify-center">
-                      <img src={vrLogo} alt="React Logo" className="h-8 w-8" />
-                    </div>
-                  </div>
                     <div
-                    className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
-                    formaPagamentoEstaSelecionada('DINHEIRO') ? 'ring-2 ring-orange-100' : 'ring-1 ring-gray-300'}`}
-                    onClick={() => handleSelecionarFormaPagamento('DINHEIRO')}
-                  >
+                      className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                        formaPagamentoEstaSelecionada("VALE_ALIMENTACAO")
+                          ? "ring-2 ring-orange-100"
+                          : "ring-1 ring-gray-300"
+                      }`}
+                      onClick={() =>
+                        handleSelecionarFormaPagamento("VALE_ALIMENTACAO")
+                      }
+                    >
+                      <div className="w-[4.8rem] h-12 flex items-center justify-center">
+                        <img
+                          src={vrLogo}
+                          alt="React Logo"
+                          className="h-8 w-8"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className={`flex cursor-pointer items-center justify-center w-[4.8rem] h-12 rounded-sm ${
+                        formaPagamentoEstaSelecionada("DINHEIRO")
+                          ? "ring-2 ring-orange-100"
+                          : "ring-1 ring-gray-300"
+                      }`}
+                      onClick={() => handleSelecionarFormaPagamento("DINHEIRO")}
+                    >
                       <div className="w-fit">
                         <span className="font-bold">R$</span>
                       </div>
@@ -548,9 +547,7 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            {/* Session End */}
           </div>
-          {/* Session End */}
           <button
             onClick={onSubmit}
             className=" flex items-center primary-button px-20 ml-auto "
@@ -579,7 +576,6 @@ function ProfilePage() {
             </div>
           )}
         </div>
-        {/* Session End */}
       </div>
     </div>
   );

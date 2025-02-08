@@ -3,43 +3,44 @@ import React, { useEffect, useState } from "react";
 
 import { useLocation } from "react-router-dom";
 
-import utilService from '../../utilService';
-
+import utilService from "../../utilService";
+import useNewPedidoNotification from "../../hooks/UseNewPedidoNotification";
 
 export default function CadCupomDesconto() {
   const [idCupomDesconto, setIdCupomDesconto] = useState();
   const [codigoDesconto, setCodigoDesconto] = useState();
   const [percentualDesconto, setPercentualDesconto] = useState();
   const [valorDesconto, setValorDesconto] = useState();
-  const [valorMinimoPedidoPermitido, setValorMinimoPedidoPermitido] = useState();
+  const [valorMinimoPedidoPermitido, setValorMinimoPedidoPermitido] =
+    useState();
   const [quantidadeMaximaUso, setQuantidadeMaximaUso] = useState();
   const [inicioVigencia, setInicioVigencia] = useState();
   const [fimVigencia, setFimVigencia] = useState();
 
   const { state } = useLocation();
 
-  const apiUrl = utilService.getURlAPI()
-
+  const apiUrl = utilService.getURlAPI();
 
   useEffect(() => {
     if (state != null && state.id != null) {
-      axios.get(`${utilService.getURlAPI()}/cupom/${state.id}`)
+      axios
+        .get(`${utilService.getURlAPI()}/cupom/${state.id}`)
         .then((response) => {
-          setIdCupomDesconto(response.data.id)
-          setCodigoDesconto(response.data.codigoDesconto)
-          setPercentualDesconto(response.data.percentualDesconto)
-          setValorDesconto(response.data.valorDesconto)
-          setValorMinimoPedidoPermitido(response.data.valorMinimoPedidoPermitido)
-          setQuantidadeMaximaUso(response.data.quantidadeMaximaUso)
-          setInicioVigencia(formatarData(response.data.inicioVigencia))
-          setFimVigencia(formatarData(response.data.fimVigencia))
-        })
+          setIdCupomDesconto(response.data.id);
+          setCodigoDesconto(response.data.codigoDesconto);
+          setPercentualDesconto(response.data.percentualDesconto);
+          setValorDesconto(response.data.valorDesconto);
+          setValorMinimoPedidoPermitido(
+            response.data.valorMinimoPedidoPermitido
+          );
+          setQuantidadeMaximaUso(response.data.quantidadeMaximaUso);
+          setInicioVigencia(formatarData(response.data.inicioVigencia));
+          setFimVigencia(formatarData(response.data.fimVigencia));
+        });
     }
-  }, [state])
-
+  }, [state]);
 
   function salvar() {
-
     let cupomDescontoRequest = {
       codigo: codigoDesconto,
       percentualDesconto: percentualDesconto,
@@ -47,38 +48,46 @@ export default function CadCupomDesconto() {
       valorMinimoPedidoPermitido: valorMinimoPedidoPermitido,
       quantidadeMaximaUso: quantidadeMaximaUso,
       inicioVigencia: inicioVigencia,
-      fimVigencia: fimVigencia
-
-    }
-    axios.post(`${apiUrl}/cupom`, cupomDescontoRequest)
+      fimVigencia: fimVigencia,
+    };
+    axios
+      .post(`${apiUrl}/cupom`, cupomDescontoRequest)
       .then((response) => {
-        console.log('Cupom cadastrado com sucesso.')
+        console.log("Cupom cadastrado com sucesso.");
       })
       .catch((error) => {
-        console.log('Erro ao incluir o um cupom.')
-      })
-
+        console.log("Erro ao incluir o um cupom.");
+      });
   }
 
-
-
-
   function formatarData(dataParam) {
-
-        if (dataParam === null || dataParam === '' || dataParam === undefined) {
-            return ''
-        };
-
-        //let arrayData = dataParam.split('-');
-        return dataParam[2] + '/' + dataParam[1] + '/' + dataParam[0] +'  h'+ dataParam[3] +':'+ dataParam[4]
+    if (dataParam === null || dataParam === "" || dataParam === undefined) {
+      return "";
     }
+
+    return (
+      dataParam[2] +
+      "/" +
+      dataParam[1] +
+      "/" +
+      dataParam[0] +
+      "  h" +
+      dataParam[3] +
+      ":" +
+      dataParam[4]
+    );
+  }
+
+  useNewPedidoNotification();
 
   return (
     <div className="flex h-full justify-center pt-44 px-16 bg-white">
       <div className="flex flex-col gap-10 w-full pb-44">
         {/* Info Session */}
         <div className="flex flex-col gap-5">
-          <span className="text-2xl font-semibold">Cadastro de Cupom de Desconto</span>
+          <span className="text-2xl font-semibold">
+            Cadastro de Cupom de Desconto
+          </span>
           {/* Form rows*/}
           <div className="flex flex-col gap-4">
             <div className="flex gap-4">
@@ -120,12 +129,13 @@ export default function CadCupomDesconto() {
                 <span>Valor minino de Pedido</span>
                 <input
                   value={valorMinimoPedidoPermitido}
-                  onChange={(e) => setValorMinimoPedidoPermitido(e.target.value)}
+                  onChange={(e) =>
+                    setValorMinimoPedidoPermitido(e.target.value)
+                  }
                   placeholder="Valor minino de pedidos"
                   className="form-input"
                   type="text"
                 />
-
               </div>
             </div>
           </div>
@@ -161,11 +171,8 @@ export default function CadCupomDesconto() {
                   type="text"
                 />
               </div>
-
-
             </div>
           </div>
-
         </div>
         <button
           onClick={salvar}
@@ -173,10 +180,7 @@ export default function CadCupomDesconto() {
         >
           Salvar
         </button>
-
-
-
       </div>
-
-    </div>)
+    </div>
+  );
 }
