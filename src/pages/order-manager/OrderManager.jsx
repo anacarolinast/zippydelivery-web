@@ -5,6 +5,8 @@ import mastercardLogo from "../../assets/img/mastercard.png";
 import { db } from "../../firebase";
 import { ref, onValue, update } from "firebase/database";
 import { format } from "date-fns";
+import useNewPedidoNotification from "../../hooks/UseNewPedidoNotification";
+import useCompanyId from "../../hooks/UseCompanyId"; 
 
 function formatarData(dataHora) {
   return dataHora ? format(new Date(dataHora), "dd/MM/yyyy HH:mm") : "";
@@ -27,6 +29,8 @@ function OrderManagerPage() {
     amount: 0,
     total: 0,
   });
+
+  const empresaId = useCompanyId(); 
 
   function updateOrdersSummary(orders) {
     const ordersData = Array.isArray(orders.data) ? orders.data : [];
@@ -63,6 +67,11 @@ function OrderManagerPage() {
     "cursor-pointer flex justify-between items-center bg-gray-300 hover:bg-gray-300 py-3 px-4 border-l-4 border-orange-100";
 
   const listenToOrders = (empresaId) => {
+    if (!empresaId) {
+      console.log("ID da empresa não disponível.");
+      return;
+    }
+
     const ordersRef = ref(db, "pedidos");
 
     onValue(ordersRef, (snapshot) => {
@@ -100,9 +109,10 @@ function OrderManagerPage() {
   };
 
   useEffect(() => {
-    const empresaId = 1;
-    listenToOrders(empresaId);
-  }, []);
+    if (empresaId) {
+      listenToOrders(empresaId); 
+    }
+  }, [empresaId]);
 
   function onChangeOrderSelected(newOrder) {
     setOrderSelected(newOrder);
@@ -112,6 +122,8 @@ function OrderManagerPage() {
   let navigate = useNavigate();
 
   console.log(orderSelected);
+
+  useNewPedidoNotification();
 
   return (
     <div className="flex h-full pt-16 mt-3 bg-gray-100">

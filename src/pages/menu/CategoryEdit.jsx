@@ -2,17 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 import utilService from '../../utilService';
-import useCompany from '../../hooks/UseCompany';
+import useCompanyId from '../../hooks/UseCompanyId';
 
 export default function CategoryEditPage() {
   let navigate = useNavigate();
   const { state } = useLocation();
-
   const [categoryId, setCategoryId] = useState();
   const [descricao, setDescricao] = useState();
-  const [empresaId, setEmpresaId] = useState(null);
-
-  const companyId = useCompany();
+  const companyId = useCompanyId(); 
 
   useEffect(() => {
     if (state !== null && state.id !== null) {
@@ -24,24 +21,22 @@ export default function CategoryEditPage() {
     }
   }, [state]);
 
-  const id = localStorage.getItem("id");
   const token = localStorage.getItem("token");
 
   const header = {
     headers: { 
-      'Authorization': `Bearer ${token}`, 
-      'Content-Type': 'application/json' 
+      'Authorization': `Bearer ${token}`
     }
   };
 
   const criarCategoria = () => {
     let productCategoryRequest = {
       descricao: descricao,
-      empresaId: companyId
+      empresaId: companyId  
     };
 
     if (categoryId === undefined) {
-      axios.post(`${utilService.getURlAPI()}/categoria-produto`, productCategoryRequest, header)
+      axios.post('https://zippydelivery-v2-latest.onrender.com/api/categoria-produto', productCategoryRequest, header)
         .then(response => {
           navigate('/menu-manager');
         })
@@ -49,7 +44,7 @@ export default function CategoryEditPage() {
           console.error('Erro ao criar categoria:', error); 
         });
     } else {
-      axios.put(`${utilService.getURlAPI()}/categoria-produto/${categoryId}`, productCategoryRequest, header)
+      axios.put(`https://zippydelivery-v2-latest.onrender.com/api/categoria-produto/${categoryId}`, productCategoryRequest, header)
         .then(response => {
           navigate('/menu-manager');
         })

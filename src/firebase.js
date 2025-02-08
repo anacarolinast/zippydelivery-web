@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage"; 
 import { getDatabase } from "firebase/database";
+import { getMessaging } from "firebase/messaging";
+
 
 const firebaseConfigStorage = {
   apiKey: "AIzaSyD4z9evoXL37mLO-QIiFUIrT6miELZRjb0",
@@ -32,4 +34,7 @@ const auth = getAuth(appAuth);
 const appDatabase = initializeApp(firebaseConfigAuth, "databaseApp");
 const db = getDatabase(appDatabase); 
 
-export { storage, auth, db };
+const appMessaging = initializeApp(firebaseConfigAuth, "messagingApp");
+const messaging = getMessaging(appMessaging);
+
+export { storage, auth, db, messaging };

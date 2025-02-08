@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import utilService from '../../utilService';
 import generateReport from '../components/generatePDF';
+import useNewPedidoNotification from '../../hooks/UseNewPedidoNotification';
+
 
 function HomePage() {
 
@@ -46,6 +48,8 @@ function HomePage() {
   }, [empresaId]);
 
   let navigate = useNavigate();
+
+  useNewPedidoNotification();
   
   return (
     <div className='h-fit justify-center p-24 bg-white'>
