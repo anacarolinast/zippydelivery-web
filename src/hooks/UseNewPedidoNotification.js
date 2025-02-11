@@ -1,34 +1,39 @@
-import { useEffect, useState } from 'react';
-import { ref, onChildAdded } from 'firebase/database';
-import { db } from '../firebase';
-import { toast } from 'react-toastify';
-import useCompany from '../hooks/UseCompany';
-import 'react-toastify/dist/ReactToastify.css';
-import zippySound from '../assets/sound/zippy.mp3';
+import { useEffect, useState } from "react";
+import { ref, onChildAdded } from "firebase/database";
+import { db } from "../firebase";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import zippySound from "../assets/sound/zippy.mp3";
+import useCompanyId from "./UseCompanyId";
 
 const useNewPedidoNotification = () => {
   const [notificados, setNotificados] = useState(new Set());
   const [cutoffTime, setCutoffTime] = useState(Date.now());
-  const empresaId = useCompany(); 
+  const empresaId = useCompanyId();
 
   const playNotificationSound = () => {
     const audio = new Audio(zippySound);
-    audio.play(); 
+    audio.play();
     audio.onerror = () => {
       console.error("Erro ao tentar reproduzir o som");
     };
   };
 
   useEffect(() => {
-    if (!empresaId) return; 
+    if (!empresaId) return;
 
     console.log(`⏳ Escutando novos pedidos para a empresa: ${empresaId}`);
 
-    const pedidosRef = ref(db, 'pedidos');
+    const pedidosRef = ref(db, "pedidos");
 
     const unsubscribe = onChildAdded(pedidosRef, (snapshot) => {
       const novoPedido = snapshot.val();
-      if (!novoPedido || !novoPedido.dataHora || Number(novoPedido.empresa?.id) !== Number(empresaId)) return;
+      if (
+        !novoPedido ||
+        !novoPedido.dataHora ||
+        Number(novoPedido.empresa?.id) !== Number(empresaId)
+      )
+        return;
 
       const pedidoTime = new Date(novoPedido.dataHora).getTime();
 
@@ -56,14 +61,14 @@ const useNewPedidoNotification = () => {
 
         playNotificationSound();
       } else {
-        console.log("⏳ Pedido ignorado (antigo, de outra empresa ou já notificado).");
+        console.log(
+          "⏳ Pedido ignorado (antigo, de outra empresa ou já notificado)."
+        );
       }
     });
 
     return () => unsubscribe();
-
   }, [cutoffTime, empresaId]);
-
 };
 
 export default useNewPedidoNotification;
