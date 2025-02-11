@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import utilService from "../../utilService";
-import generateReport from "../components/generatePDF";
 import useNewPedidoNotification from "../../hooks/UseNewPedidoNotification";
 import useDashboardMetrics from "../../hooks/UseDashboardMetrics";
+import generateReportWithCharts from "../components/generatePDF";
 
 function HomePage() {
   const [empresaId, setEmpresaId] = useState();
@@ -126,7 +126,7 @@ function HomePage() {
                   </div>
                   <div className="flex">
                     <span className="text-black text-lg font-semibold">
-                      R$ {faturamentoTotal}
+                      R$ {faturamentoTotal.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex">
@@ -149,7 +149,7 @@ function HomePage() {
 
             <button
               className="mt-4 p-3 bg-green-500 text-white rounded-lg cursor-pointer w-full"
-              onClick={generateReport}
+              onClick={generateReportWithCharts}
             >
               Exportar métricas
             </button>

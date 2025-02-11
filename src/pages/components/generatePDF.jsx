@@ -1,7 +1,6 @@
 import { jsPDF } from 'jspdf';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
-import { FaDownload, FaDollarSign, FaChartBar } from 'react-icons/fa';
 
 const generateReportWithCharts = async () => {
   try {
@@ -13,17 +12,13 @@ const generateReportWithCharts = async () => {
       return;
     }
 
-    const apiUrl = 'https://zippydelivery-v2-latest.onrender.com/api/pedido';
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    };
+    const apiUrl = 'https://zippydelivery-fea08-default-rtdb.firebaseio.com/pedidos.json';
 
-    const response = await axios.get(apiUrl, { headers });
-    const pedidos = response.data;
+    const response = await axios.get(apiUrl);
+    const pedidos = Object.values(response.data);  
 
-    const pedidosDaEmpresa = pedidos.filter(pedido => 
-      pedido.empresa.usuario.id === parseInt(empresaId)
+    const pedidosDaEmpresa = pedidos.filter(pedido =>
+      pedido.empresa.id === parseInt(empresaId)
     );
 
     const today = new Date();
@@ -34,7 +29,6 @@ const generateReportWithCharts = async () => {
       date.setDate(today.getDate() - (6 - i));
       return date.toISOString().split('T')[0];
     });
-    
 
     const faturamentoUltimos7Dias = last7Days.map(date => {
       return pedidosDaEmpresa
@@ -57,19 +51,19 @@ const generateReportWithCharts = async () => {
 
     pedidosDaEmpresa.forEach(pedido => {
       switch (pedido.formaPagamento) {
-        case 1: 
+        case 'PIX':
           pedidosPorPagamento.PIX += 1;
           break;
-        case 2: 
+        case 'Cartão de Crédito':
           pedidosPorPagamento.CartaoCredito += 1;
           break;
-        case 3:
+        case 'Cartão de Débito':
           pedidosPorPagamento.CartaoDebito += 1;
           break;
-        case 4: 
+        case 'Vale Alimentação':
           pedidosPorPagamento.ValeAlimentacao += 1;
           break;
-        case 5: 
+        case 'Dinheiro':
           pedidosPorPagamento.Dinheiro += 1;
           break;
         default:
@@ -115,46 +109,46 @@ const generateReportWithCharts = async () => {
       }
     });
 
-const chart2 = new Chart(ctx2, {
-  type: 'line',
-  data: {
-    labels: last7Days,
-    datasets: [{
-      label: 'Faturamento (R$)',
-      data: faturamentoUltimos7Dias, 
-      borderColor: '#FF8C42', 
-      fill: false
-    }]
-  },
-  options: {
-    responsive: false,
-    plugins: {
-      legend: {
-        position: 'top'
+    const chart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: last7Days,
+        datasets: [{
+          label: 'Faturamento (R$)',
+          data: faturamentoUltimos7Dias, 
+          borderColor: '#FF8C42', 
+          fill: false
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        }
       }
-    }
-  }
-});
+    });
 
-const chart3 = new Chart(ctx3, {
-  type: 'bar',
-  data: {
-    labels: last7Days, 
-    datasets: [{
-      label: 'Número de Pedidos',
-      data: pedidosUltimos7Dias, 
-      backgroundColor: '#FF8C42',
-    }]
-  },
-  options: {
-    responsive: false,
-    plugins: {
-      legend: {
-        position: 'top'
+    const chart3 = new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: last7Days, 
+        datasets: [{
+          label: 'Número de Pedidos',
+          data: pedidosUltimos7Dias, 
+          backgroundColor: '#FF8C42',
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        }
       }
-    }
-  }
-});
+    });
 
     chart1.update();
     chart2.update();
@@ -177,14 +171,6 @@ const chart3 = new Chart(ctx3, {
 
         doc.setFontSize(14);
         doc.setTextColor("#333333");
-
-        // doc.text(`Pedidos (Hoje): ${pedidosUltimos7Dias[0]}`, 10, 50);
-        // doc.text(`Faturamento (Hoje): R$ ${faturamentoUltimos7Dias[0].toFixed(2)}`, 10, 60);
-        // const ticketMedio = faturamentoUltimos7Dias[0] / pedidosUltimos7Dias[0];
-        // doc.text(`Ticket Médio: R$ ${ticketMedio.toFixed(2)}`, 10, 70);
-        // const faturamentoTotal = faturamentoUltimos7Dias.reduce((acc, val) => acc + val, 0);
-        // doc.text(`Faturamento (Total): R$ ${faturamentoTotal.toFixed(2)}`, 10, 80);
-        // doc.text(`Pedidos (Total): ${pedidosDaEmpresa.length}`, 10, 90);
 
         let yPosition = 100; 
 
