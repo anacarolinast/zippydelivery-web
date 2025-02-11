@@ -1,40 +1,14 @@
-/* eslint-disable no-lone-blocks */
-/* eslint-disable no-unused-expressions */
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import React, { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/20/solid';
-//import { Switch } from '@headlessui/react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { initializeApp } from 'firebase/app';
 import { getStorage, uploadBytesResumable } from 'firebase/storage';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-//import firebase from 'firebase/app';
 import 'firebase/storage';
 import { storage } from '../../firebase';
 import utilService from '../../utilService';
-//import ModalComponent from '../components/modal'
-
 import ImageUploading from 'react-images-uploading';
-
-//function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ')
-//}
-
+import useNewPedidoNotification from '../../hooks/UseNewPedidoNotification';
 
 export default function ProdutoRegister() {
   const navigate = useNavigate();
@@ -112,9 +86,6 @@ export default function ProdutoRegister() {
 
 
   const onChangeProductImage = (imageList, addUpdateIndex) => {
-    // data for submit
-    //console.log(imageList, addUpdateIndex);
-    //console.log(imageList[0].file);
     setProductImage(imageList[0]);
     handleSubmit(imageList[0], true)
   };
@@ -133,7 +104,6 @@ export default function ProdutoRegister() {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
         );
-        //setProgresspercent(progress);
       },
       (error) => {
         alert(error);
@@ -148,6 +118,8 @@ export default function ProdutoRegister() {
       },
     );
   };
+
+  useNewPedidoNotification();
 
   return (
     <div className="flex h-fit justify-center  p-44 bg-white">
